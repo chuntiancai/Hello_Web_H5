@@ -59,6 +59,55 @@ var x = "Bill"; // x 为字符串
     Object，    对象
  */
 
+### 对象类型
+   1、创建对象的三种方式：
+      利用字面量创建对象：
+         var star = {
+            name : 'pink',
+            age : 18,
+            sex : '男',
+            sayHi : function(){
+               alert('大家好啊~');
+            }
+         };
+
+      利用 new Object 创建对象：
+         /**
+          Object() ：第一个字母大写
+          new Object() ：需要 new 关键字
+          使用的格式：对象.属性 = 值;
+          */
+         var andy = new Obect();
+         andy.name = 'pink';
+         andy.age = 18;
+         andy.sex = '男';
+         andy.sayHi = function(){
+            alert('大家好啊~');
+         }
+
+      利用构造函数创建对象：
+         /**
+            1. 构造函数约定首字母大写。 
+            2. 函数内的属性和方法前面需要添加 this ，表示当前对象的属性和方法。
+            3. 构造函数中不需要 return 返回结果。
+            4. 当我们创建对象的时候，必须用 new 来调用构造函数。
+          */
+         function Person(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.sayHi = function() {
+               alert('我的名字叫：' + this.name + '，年龄：' + this.age + '，性别：' + this.sex);
+            } 
+         }
+
+         var bigbai = new Person('大白', 100, '男');
+
+   2、对象的调用：
+       对象里面的属性调用 : 对象.属性名 ，这个小点 . 就理解为“ 的 ” 。
+       对象里面属性的另一种调用方式 : 对象[‘属性名’]，注意方括号里面的属性必须加引号，我们后面会用。
+       对象里面的方法调用：对象.方法名() ，注意这个方法名字后面一定加括号。
+
 ### 数组类型
    1、JS的数组中，可以存放任意类型的元素。
       JS 中创建数组有两种方式：
