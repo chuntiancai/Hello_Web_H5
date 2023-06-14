@@ -33,10 +33,17 @@
             for(初始化变量; 条件表达式; 操作表达式 ){
                 //循环体
             } 
-        例子：
+            例子：
             for(var i = 1; i <= 10; i++){
                 console.log('媳妇我错了~');
             }
+
+       for...in 语句用于对数组或者对象的属性进行循环操作：
+            例如：
+            for (var k in obj) {
+                console.log(k); // 这里的 k 是属性名
+                console.log(obj[k]); // 这里的 obj[k] 是属性值
+            }       
 
     4、while循环语句：
         while (条件表达式) {
