@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+    1、DOM(文档对象) API 是浏览器内嵌的API，JS也是浏览器内嵌的解释语言，DOM API 是提供给JS使用的。
+
+ -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试DOM事件的代码</title>
+    <style>
+        div {
+            width: 500px;
+            background-color: pink;
+        }
+        .change {
+            background-color: purple;
+            color: #fff;
+            font-size: 25px;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="time">2020-07-17</div>
+    <div class="boxClass"> 通过 getElementsByClassName 根据类名获得某些元素集合 </div>
+    <div class="boxClass"> 通过 getElementsByClassName 类名2 </div>
+    <div id="changeClass"> 修改元素标签的类名，达到更换样式的效果。 </div>
+    <ul>
+        <li>知否知否，应是等你好久11</li>
+        <li>知否知否，应是等你好久12</li>
+    </ul>
+
+    <button id="btn"> 修改我的文字 </button><br>
+
+    <!-- 修改元素里的属性 -->
+    <button id="ldh">刘德华</button>
+    <button id="zxy">张学友</button> <br>
+    <img src="images/ldh.jpg" alt="" title="刘德华">
+
+    <!-- 
+        1、通过DOM的getElementById 和 getElementsByTagName 方法获取元素对象。
+        2、通过 getElementsByClassName 根据类名获得某些元素集合
+        3、向html的<body>这些特殊的元素，document有专门属性来获取。
+        4、通过元素对象的属性，来修改元素的内容，也可以修改元素属性的值。
+    -->
+    <script>
+        /*
+         1. 因为我们文档页面从上往下加载，所以先得有标签 所以我们script写到标签的下面
+        2. get 获得 element 元素 by 通过 驼峰命名法 
+        3. 参数 id是大小写敏感的字符串
+        4. 返回的是一个元素对象
+        5. console.dir 打印我们返回的元素对象 更好的查看里面的属性和方法
+        */
+        var timer = document.getElementById('time');
+        console.log(timer);
+        console.log(typeof timer);
+        // console.dir(timer);
+
+        /*
+            1.返回的是 获取过来元素对象的集合 以伪数组的形式存储的.没有则返回空数组    
+         */
+        var uls = document.getElementsByTagName('ul');
+        console.log('打印uls：' + typeof uls[0]);
+        console.log(uls[0].getElementsByTagName('li'))
+        
+        /*
+            1. getElementsByClassName 根据类名获得某些元素集合
+            2. querySelector 返回指定选择器的第一个元素对象  切记 里面的选择器需要加符号 .box  #nav
+            3. querySelectorAll()返回指定选择器的所有元素对象集合
+         */
+
+        
+        var boxs = document.getElementsByClassName('boxClass');
+        console.log("打印box:" + boxs);
+        var firstBox = document.querySelector('.boxClass');
+        console.log("打印第一个box:" + firstBox);
+
+        /*
+            1.获取body 元素，获取html 元素
+         */
+        var bodyEle = document.body;
+        console.log("获取body元素：" + bodyEle);
+        var htmlEle1 = document.html;
+        var htmlEle2 = document.documentElement;
+        console.log("获取html元素：" + htmlEle1 + " -- " + htmlEle2);
+
+        /*
+            1、通过元素对象的属性，修改元素的内容，常见的属性有：innerHTML、innerText
+                innerText 和 innerHTML的区别：
+                    1. innerText 不识别html标签 非标准  去除空格和换行
+                    2. innerHTML 识别html标签 W3C标准 保留空格和换行的
+            2、修改标签元素的属性：
+
+        */
+       // 1、修改元素的内容
+        var btn = document.querySelector('button');
+        var div = document.querySelector('div');
+        btn.onclick = function() {
+            // div.innerText = '2019-6-6';
+            div.innerHTML = getDate();
+            btn.innerText = "修改了：" + getDate()
+        }
+        function getDate() {
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var dates = date.getDate();
+            var arr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            var day = date.getDay();
+            return '今天是：' + year + '年' + month + '月' + dates + '日 ' + arr[day];
+        }
+
+        // 2、修改标签元素的src属性的值。
+        var ldh = document.getElementById('ldh');
+        var zxy = document.getElementById('zxy');
+        var img = document.querySelector('img');
+        zxy.onclick = function() {
+            img.src = 'images/zxy.jpg';
+            img.title = '张学友思密达';
+        }
+        ldh.onclick = function() {
+            img.src = 'images/ldh.jpg';
+            img.title = '刘德华';
+        }
+
+        //3、修改样式属性
+        var div = document.querySelector('div');
+        div.onclick = function() {
+            // div.style里面的属性 采取驼峰命名法 
+            this.style.backgroundColor = 'yellow';
+            this.style.width = '250px';
+        }
+
+        //4、通过className更改元素样式。
+       
+        var test = document.getElementById('changeClass')
+        test.onclick = function() {
+            // this.style.backgroundColor = 'purple';
+            // this.style.color = '#fff';
+            // this.style.fontSize = '25px';
+            // this.style.marginTop = '100px';
+            // 让我们当前元素的类名改为了 change
+            // 1. 使用 element.style 获得修改元素样式  如果样式比较少 或者 功能简单的情况下使用
+            // 2. 我们可以通过 修改元素的className更改元素的样式 适合于样式较多或者功能复杂的情况
+            // 3. 如果想要保留原先的类名，我们可以这么做 多类名选择器
+            // this.className = 'change';
+            this.className = 'first change';
+        }
+    
+    </script>
+
+</body>
+
+</html>

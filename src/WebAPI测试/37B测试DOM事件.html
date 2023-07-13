@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+    1、通过DOM获取元素对象，并给元素对象注册事件。
+    2、
+
+ -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试DOM事件的代码</title>
+
+</head>
+
+<body>
+    <button id="btn">唐伯虎</button>
+    <div>你是否被选中了？</div>
+    <div class="register">
+        <input type="password" class="ipt">
+        <p class="message">请输入6~16位密码</p>
+    </div>
+
+    <!-- 
+        1、直接通过 元素对象的 onclick 属性注册 block 事件。
+    -->
+    <script>
+        /*
+            1、点击事件
+        */
+        var btn = document.getElementById('btn');
+        btn.onclick = function() {
+            alert('点秋香');
+        }
+
+
+        var div = document.querySelector("div")
+        div.onclick = function(){
+            console.log('div被选中了')
+        }
+
+        /*
+            2、获取焦点事件
+        */
+
+        var ipt = document.querySelector('.ipt');
+        var message = document.querySelector('.message');
+        ipt.onblur = function() {   // 失去焦点
+            // 根据表单里面值的长度 ipt.value.length
+            if (this.value.length < 6 || this.value.length > 16) {
+                message.className = 'message wrong';
+                message.innerHTML = '您输入的位数不对要求6~16位';
+            } else {
+                message.className = 'message right';
+                message.innerHTML = '您输入的正确';
+            }
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

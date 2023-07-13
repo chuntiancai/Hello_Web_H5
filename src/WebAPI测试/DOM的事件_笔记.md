@@ -18,8 +18,10 @@
 
     2、传统方式注册事件：
          利用 on 开头的事件 onclick 
-         <button onclick=“alert('hi~')”></button>
-         btn.onclick = function() {} 
+         <button onclick=“alert('hi~')”></button>
+         btn.onclick = function() {
+            alert('你好吗');
+            } 
          特点： 注册事件的唯一性
          同一个元素同一个事件只能设置一个处理函数，最后注册的处理函数将会覆盖前面注册的处理函数。
 
