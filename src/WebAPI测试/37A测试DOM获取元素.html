@@ -2,11 +2,16 @@
 <html lang="en">
 <!-- 
     1、DOM(文档对象) API 是浏览器内嵌的API，JS也是浏览器内嵌的解释语言，DOM API 是提供给JS使用的。
-
+        1. 通过DOM的getElementById 、 getElementsByTagName 方法获取元素对象。
+        2. querySelector 返回指定选择器的第一个元素对象  切记 如果是通过class类查找，里面的选择器需要加符号 .box  #nav
+        3. 向html的<body>这些特殊的元素，document有专门属性来获取。
+        4. 通过元素对象的属性，来修改元素的内容，也可以修改元素属性的值。
+        5. 通过getAttribute方法操作自定义属性。
  -->
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>测试DOM事件的代码</title>
     <style>
@@ -14,6 +19,7 @@
             width: 500px;
             background-color: pink;
         }
+
         .change {
             background-color: purple;
             color: #fff;
@@ -40,12 +46,10 @@
     <button id="zxy">张学友</button> <br>
     <img src="images/ldh.jpg" alt="" title="刘德华">
 
-    <!-- 
-        1、通过DOM的getElementById 和 getElementsByTagName 方法获取元素对象。
-        2、通过 getElementsByClassName 根据类名获得某些元素集合
-        3、向html的<body>这些特殊的元素，document有专门属性来获取。
-        4、通过元素对象的属性，来修改元素的内容，也可以修改元素属性的值。
-    -->
+    <!-- 操作自定义的属性 -->
+    <div id="defineDemo" myIndex="1" myClass="nav" data-index = 1 , data-list-name ="hahaha"></div>
+
+
     <script>
         /*
          1. 因为我们文档页面从上往下加载，所以先得有标签 所以我们script写到标签的下面
@@ -54,33 +58,29 @@
         4. 返回的是一个元素对象
         5. console.dir 打印我们返回的元素对象 更好的查看里面的属性和方法
         */
+
+        /*
+            一、通过DOM的getElementById 和 getElementsByTagName 方法获取元素对象。
+        */
         var timer = document.getElementById('time');
         console.log(timer);
         console.log(typeof timer);
         // console.dir(timer);
 
-        /*
-            1.返回的是 获取过来元素对象的集合 以伪数组的形式存储的.没有则返回空数组    
-         */
+        // 1.返回的是 获取过来元素对象的集合 以伪数组的形式存储的.没有则返回空数组    
         var uls = document.getElementsByTagName('ul');
         console.log('打印uls：' + typeof uls[0]);
         console.log(uls[0].getElementsByTagName('li'))
-        
-        /*
-            1. getElementsByClassName 根据类名获得某些元素集合
-            2. querySelector 返回指定选择器的第一个元素对象  切记 里面的选择器需要加符号 .box  #nav
-            3. querySelectorAll()返回指定选择器的所有元素对象集合
-         */
 
-        
+        // 1. getElementsByClassName 根据类名获得某些元素集合
+        // 2. querySelector 返回指定选择器的第一个元素对象  切记 里面的选择器需要加符号 .box  #nav
+        // 3. querySelectorAll()返回指定选择器的所有元素对象集合
         var boxs = document.getElementsByClassName('boxClass');
         console.log("打印box:" + boxs);
         var firstBox = document.querySelector('.boxClass');
         console.log("打印第一个box:" + firstBox);
 
-        /*
-            1.获取body 元素，获取html 元素
-         */
+         //1.获取body 元素，获取html 元素
         var bodyEle = document.body;
         console.log("获取body元素：" + bodyEle);
         var htmlEle1 = document.html;
@@ -88,17 +88,22 @@
         console.log("获取html元素：" + htmlEle1 + " -- " + htmlEle2);
 
         /*
+            二、修改元素的属性内容、值。
+
             1、通过元素对象的属性，修改元素的内容，常见的属性有：innerHTML、innerText
                 innerText 和 innerHTML的区别：
                     1. innerText 不识别html标签 非标准  去除空格和换行
                     2. innerHTML 识别html标签 W3C标准 保留空格和换行的
             2、修改标签元素的属性：
+                1. 修改元素属性： src、href、title等
+                2. 修改普通元素内容： innerHTML 、innerText
+                3. 修改表单元素： value、type、disabled等
+                4. 修改元素样式： style、className
 
         */
-       // 1、修改元素的内容
         var btn = document.querySelector('button');
         var div = document.querySelector('div');
-        btn.onclick = function() {
+        btn.onclick = function () {
             // div.innerText = '2019-6-6';
             div.innerHTML = getDate();
             btn.innerText = "修改了：" + getDate()
@@ -117,27 +122,26 @@
         var ldh = document.getElementById('ldh');
         var zxy = document.getElementById('zxy');
         var img = document.querySelector('img');
-        zxy.onclick = function() {
+        zxy.onclick = function () {
             img.src = 'images/zxy.jpg';
             img.title = '张学友思密达';
         }
-        ldh.onclick = function() {
+        ldh.onclick = function () {
             img.src = 'images/ldh.jpg';
             img.title = '刘德华';
         }
 
         //3、修改样式属性
         var div = document.querySelector('div');
-        div.onclick = function() {
+        div.onclick = function () {
             // div.style里面的属性 采取驼峰命名法 
             this.style.backgroundColor = 'yellow';
             this.style.width = '250px';
         }
 
         //4、通过className更改元素样式。
-       
         var test = document.getElementById('changeClass')
-        test.onclick = function() {
+        test.onclick = function () {
             // this.style.backgroundColor = 'purple';
             // this.style.color = '#fff';
             // this.style.fontSize = '25px';
@@ -149,7 +153,43 @@
             // this.className = 'change';
             this.className = 'first change';
         }
-    
+
+        /*
+            三、修改自定义的属性。
+             1. 获取元素的属性值
+                (1) element.属性
+                (2) element.getAttribute('属性')  get得到获取 attribute 属性的意思 我们程序员自己添加的属性我们称为自定义属性 myIndex
+
+            2. 设置元素属性值
+                (1) element.属性= '值'
+                (2) element.setAttribute('属性', '值');  主要针对于自定义属性
+            3. 移除属性 removeAttribute(属性) 
+            4. h5新增的获取自定义属性的方法 它只能获取data-开头的。即自定义属性的命名必须以data-开头。
+               dataset 是一个集合里面存放了所有以data开头的自定义属性.
+               如果自定义属性里面有多个-链接的单词，我们获取的时候采取 驼峰命名法。  
+        */
+
+        var div = document.getElementById('defineDemo')
+       
+        console.log(div.id);
+        console.log(div.getAttribute('id'));
+        console.log(div.getAttribute('myIndex'));
+        
+        div.id = 'test';
+        div.className = 'navs';
+
+        div.setAttribute('myIndex', 2);
+        div.setAttribute('myClass', 'footer'); // myClass 特殊  这里面写的就是class 不是className
+        
+        div.removeAttribute('myIndex');
+
+        console.log("打印自定义属性的数组：" + div.dataset);
+        console.log("打印自定义属性data-index：" + div.dataset.index);
+        console.log("打印自定义属性['index']：" + div.dataset['index']);
+        // 如果自定义属性里面有多个-链接的单词，我们获取的时候采取 驼峰命名法
+        console.log("打印自定义属性list-name：" + div.dataset.listName);
+        console.log("下标打印自定义属性list-name：" + div.dataset['listName']);
+
     </script>
 
 </body>

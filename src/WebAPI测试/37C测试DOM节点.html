@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+    1、节点，就是利用父子兄节点关系获取元素。这也是DOM中获取元素的途径之一。
+    2、节点的方法，直接就是元素对象的属性，childNodes、parentNode、firstChild等等。
+         元素节点 nodeType 为 1 
+         属性节点 nodeType 为 2 
+         文本节点 nodeType 为 3 （文本节点包含文字、空格、换行等）
+  -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试DOM节点</title>
+</head>
+
+<body>
+    <div>我是div</div>
+    <span>我是span</span>
+    <ul>
+        <li>我是li-1</li>
+        <li>我是li-2</li>
+        <li>我是li-3</li>
+        <li>我是li-4</li>
+        <li>待删除</li>
+    </ul>
+    <div class="box">
+        <span class="erweima">这是span组件</span>
+    </div>
+    <button>点击删除我</button> <span/> <button class="copyBtn">复制节点</button>
+    <script>
+        /*
+         一、父节点的操作 parentNode
+            1、得到的是离元素最近的父级节点(亲爸爸) 如果找不到父节点就返回为 null
+         */
+        var erweima = document.querySelector('.erweima');
+        // var box = document.querySelector('.box');
+
+        console.log("打印父节点：" + erweima.parentNode);
+
+        /*
+        二、子节点操作
+            1、子节点  childNodes 所有的子节点 包含 元素节点 文本节点等等。
+            2、children 获取所有的子元素节点 也是我们实际开发常用的。
+                 元素节点 nodeType 为 1 
+                 属性节点 nodeType 为 2 
+                 文本节点 nodeType 为 3 （文本节点包含文字、空格、换行等）
+                
+            3、兄弟节点：
+                1.nextSibling 下一个兄弟节点 包含元素节点或者 文本节点等等。
+                2. nextElementSibling 得到下一个兄弟元素节点
+
+        */
+        var ul = document.querySelector('ul');
+        var lis = ul.querySelectorAll('li');
+        console.log("打印所有子节点数组：" + ul.childNodes);
+        console.log("打印子节点类型：" + ul.childNodes[0].nodeType);
+        console.log("仅仅是元素的字节点" + ul.children);
+        console.log("第一个字节点：" + ul.firstChild);
+        console.log("最后一个字节点：" + ul.lastChild);
+
+        var div = document.querySelector('div');
+        // 1.nextSibling 下一个兄弟节点 包含元素节点或者 文本节点等等
+        console.log("下一个兄弟节点nextSibling:" + div.nextSibling);
+        console.log("上一个兄弟节点previousSibling:" + div.previousSibling);
+        // 2. nextElementSibling 得到下一个兄弟元素节点
+        console.log("下一个兄弟节点nextElementSibling:" + div.nextElementSibling);
+        console.log("上一个兄弟节点previousElementSibling:" + div.previousElementSibling);
+
+
+
+        /*
+        三、创建、删除节点
+            1、添加或插入节点，appendChild(child)，insertBefore(child, 指定元素);
+            2、删除节点，node.removeChild(child)
+            三种创建元素的区别：
+                 1. document.write() 创建元素  如果页面文档流加载完毕，再调用这句话会导致页面重绘。
+                 2. innerHTML 创建元素。是将内容写入某个 DOM 节点，不会导致页面全部重绘。
+                     创建多个元素效率更高（不要拼接字符串，采取数组形式拼接），结构稍微复杂。
+                 3. document.createElement() 创建元素，创建多个元素效率稍低一点点，但是结构更清晰。
+        */
+         /// 1. 创建节点元素节点
+        var li = document.createElement('li');  // 2. 添加节点 node.appendChild(child)  node 父级  child 是子级 后面追加元素  类似于数组中的push
+        var ul = document.querySelector('ul');
+        ul.appendChild(li);
+        var lili = document.createElement('li');
+        ul.insertBefore(lili, ul.children[0]);  // 3. 添加节点 node.insertBefore(child, 指定元素);
+        lili.innerHTML = '新建的li元素'
+
+        /// 删除元素
+        var btn = document.querySelector('button');
+        // 2. 删除元素  node.removeChild(child)
+        // ul.removeChild(ul.children[0]);
+        // 3. 点击按钮依次删除里面的孩子
+        btn.onclick = function() {
+            if (ul.children.length == 0) {
+                this.disabled = true;
+            } else {
+                ul.removeChild(ul.lastChild);
+            }
+        }
+        /*
+            四、复制节点
+                1. node.cloneNode(); 括号为空或者里面是false 浅拷贝 只复制标签不复制里面的内容
+                2. node.cloneNode(true); 括号为true 深拷贝 复制标签复制里面的内容
+
+        */
+        var btn = document.querySelector(".copyBtn")
+        btn.onclick = function(){
+            var lili = ul.children[0].cloneNode(true);
+            ul.appendChild(lili);
+        }
+        
+
+    </script>
+</body>
+
+</html>
