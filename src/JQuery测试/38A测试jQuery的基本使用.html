@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、jQuery 的入口函数，是指等dom加载完毕之后，相关的jQuery代码才会执行。
+        2、jQuery 的顶级对象，用$来表示，是jQuery框架的超级父类，也是jQuery的别名。
+     -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试jQuery的基本使用</title>
+    <!-- 引入jquery文件 -->
+    <script src="jquery.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div> 测试jQuery </div>
+    <span> 这是span </span>
+
+    <div class="nav">我是nav div</div>
+    <p>我是p</p>
+    <button> jquery修改属性 </button>
+    <ol>
+        <li>我是ol 的</li>
+        <li>我是ol 的</li>
+        <li>我是ol 的</li>
+        <li>我是ol 的</li>
+    </ol>
+    <ul>
+        <li>我是ul 的</li>
+        <li>我是ul 的</li>
+        <li>我是ul 的</li>
+        <li>我是ul 的</li>
+    </ul>
+    <script>
+        /**
+         * 一、jQuery 的入口函数
+        */
+        // 1. 等着页面DOM加载完毕再去执行js 代码
+        $(document).ready(function () {
+            console.log('js的入口函数，方式一')
+        })
+        // 2. 等着页面DOM加载完毕再去执行js 代码
+        $(function () {
+            console.log('js的入口函数，方式二')
+        })
+
+        /**
+         * 二、jQuery 的对象，与DOM对象。
+         *  1、原生DOM对象只能调用原生的JS方法，jQuery对象只能对用jQuery的方法，不能互相调用。
+         *  2、jQuery对象的本质是对原生DOM对象的封装，封装成了jQuery对象(伪数组的形式进行存储)。
+        */
+
+        // 1. DOM 对象：  用原生js获取过来的对象就是DOM对象
+        var myDiv = document.querySelector('div'); // myDiv 是DOM对象
+        var mySpan = document.querySelector('span'); // mySpan 是DOM对象
+        console.dir("打印DOM对象div：" + myDiv);
+
+        // 2. jQuery对象： 用jquery方式获取过来的对象是jQuery对象。 本质：通过$把DOM元素进行了包装
+        $('div'); // $('div')是一个jQuery 对象
+        $('span'); // $('span')是一个jQuery 对象
+        console.dir("打印Jquery对象div：" + $('div'));
+
+        // 3. jQuery 对象只能使用 jQuery 方法，DOM 对象则使用原生的 JavaScirpt 属性和方法
+        // myDiv.style.display = 'none';
+        // myDiv.hide(); myDiv是一个dom对象不能使用 jquery里面的hide方法
+        // $('div').style.display = 'none'; 这个$('div')是一个jQuery对象不能使用原生js 的属性和方法
+
+        /**
+         * 三、jQuery 的选择器
+         * 1、$(“选择器”) // 里面选择器直接写 CSS 选择器即可，但是要加引号
+         *      $("#id") //ID选择器 
+         *      $("div") //元素选择器 
+         *      $(".classname") //类选择器 
+         *      $(".classname,.classname1,#id1") //组合选择器
+         * 
+         * 2.层次选择器
+         *      $("#id>.classname ")    //子元素选择器，只包括儿子。
+         *      $("#id .classname ")    //后代元素选择器，包括孙子后代。
+         *      $("#id + .classname ")    //紧邻下一个元素选择器
+         *      $("#id ~ .classname ")    //兄弟元素选择器
+         *  
+         * 3.还有很多其他选择器，去搜索 jQuery 选择器 即可。
+         * 
+         * 4. jQuery 筛选方法（重点）
+         *      重点记住： parent() children() find() siblings() eq()
+         * 
+        */
+        console.log('打印jquery选择器.nav：' + $(".nav"));
+        console.log('打印jquery选择器ul li：' + $("ul li"));
+
+        /**
+         * 四、通过jQuery修改元素的属性。
+         *       $('div').css('属性', '值')
+         *   1、jquery对象不能使用style
+         *   2、隐式迭代就是把匹配的所有元素内部进行遍历循环，给每一个元素添加css这个方法。
+         *      
+         */ 
+
+         $('button')[0].addEventListener('click', function () {
+            // 2. 给四个div设置背景颜色为粉色 jquery对象不能使用style
+            $("div").css("background", "yellow");
+            // 3. 隐式迭代就是把匹配的所有元素内部进行遍历循环，给每一个元素添加css这个方法
+            $("ul li").css("color", "red");
+
+         })
+
+       
+
+    </script>
+
+</body>
+
+</html>

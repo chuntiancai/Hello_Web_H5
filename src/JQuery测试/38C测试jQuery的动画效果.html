@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、显示隐藏效果：
+            show()、hide()、toggle()
+        2、滑动
+            slideDown()、slideUp()、slideToggle()
+        3、淡入淡出
+            fadeIn()、fadeOut()、fadeToggle()、fadeTo()
+        4、自定义动画
+            animate()
+
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试jQuery的动画效果</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        div {
+            width: 150px;
+            height: 300px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <button>显示</button>
+    <button>隐藏</button>
+    <button>切换</button>
+    <div></div>
+    <script>
+        /**
+         * 一、显示隐藏效果
+        */
+        $(function() {
+            $("button").eq(0).click(function() {
+                $("div").show(1000, function() {
+                    console.log('显示完毕')
+                });
+            })
+            $("button").eq(1).click(function() {
+                $("div").hide(1000, function() {
+                    console.log('隐藏完毕')
+                });
+            })
+            $("button").eq(2).click(function() {
+                    $("div").toggle(1000);
+                    console.log('点击了切换')
+                })
+                // 一般情况下，我们都不加参数直接显示隐藏就可以了
+        });
+    </script>
+</body>
+</html>
