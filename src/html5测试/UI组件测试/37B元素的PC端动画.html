@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+    1、元素的offset 系列相关属性可以动态的得到该元素的位置（偏移）、大小等。属性以offset为开头。
+         获得元素距离带有定位父元素的位置
+         获得元素自身的大小（宽度高度） 
+         注意： 返回的数值都不带单位
+
+    2、元素可视区 client 系列属性，可以动态的得到该元素可视区的边框大小、元素大小等
+         client 宽度 和我们offsetWidth 最大的区别就是 不包含边框。
+
+    3、元素 scroll 系列属性，可以动态的得到该元素的大小、滚动距离等。
+         返回的值不带单位。 
+
+    4、动画实现原理
+        核心原理：通过定时器 setInterval() 不断移动盒子位置。
+        1. 获得盒子当前位置
+        2. 让盒子在当前位置加上1个移动距离
+        3. 利用定时器不断重复这个操作
+        4. 加一个结束定时器的条件
+        5. 注意此元素需要添加定位，才能使用element.style.left
+ -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试元素PC端的动画属性</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        
+        
+        .father {
+            /* position: relative; */
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            margin: 20px;
+            margin-left: 100px;
+        }
+        
+        .son {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(239, 222, 41);
+            margin-left: 45px;
+        }
+        
+        .w {
+            height: 200px;
+            background-color: skyblue;
+            margin: 0 auto 60px;   /* 上边 | 左边右边 | 下边 */
+            padding: 10px;
+            border: 15px solid red;
+        }
+
+        .testScroll {
+            height: 200px;
+            width: 200px;
+            background-color: chartreuse;
+            margin-top: 60px;
+            margin-left: 50px;
+            border: 10px solid blue;
+            overflow: auto; /* 内容益处时的处理策略*/
+        }
+        .longContent {
+            height: 2000px;
+            width: 400px;
+            background-color: rgb(235, 182, 25);
+            margin-top: 60px;
+            margin-left: 50px;
+            border: 10px solid blue;
+        }
+        .fixedScrollBar {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            margin-left: 60px;
+            width: 45px;
+            height: 130px;
+            background-color: pink;
+            border: 5px solid aqua;
+        }
+
+        .animateBtn {
+            position: absolute;
+            left: 20;
+            top: 0px;
+            width: 100px;
+            height: 40px;
+        }
+
+        .animateBox {
+            position: absolute;
+            left: 20;
+            top: 25px;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(205, 9, 150);
+        }
+
+        .animateBox1 {
+            position: absolute;
+            left: 20;
+            top: 145px;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(205, 9, 150);
+        }
+        
+
+    </style>
+</head>
+
+<body>
+    
+    <div class="father"> father
+        <div class="son"> son </div>
+    </div>
+    <div class="w"> w </div>
+    <div class="testScroll">
+        我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 
+        我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 
+        我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容 我是内容
+    </div>
+    <div class="longContent"> 拉长内容</div>
+    <div class="fixedScrollBar"> 固定不滚动的边栏 </div>
+    <button class="animateBtn"> 动画按钮 </button>
+    <div class="animateBox"> 动画方块 </div>
+    <div class="animateBox1"> 动画方块1 </div>
+    <script>
+        /**
+         * 一、offset系列属性
+         * 
+         *  1、返回的是当前元素相对于父元素的一些偏移，当然也有自身的一些相关位置偏移信息。
+         *  2、offset 与 style 的区别
+                 offset 可以得到任意样式表中的样式值
+                 offset 系列获得的数值是没有单位的
+                 offsetWidth 包含padding+border+width
+                 offsetWidth 等属性是只读属性，只能获取不能赋值。这个是宽度，只是也放在了offset里面了而已。
+                 所以，我们想要获取元素大小位置，用offset更合适
+              style：
+                 style 只能得到行内样式表中的样式值
+                 style.width 获得的是带有单位的字符串
+                 style.width 获得不包含padding和border 的值
+                 style.width 是可读写属性，可以获取也可以赋值
+                 所以，我们想要给元素更改值，则需要用style改变
+         */
+        // offset 系列
+        var father = document.querySelector('.father');
+        var son = document.querySelector('.son');
+        // 1.可以得到元素的偏移 位置 返回的不带单位的数值  
+        console.log("father.offsetTop: " + father.offsetTop);
+        console.log("father.offsetLeft: " + father.offsetLeft);
+        // 它以带有定位的父亲为准  如果没有父亲或者父亲没有定位 则以 body 为准
+        console.log("son.offsetLeft: " + son.offsetLeft);
+        var w = document.querySelector('.w');
+        // 2.可以得到元素的大小 宽度和高度 是包含padding + border + width 
+        console.log("w.offsetWidth: " + w.offsetWidth);
+        console.log("w.clientWidth: " + w.clientWidth); //client是可视区元素的信息
+        console.log("w.offsetHeight: " + w.offsetHeight);
+        // 3. 返回带有定位的父亲 否则返回的是body
+        console.log("son.offsetParent: " + son.offsetParent); // 返回带有定位的父亲 否则返回的是body
+        console.log("son.parentNode: " + son.parentNode); // 返回父亲 是最近一级的父亲 亲爸爸 不管父亲有没有定位
+
+
+        /**
+         * 二、scroll系列属性
+         *  1. offset系列 经常用于获得元素位置 offsetLeft offsetTop
+            2. client 经常用于获取元素大小 clientWidth clientHeight
+            3. scroll 经常用于获取滚动距离 scrollTop scrollLeft 
+            4. 注意页面滚动的距离通过 window.pageXOffset 获得
+         */
+        var div = document.querySelector(".testScroll");
+        div.addEventListener('scroll', function() {
+            console.log("div.scrollTop 被遮掩住的部分高度: " + div.scrollTop);
+        })
+
+         //1. 固定元素不动
+         var sliderbar = document.querySelector('.fixedScrollBar');
+        var father = document.querySelector('.father');
+        // father.offestTop 就是被卷去头部的大小 一定要写到滚动的外面
+        var fatherTop = father.offsetTop
+            // 当我们侧边栏固定定位之后应该变化的数值
+        var sliderbarTop = sliderbar.offsetTop - fatherTop;
+        // 2. 页面滚动事件 scroll
+        document.addEventListener('scroll', function() {
+            // window.pageYOffset 页面被卷去的头部
+            // console.log(window.pageYOffset);
+            // 3 .当我们页面被卷去的头部大于等于了 172 此时 侧边栏就要改为固定定位
+            console.log("卷去的高度fatherTop：" + fatherTop)
+            if (window.pageYOffset >= fatherTop) {
+                sliderbar.style.position = 'fixed';
+                sliderbar.style.top = sliderbarTop + 'px';
+            } else {
+                sliderbar.style.position = 'absolute';
+                sliderbar.style.top = '300px';
+            }
+            // 4. 当我们页面滚动到sonn盒子，就改变边栏的内容
+            if (window.pageYOffset >= son.offsetTop) {
+                sliderbar.innerHTML = "内容滚动超过son的高度了"
+            } else {
+                sliderbar.innerHTML = "固定不滚动的边栏"
+            }
+
+        })
+        
+        /**
+         * 三、动画原理
+         *  1、核心原理：通过定时器 setInterval() 不断移动盒子位置。
+         *  2、核心原理：利用 JS 是一门动态语言，可以很方便的给当前对象添加属性。给不同的元素使用不同的定时器（自己专门用自己的定时器）。
+         */
+        var div = document.querySelector('.animateBox');
+        var timer = setInterval(function() {    //定时器
+            if (div.offsetLeft >= 400) {
+                // 停止动画 本质是停止定时器
+                clearInterval(timer);
+            }
+            div.style.left = div.offsetLeft + 1 + 'px';
+        }, 30);
+
+        // 简单动画函数封装obj目标对象 target 目标位置
+        function animate(obj, target) {
+            var timer = setInterval(function() {
+                if (obj.offsetLeft >= target) {
+                    // 停止动画 本质是停止定时器
+                    clearInterval(timer);
+                }
+                obj.style.left = obj.offsetLeft + 1 + 'px';
+
+            }, 30);
+        }
+
+        var div1 = document.querySelector('.animateBox1');
+        // // 调用函数
+        animate(div1, 300);
+
+        var btn = document.querySelector('.animateBtn');
+        btn.addEventListener('click',function(){
+            console.log('点击了按钮');
+            div.style.left = 0 + 'px';
+            div1.style.left = 0 + 'px';
+            animate(div1, 300);
+        })
+
+    </script>
+</body>
+
+</html>

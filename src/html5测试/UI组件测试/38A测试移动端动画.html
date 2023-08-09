@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+        1、元素的classList属性，性用于在元素中添加，移除及切换 CSS 类。
+        2、移动端 click 事件会有 300ms 的延时，原因是移动端屏幕双击会缩放(double tap to zoom) 页面。
+            解决方法：
+            1. 禁用缩放。 浏览器禁用默认的双击缩放行为并且去掉 300ms 的点击延迟。
+                <meta name="viewport" content="user-scalable=no"> 
+            2. 利用touch事件自己封装这个事件解决 300ms 延迟。
+            3. 使用插件。 fastclick 插件解决 300ms 延迟。
+
+        3、JS 插件是 js 文件，常用的JS插件有：
+            1.fastclick 插件解决 300ms 延迟。
+            2. Swiper 插件、superslide插件、iscroll插件、移动端视频插件 zy.media.js等等
+
+           插件的使用总结：
+            1. 确认插件实现的功能
+            2. 去官网查看使用说明
+            3. 下载插件
+            4. 打开demo实例文件，查看需要引入的相关文件，并且引入
+            5. 复制demo实例文件中的结构html，样式css以及js代码
+        
+        4、 移动端常用开发框架：
+            1. 前端常用的框架有 Bootstrap、Vue、Angular、React 等。既能开发PC端，也能开发移动端
+            2. 前端常用的移动端插件有 swiper、superslide、iscroll等。
+            框架： 大而全，一整套解决方案
+            插件： 小而专一，某个功能的解决方案
+
+     -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 测试移动端动画 </title>
+    <style>
+        .bg {
+            background-color: black;
+        }
+        div {
+            background-color: beige;
+            height: 100px;
+            width: 100px;
+            margin-top: 50px;
+            margin-left: 20%;
+        }
+        .one {
+            background-color: blueviolet;
+        }
+
+        .two {
+            background-color: aquamarine;
+        }
+        .three{
+            border: 5px solid brown;
+            background-color: deeppink;
+        }
+    </style>
+</head>
+
+<body>
+    <button> 切换css类 </button>
+    <div class="one two">
+        测试classList属性
+    </div>
+    <script>
+        /**
+         * 一、测试元素的classList属性，更换css类。
+         * 
+        */
+        // classList 返回元素的类名
+        var div = document.querySelector('div');
+        console.log('div现在拥有的css类：' + div.classList);
+        // 1. 添加类名  是在后面追加类名不会覆盖以前的类名 注意前面不需要加.
+        div.classList.add('three');
+        // 2. 删除类名
+        div.classList.remove('one');
+        // 3. 切换类
+        var btn = document.querySelector('button');
+        btn.addEventListener('click', function () {
+            // document.body.classList.toggle('bg');
+            if (div.classList.contains('three')) {
+                console.log('div 移除第三个css类')
+                div.classList.remove('three')
+            }
+
+         
+        })
+    </script>
+
+</body>
+
+</html>

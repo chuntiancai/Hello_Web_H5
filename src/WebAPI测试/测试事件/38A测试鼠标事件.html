@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、mouseenter 和mouseover的区别
+             当鼠标移动到元素上时就会触发 mouseenter 事件，类似 mouseover，它们两者之间的差别就是mouseenter不会冒泡。
+             mouseover 鼠标经过自身盒子会触发，经过子盒子还会触发。 mouseenter 只会经过自身盒子触发。但是如果是子盒子事件，则父子事件都独立触发。
+             跟mouseenter相对应的， 鼠标离开 mouseleave 事件同样不会触发
+
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试鼠标事件</title>
+    <style>
+        .father {
+            width: 300px;
+            height: 300px;
+            background-color: pink;
+            margin: 100px auto;
+        }
+        
+        .son {
+            width: 200px;
+            height: 200px;
+            background-color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div class="father"> father
+        <div class="son"> son </div>
+    </div>
+    <script>
+        var father = document.querySelector('.father');
+        var son = document.querySelector('.son');
+        father.addEventListener('mouseenter', function() {
+            console.log("mouseenter 鼠标进入了 fahter 盒子");
+        })
+
+        son.addEventListener('mouseover',function(){
+            console.log("mouseover 鼠标经过了 son 盒子")
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- 
+    1、定时器是window提供的，有两种方式设置定时器：
+         window.setTimeout(调用函数, [延迟的毫秒数]);  //用于延迟执行
+         window.setInterval(回调函数, [间隔的毫秒数]); //用于重复执行
+
+    2、关于this的指向。
+        1.定时器里面的this指向window。
+        2.一般情况下，this的最终指向的是那个调用它的对象，例如方法调用中谁调用this指向谁。
+        3.全局作用域或者普通函数中this指向全局对象window。
+        4.构造函数中this指向构造函数的实例。
+    
+    3、JS的执行机制：
+        1.JS语言的设计之初是单线程的。现在的JS有一个执行机制，叫做事件循环（ event loop）。
+            主要分为：执行栈 和 任务队列。
+            执行栈主要用于执行主线程的同步任务，而任务队列，则是用于存放异步任务，用于异步执行任务。
+            
+            异步任务主要有：
+                1、普通事件，如 click、resize 等 
+                2、资源加载，如 load、error 等 
+                3、定时器，包括 setInterval、setTimeout 等
+                异步任务相关回调函数添加到任务队列中（任务队列也称为消息队列）
+
+        2.执行机制：
+            1. 先执行执行栈中的同步任务。 
+            2. 当发现有异步任务时，就把异步任务（回调函数）放入任务队列中。
+            3. 一旦执行栈中的所有同步任务执行完毕，系统就会按次序读取任务队列中的异步任务，于是被读取的异步任务结束等待状态，进入执行栈，开始执行。
+            由于主线程不断的重复获得任务、执行任务、再获取任务、再执行，所以这种机制被称为事件循环（ event loop）。
+
+            个人理解：要注意一点，执行栈不是说一次性把所有代码都放进执行栈中，而是分批放入到执行栈中。
+ -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试定时器</title>
+</head>
+
+<body>
+
+    <button class="begin">开启定时器</button>
+    <button class="stop">停止定时器</button>
+
+    <script>
+        /*
+        一、setTimeout() 定时器
+
+        window.setTimeout(调用函数, [延迟的毫秒数]);
+        setTimeout() 方法用于设置一个定时器，该定时器在定时器到期后执行调用函数。
+            注意：
+            1. window 可以省略。
+            2. 这个调用函数可以直接写函数，或者写函数名或者采取字符串‘函数名()'三种形式。第三种不推荐
+            3. 延迟的毫秒数省略默认是 0，如果写，必须是毫秒。
+            4. 因为定时器可能有很多，所以我们经常给定时器赋值一个标识符
+        */
+        
+        // setTimeout(function() {
+        //     console.log('时间到了');
+        // }, 2000);
+        function callback() {
+            console.log('爆炸了');
+        }
+        var timer1 = setTimeout(callback, 3000);
+        var timer2 = setTimeout(callback, 5000);
+        // setTimeout('callback()', 3000); // 我们不提倡这个写法
+
+
+
+        /*
+            二、setInterval() 定时器
+
+            window.setInterval(回调函数, [间隔的毫秒数]);
+            setInterval() 方法重复调用一个函数，每隔这个时间，就去调用一次回调函数。
+            注意：
+                1. window 可以省略。
+                2. 这个调用函数可以直接写函数，或者写函数名或者采取字符串 '函数名()' 三种形式。
+                3. 间隔的毫秒数省略默认是 0，如果写，必须是毫秒，表示每隔多少毫秒就自动调用这个函数。
+                4.因为定时器可能有很多，所以我们经常给定时器赋值一个标识符。 5. 第一次执行也是间隔毫秒数之后执行，之后每隔毫秒数就执行一次。
+        */
+        var begin = document.querySelector('.begin');
+        var stop = document.querySelector('.stop');
+        var timer = null; // 全局变量  null是一个空对象
+        begin.addEventListener('click', function() {
+            timer = setInterval(function() {
+                console.log('ni hao ma');
+
+            }, 1000);
+        })
+        stop.addEventListener('click', function() {
+            clearInterval(timer);
+        })
+
+
+
+    </script>
+</body>
+
+</html>

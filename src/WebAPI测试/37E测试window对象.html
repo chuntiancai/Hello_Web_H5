@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+    1、window对象是DOM的顶级对象，用于处理浏览器相关的事件。
+    2、location 对象是window对象的location属性，用于获取或设置窗体的 URL，并且可以用于解析 URL 。
+    3、navigator 对象包含有关浏览器的信息，它有很多属性，我们最常用的是 userAgent，该属性可以返回由客户机发送服务器的 user-agent 头部的值。
+    4、history 对象，与浏览器历史记录进行交互。该对象包含用户（在浏览器窗口中）访问过的 URL。
+ -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试window对象</title>
+</head>
+
+<body>
+    <button class="locationBtn">测试location对象</button>
+    <br />
+    <button class="jumpBtn">用location对象跳转</button>
+    <form action="37D测试定时器.html">
+        通过表单带参数跳转： <input type="text" name="param">
+        <input type="submit" value="跳转">
+    </form>
+    <button class="navigatorBtn">用navigator对象区分手机端和PC端</button>
+    <br />
+    <button class="goBtn">用history对象前进</button>
+    <br />
+    <button class="backBtn">用history对象后退</button>
+    <br />
+
+    <script>
+
+        /**
+         * 一、location对象
+         *      1、可用在浏览器的控制台中打印location的信息。
+         *      2、在代码中赋值给location.href可以实现网页的跳转。
+         */
+        var btn = document.querySelector('.locationBtn');
+        btn.addEventListener('click', function () {
+
+            console.log('打印网页地址：' + location.href)
+            console.log('打印网页url的参数：' + location.search)
+
+        })
+
+        //测试页面跳转
+        var btn = document.querySelector('.jumpBtn');
+        btn.addEventListener('click', function () {
+            location.href = '37D测试定时器.html'
+            // 记录浏览历史，所以可以实现后退功能
+            // location.assign('http://www.itcast.cn');
+            // 不记录浏览历史，所以不可以实现后退功能
+            // location.replace('http://www.itcast.cn');
+            // 刷新页面
+            // location.reload(true);
+        })
+
+
+        /**
+        * 二、navigator对象
+        *      1、包含浏览器的信息
+        *      
+        */
+        //下面前端代码可以判断用户那个终端打开页面，实现跳转
+        var btn = document.querySelector('.navigatorBtn')
+        btn.onclick = function () {
+            if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile | BlackBerry | IEMobile | MQQBrowser | JUC | Fennec | wOSBrowser | BrowserNG | WebOS | Symbian | Windows Phone) /i))) {
+                window.location.href = "37D测试定时器.html"; //手机
+            } else {
+                window.location.href = "37C测试DOM节点.html"; //电脑
+            }
+        }
+
+        /**
+        * 三、history对象
+        *      1、与浏览器历史记录进行交互。url的历史访问记录。
+        *      
+        */
+        var btn = document.querySelector('.goBtn');
+        btn.addEventListener('click', function () {
+            history.go(1);  //前进
+        })
+
+        var btn = document.querySelector('.backBtn');
+        btn.addEventListener('click', function () {
+            history.back(); //后退
+        })
+
+
+    </script>
+</body>
+
+</html>
