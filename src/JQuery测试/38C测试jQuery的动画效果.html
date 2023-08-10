@@ -22,6 +22,12 @@
             height: 300px;
             background-color: pink;
         }
+        .eventOver {
+            width: 180px;
+            height: 50px;
+            background-color: gold;
+        }
+
     </style>
 </head>
 
@@ -29,7 +35,17 @@
     <button>显示</button>
     <button>隐藏</button>
     <button>切换</button>
-    <div></div>
+    <button>下拉滑动</button>
+    <button>上拉滑动</button>
+    <button>切换滑动</button>
+    <button>自定义动画效果</button>
+
+    <div>测试滑动动画效果</div>
+   
+    
+    <div class="eventOver">测试事件经过动画效果
+        <div> 事件经过子div </div>
+    </div>
     <script>
         /**
          * 一、显示隐藏效果
@@ -51,6 +67,88 @@
                 })
                 // 一般情况下，我们都不加参数直接显示隐藏就可以了
         });
+
+        /**
+         * 二、滑动效果
+        */
+        $(function() {
+            $("button").eq(3).click(function() {
+                // 下滑动 slideDown()
+                $("div").slideDown();
+                console.log('下滑动')
+            })
+            $("button").eq(4).click(function() {
+                // 上滑动 slideUp()
+                $("div").slideUp(500);
+                console.log('上拉滑动')
+
+            })
+            $("button").eq(5).click(function() {
+                // 滑动切换 slideToggle()
+                $("div").slideToggle(500);
+                console.log('滑动切换')
+            });
+
+        });
+
+        /**
+         * 三、事件切换
+         *  hover()函数
+         * （1）over:鼠标移到元素上要触发的函数（相当于mouseenter）。 
+         * （2）out:鼠标移出元素要触发的函数（相当于mouseleave）。
+         * （3）如果只写一个函数，则鼠标经过和离开都会触发它。
+        */
+        $(function() {
+            // 鼠标经过
+            // $(".nav>li").mouseover(function() {
+            //     // $(this) jQuery 当前元素  this不要加引号
+            //     // show() 显示元素  hide() 隐藏元素
+            //     $(this).children("ul").slideDown(200);
+            // });
+            // // 鼠标离开
+            // $(".nav>li").mouseout(function() {
+            //     $(this).children("ul").slideUp(200);
+            // });
+            // 1. 事件切换 hover 就是鼠标经过和离开的复合写法
+            // $(".nav>li").hover(function() {
+            //     $(this).children("ul").slideDown(200);
+            // }, function() {
+            //     $(this).children("ul").slideUp(200);
+            // });
+            // 2. 事件切换 hover  如果只写一个函数，那么鼠标经过和鼠标离开都会触发这个函数
+            $("div").eq(1).hover(function() {
+                // $(this).children("div").slideToggle();
+            });
+        })
+
+         /**
+         * 四、动画队列
+         * 1、动画或者效果一旦触发就会执行，如果多次触发，就造成多个动画或者效果排队等待执行
+         * 2、stop() 方法用于停止动画或效果。 注意： stop() 写到动画或者效果的前面， 相当于停止结束上一次的动画。
+        */
+        $(function() {
+            // 2. 事件切换 hover  如果只写一个函数，那么鼠标经过和鼠标离开都会触发这个函数
+            $("div").eq(1).hover(function() {
+                $(this).children("div").stop().slideToggle();
+
+                //  修改透明度 fadeTo() 这个速度和透明度要必须写
+                // $(this).children("div").fadeTo(1000, 0.5);
+            });
+        })
+
+         /**
+         * 四、自定义动画效果
+        */
+        $(function() {
+            $("button").click(function() {
+                $("div").eq(0).animate({
+                    left: 500,
+                    top: 300,
+                    opacity: .4,
+                    width: 500
+                }, 500);
+            })
+        })
     </script>
 </body>
 </html>

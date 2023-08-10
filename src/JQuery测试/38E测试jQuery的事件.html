@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、事件注册：on函数可以注册多个事件，也可以实现事件委托。
+        2、事件解绑：off函数。
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试jQuery的事件</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: rgb(240, 66, 71);
+        }
+    </style>
+</head>
+<body>
+    <div>我是div</div>
+    <input type="text" >
+    <div>我是div1</div>
+    <ul>
+        <li>我们都是好孩子</li>
+        <li>我们都是好孩子</li>
+        <li>我们都是好孩子</li>
+    </ul>
+    <p>我是p标签</p>
+    <script>
+        /**
+         * 一、事件注册与委派
+        */
+        $(function () {
+            //注册事件
+            $("div").eq(0).on({
+                //注册多个事件：click，mouseover
+                click: function () {
+                    console.log("我点击了");
+                },
+                mouseover: function () {
+                    console.log('我鼠标经过了');
+                }
+            });
+
+            //事件委托
+            $("ul").on("click", "li", function () {
+                alert("通过on方法实现事件委托,实现解绑事件");
+                // 1. 事件解绑 off 
+                // $("div").off();  // 这个是解除了div身上的所有事件
+                $("div").eq(0).off("click"); // 这个是解除了div身上的点击事件
+                $("ul").off("click", "li");
+                // 2. one() 但是它只能触发事件一次
+                $("p").one("click", function () {
+                    alert("点击了p标签，一次性事件");
+                })
+            });
+            
+        })
+        
+        /**
+         * 二、自动触发事件。
+         *  1、直接调用click()函数会触发默认的元素的默认行为。
+         *  2、trigger()函数、triggerHandler()函数。
+        */
+
+        $("div").eq(1).on("click", function () {
+            console.log("div1的点击事件")
+        });
+        // 自动触发事件
+        // 1. 元素.事件()
+        // $("div").eq(1).click();//会触发元素的默认行为
+        // 2. 元素.trigger("事件")
+        // $("div").trigger("click");   //会触发元素的默认行为
+        
+        // 3. 元素.triggerHandler("事件") 就是不会触发元素的默认行为
+        $("div").eq(1).triggerHandler("click");
+        $("input").on("focus", function () {
+            $(this).val("获取焦点后，修改文本内容");
+        });
+        //$("input").trigger("focus");
+        // $("input").triggerHandler("focus");
+
+
+        /**
+         * 三、事件对象。
+         *  1、事件被触发，就会有事件对象的产生。事件对象记录了该事件的相关信息。
+         *      element.on(events,[selector],function(event) {})
+         *      阻止默认行为：event.preventDefault() 或者 return false 
+         *      阻止冒泡： event.stopPropagation()  //事件传递
+         *  2、如果想要把某个对象拷贝（合并） 给另外一个对象使用，此时可以使用 $.extend() 方法
+         *      $.extend([deep], target, object1, [objectN])
+         * 
+         *      1. deep: 如果设为true 为深拷贝， 默认为false 浅拷贝
+         *      2. target: 要拷贝的目标对象
+         *      3. object1:待拷贝到第一个对象的对象。
+         *      4. objectN:待拷贝到第N个对象的对象。
+         *      5. 浅拷贝目标对象引用的被拷贝的对象地址，修改目标对象会影响被拷贝对象。
+         *      6. 深拷贝，前面加true， 完全克隆，修改目标对象不会影响被拷贝对象。
+        */
+
+        $(function () {
+                $(document).on("click", function () {
+                    console.log("点击了document");
+                })
+                $("p").on("click", function (event) {
+                    // console.log(event);
+                    console.log("点击了p标签");
+                    event.stopPropagation();
+
+                    console.log("测试拷贝对象")
+                    var targetObj = {
+                        id: 0,
+                        msg: {
+                            sex: '男'
+                        }
+                    };
+                    var obj = {
+                        id: 1,
+                        name: "andy",
+                        msg: {
+                            age: 18
+                        }
+                    };
+                    // // $.extend(target, obj);
+                    // $.extend(targetObj, obj);
+                    // console.log(targetObj); // 会覆盖targetObj 里面原来的数据
+                    // // 1. 浅拷贝把原来对象里面的复杂数据类型地址拷贝给目标对象
+                    // targetObj.msg.age = 20;
+                    // console.log(targetObj);
+                    // console.log(obj);
+                    // 2. 深拷贝把里面的数据完全复制一份给目标对象 如果里面有不冲突的属性,会合并到一起 
+                    $.extend(true, targetObj, obj);
+                    // console.log(targetObj); // 会覆盖targetObj 里面原来的数据
+                    targetObj.msg.age = 20;
+                    console.log("目标对象：" + targetObj); // msg :{sex: "男", age: 20}
+                    console.log("源对象：" + obj);
+                })
+            })
+
+        /**
+         * 四、jQuery的多库共存，也就是和其他库的命名冲突。
+         *  1、jQuery使用$作为标示符，随着jQuery的流行,其他 js 库也会用这$作为标识符， 这样一起使用会引起冲突。
+         *      1. 把里面的 $ 符号 统一改为 jQuery。 比如 jQuery(''div'')
+         *      2. jQuery 变量规定新的名称：$.noConflict() var xx = $.noConflict();
+         * 
+         *  jQuery 插件常用的网站：
+         *      1. jQuery 插件库 http://www.jq22.com/ 
+         *      2. jQuery 之家 http://www.htmleaf.com/ 
+         *  jQuery 插件使用步骤：
+         *      1. 引入相关文件。（jQuery 文件 和 插件文件） 
+         *      2. 复制相关html、css、js (调用插件)。
+        */
+        $(function() {
+            // function $(ele) {
+            //     return document.querySelector(ele);
+            // }
+            // console.log($("div"));
+            // // 1. 如果$ 符号冲突 我们就使用 jQuery
+            // jQuery.each();
+            // // 2. 让jquery 释放对$ 控制权 让用自己决定
+            // var suibian = jQuery.noConflict();
+            // console.log(suibian("span"));
+            // suibian.each();
+        })
+    </script>
+</body>
+</html>
