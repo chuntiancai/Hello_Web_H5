@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、创建类：
+            class name {    //类定义
+                // class body
+            } 
+            var xx = new name();    //实例
+        
+        2、实例对象的作用主要是把页面的元素，存储在对象里，方便操作。
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试JS的对象语法</title>
+</head>
+<body>
+    <button> 这是按钮 </button>
+    <script>
+
+        /**
+         * 一、创建类
+         *  1、类的创建：
+         *      (1) 通过class 关键字创建类, 类名我们还是习惯性定义首字母大写
+         *      (2) 类里面有个constructor 函数,可以接受传递过来的参数,同时返回实例对象
+         *      (3) constructor 函数 只要 new 生成实例时,就会自动调用这个函数, 如果我们不写这个函数,类也会自动生成这个函数
+         *      (4) 生成实例 new 不能省略
+         *      (5) 最后注意语法规范, 创建类 类名后面不要加小括号,生成实例 类名后面加小括号, 构造函数不需要加function
+         * 
+         *  2、 继承中的属性或者方法查找原则: 就近原则
+         *   1. 继承中,如果实例化子类输出一个方法,先看子类有没有这个方法,如果有就先执行子类的
+         *   2. 继承中,如果子类里面没有,就去查找父类有没有这个方法,如果有,就执行父类的这个方法(就近原则)
+         * 
+         *  3、方法中的this关键字
+         *      1.谁调用了该方法，this就是谁。
+         * 
+         *  4、 在 ES6 中类没有变量提升，所以必须先定义类，才能通过类实例化对象
+         *  5、 类里面的共有的属性和方法一定要加this使用.
+         * 
+         *  6、new 在执行时会做四件事情：
+         *      ① 在内存中创建一个新的空对象。 
+         *      ② 让 this 指向这个新的对象。 
+         *      ③ 执行构造函数里面的代码，给这个新对象添加属性和方法。 
+         *      ④ 返回这个新对象（所以构造函数里面不需要 return ）
+        */
+
+        // 1. 创建类 class  创建一个 明星类
+        class Star {
+            constructor(uname, age) {   //构造方法
+                // constructor 里面的this 指向的是 创建的实例对象
+                this.uname = uname;
+                this.age = age;
+
+                this.btn = document.querySelector('button');
+                this.btn.onclick = this.sing;
+            }
+            sing(song) {    //定义方法
+                console.log(this.uname + "唱：" + song);
+                 // 这个sing方法里面的this 指向的是 btn 这个按钮,因为这个按钮调用了这个函数
+                console.log(this);
+            }
+        }
+
+        // 2. 利用类创建对象 new
+        var ldh = new Star('刘德华', 18);
+        var zxy = new Star('张学友', 20);
+        console.log(ldh);   //打印对象
+        console.log(zxy);
+        //调用函数
+        ldh.sing('冰雨');
+        zxy.sing('李香兰');
+
+        //3.类的继承
+        class Actor extends Star {
+            
+            constructor(uname, age, movie) {   //构造方法
+                super(uname,age)
+                this.movie = movie
+            }
+            perform(){
+                console.log(this.uname + "表演:" + this.movie)
+            }
+        }
+
+        var zxc = new Actor('周星驰',19,"功夫")
+        zxc.perform()
+
+
+        /**
+         * 二、构造函数
+         */ 
+
+
+         
+    </script>
+</body>
+</html>
