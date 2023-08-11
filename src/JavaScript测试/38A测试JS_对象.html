@@ -2,12 +2,37 @@
 <html lang="en">
     <!-- 
         1、创建类：
+            (1) 类声明的方式和直接构造函数挂靠原型的方式，所创建出的方法都是放在原型对象中，共用内存。类声明是原型的语法糖。
+            (2) 直接构造函数里定义方法的时候，该方法单独属于该构造函数内存，也就是创建每一个对象都独有一份该方法的内存，不共用。
+
+            //1.类声明的方式：
             class name {    //类定义
                 // class body
+                // function(){}
             } 
             var xx = new name();    //实例
-        
+
+             // 2. 利用 对象字面量创建对象方式：
+             var obj2 = {};
+
+            // 3. 直接利用构造函数创建对象方式：
+            function Star(uname, age) {
+                this.uname = uname;
+                this.age = age;
+                this.sing = function() {
+                    console.log('我会唱歌');
+
+                }
+            }
+            var ldh = new Star('刘德华', 18);
+
         2、实例对象的作用主要是把页面的元素，存储在对象里，方便操作。
+        
+        3、内存管理和swift，java 差不多，也是有一个共同的超级父类，每一个对象都有一个原型对象，类也有一个原型对象，
+            然后通过原型指针，一层一层地往上查找属性和方法。
+
+        4、浅拷贝与深拷贝：
+
      -->
 <head>
     <meta charset="UTF-8">
@@ -88,10 +113,126 @@
 
         /**
          * 二、构造函数
-         *  1、
+         *  1、静态成员，直接通过构造函数(或类)创建的成员，就是静态成员。注意点就是，不需要声明，直接写即创建，非常动态。
+         *  2、实例成员，在构造函数内存定义的成员，虽然也是直接在函数内部 写即创建了。
+         *  3、直接构造函数创建对象，也是new语法。
+         *  4、对象都会有一个属性 __proto__ 指向构造函数的 prototype 原型对象，之所以我们对象可以使用构造函数prototype 原型对象的属性和方法，就是因为对象有 __proto__ 原型的存在。
+         *       __proto__对象原型和原型对象 prototype 是等价的
+         *       __proto__对象原型的意义就在于为对象的查找机制提供一个方向，或者说一条路线，但是它是一个非标准属性，
+         *      因此实际开发中，不可以使用这个属性，它只是内部指向原型对象 prototype
+         *  5、对象原型（ __proto__）和构造函数（prototype）原型对象里面都有一个属性 constructor 属性 ，constructor 我们称为构造函数，因为它指回构造函数本身。
+         *      constructor 主要用于记录该对象引用于哪个构造函数，它可以让原型对象重新指向原来的构造函数。
+         *      Star.prototype 和 ldh.__proto__ 指向的是同一个东西，即原型对象。
+         * 
+         *  6、在JS中，原型对象的结构也可以直接修改，非常动态，但是你在修改的时候，记得维护原来的结构，即手动的利用constructor指回原来的构造函数。
+         *      修改原型对象的结构后，并不会对原来已经产生的实例对象产生作用，只会对之后的对象产生作用。
+         * 
+         *  7、call()函数可以修改this指针的指向，在es6之前是这么做的，因为那时还没extends继承。call类似复写构造函数，重定向指针。
+         *          fun.call(thisArg, arg1, arg2, ...)
+         *           thisArg ：当前调用函数 this 的指向对象
+         *           arg1，arg2：传递的其他参数
+         * 
          */ 
 
+         // 直接只定义构造函数，构造函数中的属性和方法我们称为成员, 成员可以添加
+         function Animal(uname, age) {
+            this.uname = uname;
+            this.age = age;
+            this.sing = function() {    //该方法独享内存，与成员变量一样。
+                console.log(this.uname + ' 会唱歌');
+            }
+        }
+        // 直接通过构造函数创建对象，也是new语法
+        var dog = new Animal("旺财",2)
+        console.log(dog)
+        dog.sing()
 
+        //给直接构造函数挂靠原型方法。该方法会放在类的原型对象中。
+        Animal.prototype.eat = function() {
+            console.log(this.uname + ' 会吃饭');
+        }
+        dog.eat()
+        console.log(Animal.prototype);  //类的原型对象
+        console.log(dog.__proto__); //实例的原型对象
+        console.log(Animal.prototype.constructor);  //类的原型对象的构造函数
+        console.log(dog.__proto__.constructor); //实例的原型对象的构造函数
+
+        // 修改原型对象的结构
+        Animal.prototype = {
+            // 如果我们修改了原来的原型对象,给原型对象赋值的是一个对象,则必须手动的利用constructor指回原来的构造函数
+            constructor: Animal,
+            run: function() {
+                console.log(this.uname + ' 会跑步');
+            },
+        }
+        var cat = new Animal("小猫",2)
+        cat.run()
+
+        //通过call()函数修改this指针的指向,拷贝内存。
+        function Cow(uname, age,sex){
+            Animal.call(this,uname,age) // 此时父类的 this 指向子类的 this，同时调用这个函数
+            this.sex = sex
+        }
+
+        var cow = new Cow("小牛",2,"男")
+        cow.sing()
+        
+
+        /**
+         * 三、浅拷贝与深拷贝：
+         *  1、 浅拷贝只是拷贝一层, 更深层次对象级别的只拷贝引用.
+         *      基本数据是值传递，对象数据是引用拷贝。
+         * 
+         *  2、 深拷贝拷贝多层, 每一级别的数据都会拷贝.
+         *      为对象数据开辟新的内存空间，复制对象的数据。需要自己定义函数，用递归新开辟空间赋值。
+         * 
+         *  3、es6 新增的方法Object.assign(targetObj, ...originObj )可以实现浅拷贝。
+         */ 
+
+         var originObj = {
+            id: 1,
+            name: 'andy',
+            msg: {  //这是对象
+                age: 18
+            }
+        };
+        var targetObj = {};
+        for (var k in originObj) {
+            // k 是属性名   obj[k] 属性值
+            // originObj 中的msg对象将会是拷贝地址，而不是拷贝数据
+            targetObj[k] = originObj[k];
+        }
+        console.log("浅拷贝的originObj：")
+        console.log(originObj);
+        originObj.msg.age = 20;
+        console.log("浅拷贝的targetObj：")
+        console.log(targetObj);
+
+        //自己封装递归函数实现深拷贝
+        function deepCopy(newobj, oldobj) {
+            for (var k in oldobj) {
+                // 判断我们的属性值属于那种数据类型
+                // 1. 获取属性值  oldobj[k]
+                var item = oldobj[k];
+                // 2. 判断这个值是否是数组
+                if (item instanceof Array) {
+                    newobj[k] = [];
+                    deepCopy(newobj[k], item)
+                } else if (item instanceof Object) {
+                    // 3. 判断这个值是否是对象
+                    newobj[k] = {};
+                    deepCopy(newobj[k], item)
+                } else {
+                    // 4. 属于简单数据类型
+                    newobj[k] = item;
+                }
+            }
+        }
+        var targetObj1 = {}
+        deepCopy(targetObj1,originObj)
+        targetObj1.msg.age = 16
+        console.log("深拷贝的targetObj1：")
+        console.log(targetObj1);
 
     </script>
 </body>

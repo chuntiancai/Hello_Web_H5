@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、所有函数都是 Function 的实例(对象)
+        2、函数中this的指向：
+            普通函数调用：window
+            构造函数调用：实例对象，原型对象里的方法也指向实例对象
+            对象方法调用：该方法所属的对象
+            事件绑定方法：绑定事件的对象
+            定时器函数：window
+            立即执行函数：window
+
+        3、改变函数内this指向  js提供了三种方法  call()  apply()  bind()
+
+        4、高阶函数- 函数可以作为参数传递 或 将函数作为返回值输出：
+            function fn(a, b, callback) {
+                console.log(a + b);
+                callback && callback();
+            }
+        
+        5、闭包：有权访问另一个函数作用域中变量的函数。一般作为函数的返回值。
+            也就是内嵌函数，或者是返回值。
+            
+
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试JS的函数</title>
+</head>
+<body>
+    <button> 测试bind函数 </button>
+    <ul class="nav">
+        <li>测试闭包保存值0</li>
+        <li>测试闭包保存值1</li>
+        <li>测试闭包保存值2</li>
+        <li>测试闭包保存值3</li>
+    </ul>
+    <script>
+        /**
+         *  一、三种函数的形式 
+        */
+
+        // 1. 普通函数
+        function fn() {
+            console.log('普通函数-人生的巅峰');
+        }
+        fn();   //fn.call()
+        // 2. 对象的方法
+        var o = {
+            sayHi: function() {
+                console.log('对象的方法-人生的巅峰');
+            }
+        }
+        o.sayHi();
+        // 3. 构造函数
+        function Star() {
+            console.log('构造函数-人生的巅峰');
+        };
+        new Star();
+        // 4. 绑定事件函数
+        // btn.onclick = function() {};   // 点击了按钮就可以调用这个函数
+        // 5. 定时器函数
+        // setInterval(function() {}, 1000);  这个函数是定时器自动1秒钟调用一次
+        // 6. 立即执行函数
+        (function() {
+            console.log('立即执行函数-人生的巅峰');
+        })();
+        // 立即执行函数是自动调用
+
+        /**
+         *  二、可以改变this指向的函数：
+         *   call()  apply()  bind()
+         *  1、apply()函数，修改函数体里面的this指针。
+         *  2、如果有的函数我们不需要立即调用,但是又想改变这个函数内部的this指向此时用bind。
+        */
+        // 2. apply()  应用 运用的意思
+        var person = {  //对象
+            name: '刘德华'
+        };
+
+        function fn(arr) {
+            console.log(this);  //替换这个this，本来是window
+            console.log(this.name + " : " + arr); // 'pink'
+        };
+        fn.apply(person, ['pink']);
+        // 1. 也是调用函数 第二个可以改变函数内部的this指向
+        // 2. 但是他的参数必须是数组(伪数组)
+        // 3. apply 的主要应用 比如说我们可以利用 apply 借助于数学内置对象求数组最大值 
+        // Math.max();
+        var arr = [1, 66, 3, 99, 4];
+        var arr1 = ['red', 'pink'];
+        // var max = Math.max.apply(null, arr);
+        var max = Math.max.apply(Math, arr);
+        var min = Math.min.apply(Math, arr);
+        console.log("求最大最小值：" + max, min);
+
+
+        // 3. bind()  绑定 捆绑的意思
+        var animal = {
+            name: '小狗'
+        };
+
+        function fn(a, b) {
+            console.log(this);
+            console.log( this.name + ": " + a + b);
+        };
+        var f = fn.bind(animal, 1, 2);
+        f();
+        // 1. 不会调用原来的函数   可以改变原来函数内部的this 指向
+        // 2. 返回的是原函数改变this之后产生的新函数
+        // 3. 如果有的函数我们不需要立即调用,但是又想改变这个函数内部的this指向此时用bind
+        // 4. 我们有一个按钮,当我们点击了之后,就禁用这个按钮,3秒钟之后开启这个按钮
+        var btn1 = document.querySelector('button');
+        btn1.onclick = function() {
+            this.disabled = true; // 这个this 指向的是 btn 这个按钮
+            console.log("点击了按钮～")
+            // var that = this;
+            setTimeout(function() {
+                // that.disabled = false; // 定时器函数里面的this 指向的是window
+                console.log("3秒后，使能按钮～")
+                this.disabled = false; // 此时定时器函数里面的this 指向的是btn
+            }.bind(this), 3000); // 这个this 指向的是btn 这个对象
+        }
+
+        /**
+         * 三、高阶函数
+        */
+        // 高阶函数- 函数可以作为参数传递
+        function fn(a, b, callback) {
+            console.log("fn函数内部" + a + b);
+            callback && callback();
+        }
+        fn(1, 2, function() {
+            console.log('fn 函数的第三个参数，是一个函数');
+        });
+
+        //利用闭包的方式得到当前小li 的索引号，保存i的值。
+        var lis = document.querySelector('.nav').querySelectorAll('li');
+        for (var i = 0; i < lis.length; i++) {
+            // 利用for循环创建了4个立即执行函数
+            // 立即执行函数也成为小闭包因为立即执行函数里面的任何一个函数都可以使用它的i这变量
+            (function(i) {
+                // console.log(i);
+                lis[i].onclick = function() {
+                    console.log(i);
+                }
+            })(i);  //此时的i传进去了，是形参。不然后面传进去的i是一个变量，最后都是3.
+        }
+
+    </script>
+</body>
+</html>
