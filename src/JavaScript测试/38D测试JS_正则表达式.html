@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、正则表达式（ Regular Expression ）是用于匹配字符串中字符组合的模式。在 JavaScript中，正则表达式也是对象。
+        2、创建正则表达式：
+            1. 通过调用 RegExp 对象的构造函数创建
+                var 变量名 = new RegExp(/表达式/);
+            2. 通过字面量创建
+                var 变量名 = /表达式字面量/;    //例如： /$[a-zA-Z0-9-_]{6,16}^/
+            3. 测试正则表达式 test
+                 regexObj.test(str)     // regexObj 是写的正则表达式， str 我们要测试的文本
+
+        3、一个正则表达式可以由简单的字符构成，比如 /abc/，也可以是简单和特殊字符的组合，比如 /ab*c/ 。
+           其中特殊字符也被称为元字符，在正则表达式中是具有特殊意义的专用符号，如 ^ 、$ 、+ 等。
+           参考： MDN：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
+                 正则测试工具: http://tool.oschina.net/regex
+
+        4、正则表达式的括号作用的总结：
+            1. 大括号 量词符. 里面表示重复次数
+            2. 中括号 字符集合。匹配方括号中的任意字符. 
+            3. 小括号 表示优先级
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试js的正则表达式</title>
+    <style>
+        textarea {
+            width: 300px;
+            height: 100px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <textarea name="" id="message"></textarea> <button>提交</button>
+    <div></div>
+    <script>
+        /**
+         * 一、正则表达式的创建
+        */
+         // 1. 利用 RegExp对象来创建 正则表达式
+         var regexp = new RegExp(/123/);
+        console.log(regexp);
+
+        // 2. 利用字面量创建 正则表达式
+        var rg = /123/;
+        // 3.test 方法用来检测字符串是否符合正则表达式要求的规范
+        console.log(rg.test(123));
+        console.log(rg.test('abc'));
+
+        /**
+         * 二、正则表达式的规则
+        */
+
+        //var rg = /abc/;  只要包含abc就可以 
+        // 字符类: [] 表示有一系列字符可供选择，只要匹配其中一个就可以了
+        var rg = /[abc]/; // 只要包含有a 或者 包含有b 或者包含有c 都返回为true
+        console.log("测试字符类: []: " + rg.test('andy'));
+
+        var rg1 = /^[abc]$/; // 三选一 只有是a 或者是 b  或者是c 这三个字母才返回 true
+        console.log("测试字符类: ^[]: " + rg1.test('abc'));
+
+        var reg = /^[a-z]$/; // 26个英文字母任何一个字母返回 true  - 表示的是a 到z 的范围  
+        console.log("测试字符类:^[a-z]$ : " + reg.test('a'));
+
+        // 字符组合
+        var reg1 = /^[a-zA-Z0-9_-]$/; // 26个英文字母(大写和小写都可以)任何一个字母返回 true  
+        console.log("测试字符类:^[a-zA-Z0-9_-]$/ : " + reg1.test('a'));
+
+        // 如果中括号里面有^ 表示取反的意思 千万和 我们边界符 ^ 别混淆,^a表示必须以a开头。
+        var reg2 = /^[^a-zA-Z0-9_-]$/;
+        console.log(reg2.test('a'));
+
+
+        // 量词符: 用来设定某个模式出现的次数
+        // 1. * 相当于 >= 0 可以出现0次或者很多次 
+        var reg = /^a*$/;
+        console.log(reg.test('aaaaaa'));
+
+        // 2. + 相当于 >= 1 可以出现1次或者很多次
+        var reg = /^a+$/;
+        console.log(reg.test('aaaaaa'));
+        // 3. ?  相当于 1 || 0
+        var reg = /^a?$/;
+        console.log(reg.test('aaaaaa'));
+
+        // 4. {3 } 就是重复3次
+        var reg = /^a{3}$/;
+        console.log(reg.test('aaaaaa'));
+
+        // 5. {3, }  大于等于3
+        var reg = /^a{3,}$/;
+        console.log(reg.test('aaaaaa'));
+
+        // 6. {3, 16}  大于等于3 并且 小于等于16
+        var reg = /^a{3,16}$/;
+        console.log(reg.test('aaaaaaaaaaaaaaaaaaaaa'));
+
+
+        // 替换 replace
+        // var str = 'andy和red';
+        // // var newStr = str.replace('andy', 'baby');
+        // var newStr = str.replace(/andy/, 'baby');
+        // console.log(newStr);
+        var text = document.querySelector('textarea');
+        var btn = document.querySelector('button');
+        var div = document.querySelector('div');
+        btn.onclick = function() {
+            // /表达式/[switch]，switch(也称为修饰符) 按照什么样的模式来匹配. 有三种值：  g：全局匹配 i：忽略大小写 gi：全局匹配 + 忽略大小写
+            div.innerHTML = text.value.replace(/激情|gay/g, '**');
+        }
+     
+    </script>
+    
+</body>
+</html>
