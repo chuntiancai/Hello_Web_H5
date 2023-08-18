@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、Vue的事件绑定：
+            1. Vue如何处理事件？
+                v-on指令用法：
+                    <input type=‘button' v-on:click='num++' />
+                v-on简写形式：
+                     <input type=‘button' @click='num++' />
+
+            2. 事件函数的调用方式
+                直接绑定函数名称：
+                    <button v-on:click='say'>Hello</button>
+                调用函数：
+                    <button v-on:click='say()'>Say hi</button>
+
+            3. 事件函数参数传递
+                普通参数和事件对象：    
+                    <button v-on:click='say("hi",$event)'>Say hi</button>   //$event默认是事件对象
+
+            4. 事件修饰符
+                .stop 阻止冒泡：
+                    <a v-on:click.stop="handle">跳转</a>
+                .prevent 阻止默认行为：
+                    <a v-on:click.prevent="handle">跳转</a>
+
+            5. 按键修饰符
+                .enter 回车键：
+                    <input v-on:keyup.enter='submit'>
+                .esc 退出键：
+                    <input v-on:keyup.delete='handle'>
+
+            6. 自定义按键修饰符
+                规则：自定义按键修饰符名字是自定义的，但是对应的值必须是按键对应event.keyCode值。
+                     Vue有提供一些默认的按键符，例如回车键这些，但同时也允许用户自定义按键符触发事件。
+                全局 config.keyCodes 对象：
+                    Vue.config.keyCodes.f1 = 112
+
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试Vue的事件绑定</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>测试事件绑定：{{num}}</div>
+        <div>
+            <button v-on:click='num++'>点击</button>
+            <button @click='num++'>点击1</button>
+            <button @click='handle'>点击2</button>
+            <button @click='handle()'>点击3</button>
+            <!-- 如果事件直接绑定函数名称，那么默认会传递事件对象作为事件函数的第一个参数 -->
+            <button v-on:click='handle1'>事件传参1</button>
+            <!-- 2、如果事件绑定函数调用，那么事件对象必须作为最后一个参数显示传递，并且事件对象的名称必须是$event -->
+            <button v-on:click='handle2(123, 456, $event)'>事件传参2</button>
+        </div>
+        <br/>
+        <form action="">
+            <div>
+              测试按键修饰符：
+              <input type="text" v-on:keyup.delete='clearContent' v-model='uname'>
+            </div>
+            <div>
+              <input type="button" v-on:click.enter='handleSubmit' value="提交">
+            </div>
+        </form>
+        <div>
+            测试自定义全局按键符号：
+            <input type="text" v-on:keyup.tapa='handleCustom' v-model='keyInfo'>
+        </div>
+        
+    </div>
+    
+    <script>
+        /**
+         * 一、Vue的模版语法，绑定事件也是用了模版语法。
+         * 1、目的都是填充数据到Html中，也是在js中新建html标签填入到UI中。
+         * 2、指令：
+         *   v-cloak用于解决插值表达式闪动的问题，因为插值表达式一开始都是字符串渲染在标签中，实施vue立马把它更新成数据了而已。
+         *   v-cloak指令的用法(在标签中写)：
+         *      1.提供样式
+         *        [v-cloak]{
+         *          display: none;
+         *        }
+         *      2.在插值表达式所在的标签中添加v-cloak指令
+         *      背后的原理：先通过样式隐藏内容，然后在内存中进行值的替换，替换好之后再显示最终的结果
+         * 
+         * 3、自定义按键符：
+         *      1.在JS中，键盘上的每一个按键都有一个keycode(不区分大小写)，这个是事件对象event的keyCode属性中可以获知。
+         *        所谓全局自定义按键符，就是给keyCode起一个别名。
+        */
+        Vue.config.keyCodes.tapa = 65   //给A按键的keyCode起别名,别名不能有大写字母
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                num: 0,
+                uname: '',
+                keyInfo:'',
+            },// 注意点： 这里不要忘记加逗号 
+            // methods  中 主要是定义一些函数
+            methods: {
+                handle: function () {
+                    // 这里的this是Vue的实例对象+
+                    console.log("this 是不是Vue对象：" + (this === vm))
+                    //   在函数中 想要使用data里面的数据 一定要加this 
+                    this.num++;
+                },
+                handle1: function(event) {
+                    console.log("打印事件目标的标签内容：" + event.target.innerHTML)
+                },
+                handle2: function(p, p1, event) {
+                    console.log("打印事件传参的参数：" , p, p1)
+                    console.log("打印事件目标的标签内容： " + event.target.innerHTML)
+                    this.num++;
+                },
+                //测试按键修饰符
+                clearContent: function () {
+                    // 按delete键的时候，清空用户名
+                    this.uname = '';
+                },
+                handleSubmit: function () {
+                    console.log("提交动作：" + this.uname)
+                },
+                //测试自定义按键符
+                handleCustom: function (event) {
+                    console.log("全局自定义按键符号查看keyCode：" + event.keyCode)
+                }
+            }
+
+        });
+
+        
+
+
+
+    </script>
+</body>
+</html>

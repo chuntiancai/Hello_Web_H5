@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、Vue的基本使用步骤：
+            1.需要提供标签用于填充数据
+            2.引入vue.js库文件。
+            3.可以使用vue的语法做功能了
+            4.把vue提供的数据填充到标签里面。
+
+        2、Vue代码运行原理：
+            因为引入了vue.js文件，这个文件会对当前文件的代码进行编译解释。把 Vue语法→原生语法
+
+        3、Vue的前端渲染：其实就是把数据填充到HTML标签中。一般有三种方式：
+            > 原生js拼接字符串。 //也就是在js中用字符串写标签，然后填充到页面的标签中。
+            > 使用前端模板引擎。    //有各种各样的引擎，目的都是为了更方便的在JS填充标签到页面中。
+            > 使用vue特有的模板语法。   //其实也是一种引擎。
+
+        4、指令，所谓指令，其实也是一种语法，用于解决一些标签的属性、样式问题。写在标签体里，样式里。
+            官网：https://cn.vuejs.org/api/built-in-directives.html
+            1.v-text指令用于将数据填充到标签中，作用于插值表达式类似，但是没有闪动问题
+            2.v-html指令用于将HTML片段填充到标签中，但是可能有安全问题
+            3.v-pre用于显示原始信息
+
+        5、Vue数据的响应式（数据的变化导致页面内容的变化），v-model
+            v-model指令 
+            <input type='text' v-model='uname'/>    //用于双向数据绑定，即页面可以影响数据，数据也会影响页面。
+            也就是可以通过Vue对象修改数据，然后会导致页面的内容也同步发生变化。
+        
+        6、Vue绑定样式.
+            是在Vue对象里面存储css样式的类名， 标签 -> vue -> css 
+            1. 对象绑定和数组绑定可以结合使用。
+            2. class绑定的值可以简化操作。
+            3. 默认的class如何处理？默认的class会保留。
+            4. 可以直接在vue对象内部编写样式，也就是内联样式。
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试Vue的基本使用</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <style type="text/css">
+        /* Vue的v-cloak指令，先隐藏样式，后渲染 */
+        [v-cloak]{
+          display: none;
+        }
+        .active {
+            margin: 5px;
+            border: 1px solid red;
+            width: 120px;
+            height: 80px;
+        }
+        .error {
+          background-color: orange;
+        }
+        .redClass {
+          border: 1px solid red;
+          margin: 5px;
+          width: 100px;
+          height: 80px;
+        }
+        .grayClass {
+          background-color: gray;
+        }
+        .test {
+          color: blue;
+        }
+        .base {
+          font-size: 28px;
+        }
+        .inline {
+            display: inline-block;
+        }
+    
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <div>
+            <input type="text" v-model='msg' placeholder="测试双向数据绑定的v-model指令">
+        </div>
+        <div v-text='msg'></div>
+        <div v-html='msg1'></div>
+        <div v-pre>{{msg}}</div>
+        <!-- 使用Vue的v-cloak指令 -->
+        <div v-cloak>{{msg}}</div>
+        <div>{{1 + 2}}</div>
+        <div>{{msg + '----' + 123}}</div>
+
+        <div>测试事件绑定：{{num}}</div>
+        <div>
+            <button v-on:click='num++'>点击</button>
+            <button @click='num++'>点击1</button>
+            <button @click='handle'>点击2</button>
+            <button @click='handle()'>点击3</button>
+            <!-- 如果事件直接绑定函数名称，那么默认会传递事件对象作为事件函数的第一个参数 -->
+            <button v-on:click='handle1'>事件传参1</button>
+            <!-- 2、如果事件绑定函数调用，那么事件对象必须作为最后一个参数显示传递，并且事件对象的名称必须是$event -->
+            <button v-on:click='handle2(123, 456, $event)'>事件传参2</button>
+        </div>
+
+        <div> 测试绑定属性：
+            <br>
+            <a v-bind:href="changeUrl">百度</a>
+            <a :href="changeUrl">百度1</a>
+            <button v-on:click='handleUrl'>切换</button>
+        </div>
+
+        <div > 测试v-model的本质：
+           <div>{{vmsg}}</div>
+           <input type="text" v-bind:value="vmsg" v-on:input='handleVmodel'>
+           <input type="text" v-bind:value="vmsg" v-on:input='vmsg=$event.target.value'>
+           <input type="text" v-model='vmsg'>
+        </div>
+
+        <div class="inlne">
+            <!-- 绑定样式的对象写法 {css样式类名:Bool,css样式类名:Bool ... }-->
+            <div v-bind:class="{active: isActiveStyle,error: isErrorStyle}">
+                <!-- <div v-bind:class='[activeName, errorName]'>测试样式</div>  //这个是数组写法[vue对象里的成员变量,...]-->
+                测试样式绑定：
+            </div>
+            <button v-on:click='handleStyleClass'>切换</button>
+            <div v-bind:class='[redName, grayName, {test: isTest}]'>标签中数组+对象写法</div>
+            <div v-bind:class='arrClasses'>vue对象中的数组写法</div>
+            <div v-bind:class='objName'>vue对象中的对象写法</div>
+            <div class="base" v-bind:class='objName'>基本样式</div>
+            <div v-bind:style='[overrideStyles]'> 内联样式 </div>
+            <button v-on:click='handleStyleWays'>切换2</button>
+        </div>
+        
+        
+    </div>
+    
+    <script>
+        /**
+         * 一、Vue的基本语法：
+         *      1、el： 元素的挂载位置（值可以是CSS选择器或者DOM元素）
+         *         data：模型数据（值是一个对象）
+         *         插值表达式：就是插在div等等标签里填充数据的表达式，例如：<div>{{1 + 2}}</div>
+         */ 
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue',
+                msg1: '<h1>HTML</h1>',
+                num: 0,
+                changeUrl:'http://www.baidu.com',
+                vmsg:'v-model的本质',
+                isActiveStyle: true,
+                isErrorStyle: true,
+                isTest:true,
+                activeName: 'active',  //存储css样式的类名
+                errorName: 'error',
+                redName:'redClass',
+                grayName: 'grayClass',
+                arrClasses: ['redClass', 'grayClass'],
+                objName: {
+                    redClass: true, //这里要写css的样式类名
+                    grayClass: true
+                },
+                overrideStyles: {   //这里直接写样式
+                  border: '5px solid orange',
+                  backgroundColor: 'blue',
+                  width: '200px',
+                  height: '60px',
+                  color: 'white',
+                },
+
+
+            },// 注意点： 这里不要忘记加逗号 
+            // methods  中 主要是定义一些函数
+            methods: {
+                handle: function () {
+                    // 这里的this是Vue的实例对象
+                    console.log("this 是不是Vue对象：" + (this === vm))
+                    //   在函数中 想要使用data里面的数据 一定要加this 
+                    this.num++;
+                },
+                handle1: function(event) {
+                    console.log("打印事件目标的标签内容：" + event.target.innerHTML)
+                },
+                handle2: function(p, p1, event) {
+                    console.log("打印事件传参的参数：" , p, p1)
+                    console.log("打印事件目标的标签内容： " + event.target.innerHTML)
+                    this.num++;
+                },
+                handleUrl:function(){
+                    // 修改URL地址
+                    this.changeUrl = 'https://www.12306.cn';
+                },
+                //测试v-model的本质。
+                handleVmodel:function(event){
+                    // 使用输入域中的最新的数据覆盖原来的数据
+                    this.vmsg = event.target.value;
+                },
+                handleStyleClass: function(){
+                  // 控制isActive的值在true和false之间进行切换
+                  this.isActiveStyle = !this.isActiveStyle;
+                  this.isErrorStyle = !this.isErrorStyle;
+                },
+                handleStyleWays: function(){
+                  // 控制isActive的值在true和false之间进行切换
+                  this.objName.grayClass = false;
+                }
+
+            }
+
+        });
+
+        /**
+         * 二、Vue的模版语法
+         * 1、目的都是填充数据到Html中，也是在js中新建html标签填入到UI中。
+         * 2、指令：
+         *   v-cloak用于解决插值表达式闪动的问题，因为插值表达式一开始都是字符串渲染在标签中，实施vue立马把它更新成数据了而已。
+         *   v-cloak指令的用法(在标签中写)：
+         *      1.提供样式
+         *        [v-cloak]{
+         *          display: none;
+         *        }
+         *      2.在插值表达式所在的标签中添加v-cloak指令
+         *      背后的原理：先通过样式隐藏内容，然后在内存中进行值的替换，替换好之后再显示最终的结果
+         * 
+         * 3、Vue绑定标签的属性，修改属性的值。v-bind: 指令。
+         * 4、v-model指令的本质：其实就是通过 v-bind: 指令 的属性绑定来实现的。
+        */
+
+
+
+    </script>
+</body>
+</html>

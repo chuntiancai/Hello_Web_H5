@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、当Vue的内置指令不能满足需求时，可以通过自定义指令实现。通过Vue.directive方法来自定义指令。
+            定义的时候不用写'-',但是使用的时候需要写'-'，例如：v-custom 对应 custom
+
+        2、钩子函数：
+            当你自定义指令时，会触发钩子函数，具体触发那个钩子函数，在定义自定义指令的函数时决定的。
+            例如：inserted：钩子表示在当前元素插入到父元素中时，就会执行该自定义函数。
+        3、局部指令：
+            只能在当前的组件中使用。
+
+        4、计算属性：
+            其实就是为模版语法定义一个方法，然后在模版语法中调用，多次调用的话，原生内容不变的话不会执行，原生内容发生了改变之后才执行。
+            计算属性与方法的区别：计算属性是基于它们的依赖(原生内容)进行缓存的，不是缓存执行后的结果，而是缓存执行前的原生内容，方法不存在缓存。
+        
+        5、侦听器：
+            1.用于数据变化时执行异步或开销较大的操作，数据一旦发生变化就通知侦听器所绑定方法。
+        -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试Vue的自定义指令</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        测试自定义指令的基本用法：
+        <input type="text" >
+        <!-- v-focus是自定义的指令，该指令是获取焦点 -->
+        <input type="text" v-myfocus>
+        <div >
+            带参数的自定义指令：
+            <input type="text" v-mycolor='msg' >
+        </div>
+        <div >
+            测试局部自定义指令：
+            <input type="text" v-mycolor1='msg1' >
+            <input type="text" v-myfocus1 >
+        </div>
+        <div >
+            测试计算属性：
+            <div>{{msg2}}</div>
+            <div>{{reverseMsg2}}</div>
+        </div>
+        <div>
+            测试侦听器：
+            <span>
+                <input type="text" v-model='tipContent'>
+            </span>
+            <br>
+            <span>监听结果：{{tip}}</span>
+        </div>
+    </div> 
+
+    <script type="text/javascript">
+        //自定义指令
+        Vue.directive('myfocus', {
+          inserted: function(el){
+            // el表示指令所绑定的元素
+            el.focus();
+          }
+        });
+        //自定义带参数的自定义指令
+        Vue.directive('mycolor', {
+          bind: function(el, binding){
+            // 根据指令的参数设置背景色
+            // console.log(binding.value.color)
+            el.style.backgroundColor = binding.value.color;
+          }
+        });
+        var vm = new Vue({
+          el: '#app',
+          data: {
+                msg2:'反转计算属性',
+                tip: '侦听器提示',
+                tipContent: '侦听信息',
+                msg: {
+                    color: 'blue'
+                },
+                msg1: {
+                    color: 'red'
+                },
+          },
+          methods: {
+            handle: function(){
+              
+            },
+          },
+          //自定义的局部指令，注意后面有个s
+          directives: {
+            mycolor1: {
+              bind: function(el, binding){
+                el.style.backgroundColor = binding.value.color;
+              }
+            },
+            myfocus1: {
+              inserted: function(el) {
+                el.focus();
+              }
+            }
+          },
+          //计算属性
+          computed: {
+            reverseMsg2: function(){
+              return this.msg2.split('').reverse().join('');
+            }
+          },
+          //侦听器
+          watch: {
+            tipContent: function(value){
+                this.tip = '侦听到tipContent发生改变：' + value
+            },
+          },
+
+
+        });
+    </script>
+</body>
+</html>
