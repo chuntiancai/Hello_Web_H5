@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、组件化规范: Web Components 要解决的问题：
+            1.我们希望尽可能多的重用代码。
+            2.自定义组件的方式不太容易（html、css和js） 。
+            3.多次使用组件可能导致冲突。
+            Web Components 规范想通过创建封装好功能的定制元素解决上述问题。Vue框架部分实现了这个规范。
+
+        2、所以，组件化开发就是封装好功能的定制元素。就是自定义标签。
+        3、局部组件只能在注册他的父组件中使用
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试Vue的组件开发</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 自定义一个button-counter组件，也可以说是自定义button-counter标签 -->
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+
+        <div>测试局部组件注册：</div>
+        <!-- HelloWord驼峰命名只能在字符串模版中使用，在原生html中要写成横杠命名法hello-world -->
+        <hello-world></hello-world>
+        <hello-tom></hello-tom>
+        <hello-jerry></hello-jerry>
+    </div>
+    <script type="text/javascript">
+
+
+        /**
+         * 1、组件注册：
+         *    Vue.component(组件名称, {
+               data: 组件数据,
+               template: 组件模板内容
+              })
+            2、注意事项：   
+              1. 组件参数的data值必须是函数。
+              2. 组件模板必须是单个根元素。也就是模版里不能有两个并列的父元素。
+              3. 组件模板的内容可以是模板字符串。`模版字符串`
+              4.如果使用驼峰式命名组件，那么在使用组件的时候，只能在字符串模板中用驼峰的方式使用组件，但是在普通的标签模板中，必须使用短横线的方式使用组件。
+            
+            3、局部组件只能在注册他的父组件中使用
+        */
+       //全局组件
+        Vue.component('button-counter', {
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button @click="handleBtnCounter">点击了{{count}}次</button>',
+            methods: {
+                handleBtnCounter: function () {
+                    this.count += 1;
+                    console.log('点击了BtnCounter: ' ,this.count)
+                }
+            },
+            
+        })
+       
+        /**
+         * 二、局部组件注册
+         *  1、局部组件只能在注册他的父组件中使用
+        */
+        //定义局部组件  
+        var HelloWorld = {
+          data: function(){
+            return {
+              msg: 'HelloWorld'
+            }
+          },
+          template: '<div>{{msg}}</div>'
+        };
+        var HelloTom = {
+          data: function(){
+            return {
+              msg: 'HelloTom'
+            }
+          },
+          template: '<div>{{msg}}</div>'
+        };
+        var HelloJerry = {
+          data: function(){
+            return {
+              msg: 'HelloJerry'
+            }
+          },
+          template: '<div>{{msg}}</div>'
+        };
+        
+
+        /**
+         * Vue对象
+        */
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            //声明局部组件，该局部组件只能在<div id="app">中使用，不能在其他组件中使用
+            components: {
+            'hello-world': HelloWorld,  //局部组件名称:局部组件内容
+            'hello-tom': HelloTom,
+            'hello-jerry': HelloJerry
+            }
+        });
+        
+    </script>
+
+</body>
+</html>

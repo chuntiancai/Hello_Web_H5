@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、父组件向子组件传值：
+            1. 组件内部通过props接收传递过来的值。props相当于共享区，这里的父子组件是指，Vue组件对象里模版自定义的标签组件。
+            2. 父组件通过标签里的属性将值传递给子组件。
+            3. props属性名规则：
+                》在props中使用驼峰形式，模板中需要使用短横线的形式。(js中用驼峰，则标签中要转换为横杠)
+                》字符串形式的模板中没有这个限制。
+
+        2、props属性的值类型：
+            字符串 String 、数值 Number、 布尔值 Boolean、 数组 Array、对象 Object
+        
+        3、 props传递数据原则：单向数据流。
+            虽然props也可以从子组件传递到父组件，但是不建议。而是用自定义事件的方式传递给父组件，父组件监听事件。
+        
+        4、子组件传值父组件：
+            1.子组件通过自定义事件向父组件传递信息：
+                //$emit(事件名)函数： 用于触发自定义事件。
+                <button v-on:click='$emit("enlarge-text", 0.1) '>扩大字体</button>
+            2.父组件监听子组件的事件
+                //enlarge-text是自定义的事件名，或者不要v-on,直接@enlarge-text也行。
+                <menu-item v-on:enlarge-text='fontSize += $event'></menu-item>
+
+        5、非父子之间的传值：
+            通过事件中心进行传递，其实就是iOS中的通知中心。通过事件中心来触发各个组件监听的事件。
+            事件中心需要新加一个Vue对象。
+        
+        6、组件插槽的作用，父组件传递标签的内容给子组件中匹配的内容。
+            》子组件中slot的定义目的是为了匹配父组件中的标签，可以说是子组件筛选父组件中的内容显示，没选中，则显示默认。
+            》插槽定义在子组件的模版字符串中，用<slot><slot/>标签。也就是父组件的内容会平替子组件中定义的<slot><slot/>标签。
+            》slot 也可以作为html标签的属性，slot属性的值用于去匹配模版中的slot标签的名字，例如<slot name="footer"></slot>。
+            <template >是一个临时的html标签，不会渲染到页面，起代码占位的作用。
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试Vue组件传值</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <style type="text/css">
+        .current {
+          color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{pmsg}}</div>
+        <!-- menu-item是Vue自定义的组件 -->
+        <menu-item mytitle='来自父组件的值'></menu-item>
+        <!-- 动态传递Vue对象里的值 ptitle ，vue在属性前加冒号:表示是动态绑定属性(即可以用Vue里定义的数据)-->
+        <menu-item :mytitle='ptitle' menu-title = '驼峰命名需要转化为横杠' mycontent='hello'></menu-item>
+        <!-- :pnum加上冒号就会转换为数值类型，不加冒号就是字符串类型。 -->
+        <menu-item1 :pstr='pstr' :pnum='12' pboo='true' :parr='parr' :pobj='pobj'></menu-item1>
+
+        <!-- @enlarge-text表示监听enlarge-text事件，处理事件的方法是handleFontSize。$event是固定写法，参数的意思。 -->
+        <div :style='{fontSize: fontSize + "px"}'>测试子传值父：{{pmsg}}</div>
+        <menu-item2 :parr='parr' @enlarge-text='handleFontSize($event)'></menu-item2>
+
+        <div>测试事件中心传值：</div>
+        <div>
+          <button @click='handleDestory'>销毁事件</button>
+        </div>
+        <test-tom></test-tom>
+        <test-jerry></test-jerry>
+
+
+        <my-layout>
+            <div>测试组件插槽：</div>
+            <template slot='header'>
+                <p>标题信息1</p>
+            </template>
+            <p>主要内容1</p>
+            <template slot='footer'>
+                <p>底部信息信息1</p>
+            </template>
+        </my-layout>
+
+        <div>测试组件插槽获取子组件作用域：</div>
+        <fruit-list :list='list'>
+            <!-- 用slot-scope属性可以获取子组件中的UI作用域,属性值自定义。 -->
+            <template slot-scope='slotProps'>
+                <!-- info是自定义的名字 -->
+              <strong v-if='slotProps.info.id==3' class="current">{{slotProps.info.name}}</strong>
+              <span v-else>{{slotProps.info.name}}</span>
+            </template>
+        </fruit-list>
+    </div>
+
+    <script type="text/javascript">
+        /*
+          一、父组件向子组件传值-基本使用
+        */
+        //通过Vue定义子组件。
+        Vue.component('menu-item', {
+          props: ['mytitle','menuTitle','mycontent',],  //可以理解为共享区，需要与父组件中的属性命名一致。
+          data: function() {
+            return {
+              msg: '子组件本身的数据'
+            }
+          },
+          //menu-item是父组件，template这里的内容是子组件。
+          template:  `
+                      <div>{{msg + "----" + mytitle + "-----" + menuTitle +   "-----" + mycontent}}</div>
+                     `
+        });
+        //测试props传递类型，组件1
+        Vue.component('menu-item1', {
+          props: ['pstr','pnum','pboo','parr','pobj'],  //可以理解为共享区，需要与父组件中的属性命名一致。
+          //menu-item是父组件，template这里的内容是子组件。
+          template:  `
+                      <div>
+                        测试props传递类型：
+                        <div>{{pstr}}</div>
+                        <div>{{12 + pnum}}</div>
+                        <div>数据类型：{{typeof pnum}}</div>
+                        <ul>
+                          <li :key='index' v-for='(item,index) in parr'>{{item}}</li>
+                        </ul>
+                          <span>{{pobj.name}}</span>
+                          <span>{{pobj.age}}</span>
+                        </div>
+                      </div>
+                    `
+        });
+        /*
+          二、子组件向父组件传值-事件监听
+        */
+        Vue.component('menu-item2', {
+          props: ['parr'],
+          template: `
+            <div>
+              <ul>
+                <li :key='index' v-for='(item,index) in parr'>{{item}}</li>
+              </ul>
+              <button @click='$emit("enlarge-text",5)'>扩大父组件中字体大小</button>
+            </div>
+          `
+        });
+
+
+        /*
+            三、非父子组件之间的值传递。
+        */
+         // 创建事件中心
+         var hub = new Vue();
+
+        Vue.component('test-tom', {
+            data: function(){
+                return {
+                num: 0
+                }
+            },
+            template: `
+                <div>
+                <div>TOM:{{num}}</div>
+                <div>
+                    <button @click='handle'>点击</button>
+                </div>
+                </div>
+            `,
+            methods: {
+                handle: function(){
+                hub.$emit('jerry-event', 2);
+                }
+            },
+            mounted: function() {
+                // 监听事件
+                hub.$on('tom-event', (val) => {
+                this.num += val;
+                });
+            }
+        });
+
+        Vue.component('test-jerry', {
+            data: function(){
+                return {
+                num: 0
+                }
+            },
+            template: `
+                <div>
+                <div>JERRY:{{num}}</div>
+                <div>
+                    <button @click='handle'>点击</button>
+                </div>
+                </div>
+            `,
+            methods: {
+                handle: function(){
+                // 触发兄弟组件的事件
+                hub.$emit('tom-event', 1);
+                }
+            },
+            mounted: function() {
+                // 监听事件
+                hub.$on('jerry-event', (val) => {
+                this.num += val;
+                });
+            }
+        });
+
+        /*
+            四、父子组件组件插槽，传递标签的内容。
+        */
+        Vue.component('my-layout', {
+          template: `
+            <div>
+              <header>
+                <slot name='header'></slot>
+              </header>
+              <main>
+                <slot>默认内容</slot>
+              </main>
+              <footer>
+                <slot name='footer'></slot>
+              </footer>
+            </div>
+          `
+        });
+        //作用域插槽
+        Vue.component('fruit-list', {
+          props: ['list'],  //取Vue对象的数据
+          template: `
+            <div>
+              <li :key='item.id' v-for='item in list'>
+                <slot :info='item'>{{item.name}}</slot>
+              </li>
+            </div>
+          `
+        });
+
+        //Vue对象
+        var vm = new Vue({
+          el: '#app',
+          data: {
+            pmsg: '父组件中内容',
+            ptitle: '动态绑定属性',
+            pstr: 'hello',
+            parr: ['apple','orange','banana'],
+            pobj: {
+                    name: 'lisi',
+                    age: 12
+                  },
+            fontSize: 10,
+            list: [{
+                    id: 1,
+                    name: 'apple'
+                  },{
+                    id: 2,
+                    name: 'orange'
+                  },{
+                    id: 3,
+                    name: 'banana'
+                  }],
+          },
+          methods: {
+                handleFontSize: function(val){
+                    // 扩大字体大小
+                    this.fontSize += val;
+                    console.log('传入的值是：',val,this.fontSize)
+                    console.log(typeof fontSize, typeof val)
+                },
+                //注销事件
+                handleDestory: function(){ 
+                  hub.$off('tom-event');
+                  hub.$off('jerry-event');
+                },
+          },
+
+        });
+
+    </script>
+</body>
+</html>
