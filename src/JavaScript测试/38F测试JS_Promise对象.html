@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、Promise是JS的原生api提供的对象，用于异步执行任务、前后端交互。
+            Promise就是一个函数对象，在js中，函数也是一个对象，万物皆对象。
+            Promise是基于ajax的进一步升级封装。ajax更加原始。
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试JS的异步对象，Promise对象</title>
+</head>
+<body>
+    <script>
+        console.log(typeof Promise)
+        /**
+         * 一、Promise的基本使用
+         *  1、在new构造方法里传入函数作为参数，函数的参数是任务，然后任务在p.then方法里面定义。
+         */ 
+        var p = new Promise(function(resolve,reject){
+            //这里实现异步任务
+            setTimeout(function(){
+                var flag = true;
+                if (flag) {
+                    //处理正常情况
+                    resolve('hello')
+                } else {
+                    //处理异常情况
+                    reject('出错了')
+                }
+            },100);
+        });
+        //Promise定义任务
+        p.then(function (data) {
+            console.log(data)
+        }, function (info) {
+            console.log(info)
+        });
+
+        /**
+         * 二、Promise发送ajax请求。
+         *  1、Promise的then方法会返回当前的Promise对象，如果then方法自定义时不返回当前Promise对象，
+         *     而是返回具体值时，则会把具体值传进下一个then对象的方法参数中，并且创建一个新的Promise对象，用于保持链式调用。
+         */ 
+        function queryData(url) {
+            var p = new Promise(function(resolve, reject){
+                var xhr = new XMLHttpRequest(); //创建ajax请求对象
+                xhr.onreadystatechange = function(){
+                  if(xhr.readyState != 4) return;
+                  if(xhr.readyState == 4 && xhr.status == 200) {
+                    // 处理正常的情况
+                    resolve(xhr.responseText);
+                  }else{
+                    // 处理异常情况
+                    reject('服务器错误');
+                  }
+                };
+                xhr.open('get', url);
+                xhr.send(null);
+            });
+            return p;
+        }
+        // 发送多个ajax请求并且保证顺序
+        queryData('https://www.12306.cn')
+          .then(function(data){
+            console.log(data)
+            return queryData('http://www.baidu.com');
+          })
+          .then(function(data){
+            console.log(data);
+            return queryData('http://www.hao123.com');
+          })
+          .then(function(data){
+            console.log(data)
+        });
+
+    </script>
+    
+</body>
+</html>

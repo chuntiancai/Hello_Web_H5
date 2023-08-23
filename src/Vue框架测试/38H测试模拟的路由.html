@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、后端路由：
+            概念：根据不同的用户 URL 请求，返回不同的内容。
+            本质：URL 请求地址与服务器资源之间的对应关系。也就是服务器有一个路由器，所有的前端请求都会经过路由器的筛选再去到服务器内部寻找内容或者运算。
+            ajax：可以刷新局部页面，也就是服务器返回的数据，可以刷新当前页面的局部内容，也就是渲染的意思。
+
+        2、SPA（Single Page Application）单页面应用程序：整个网站只有一个页面，内容的变化通过Ajax局部更新实现、同时支持浏览器地址栏的前进和后退操作。
+            SPA实现原理之一：基于URL地址的hash（hash的变化会导致浏览器记录访问历史的变化、但是hash的变化不会触发新的URL请求）
+                           在实现SPA过程中，最核心的技术点就是前端路由。
+
+        3、前端路由：
+            就是在浏览器处理页面的点击事件，浏览器本身作为一个引擎。用户每一个事件对应一个处理函数。
+            前端路由负责事件监听，触发事件后，通过事件函数渲染不同内容
+            概念：根据不同的用户事件，显示不同的页面内容。
+            本质：用户事件与事件处理函数之间的对应关系。也就是浏览器有一个前端路由器，用于路由用户事件到处理函数。
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手动模拟路由器</title>
+</head>
+
+<body>
+    <!-- 被 vue 实例控制的 div 区域 -->
+    <div id="app">
+      <!-- 切换组件的超链接，点击超链接，会修改url的hash值，window就会监听到hash值的改变 -->
+      <a href="#/zhuye">主页</a> 
+      <a href="#/keji">科技</a> 
+      <a href="#/caijing">财经</a>
+      <a href="#/yule">娱乐</a>
+
+      <!-- 根据 :is 属性指定的组件名称，把对应的组件渲染到 component 标签所在的位置 -->
+      <!-- 可以把 component 标签当做是【组件的占位符】,渲染时会被is绑定的组件标签替换掉。 -->
+      <component :is="comName"></component>
+    </div>
+
+    <script>
+      // #region 定义需要被切换的 4 个组件
+      // 主页组件
+      const zhuye = {
+        template: '<h1>主页信息</h1>'
+      }
+
+      // 科技组件
+      const keji = {
+        template: '<h1>科技信息</h1>'
+      }
+
+      // 财经组件
+      const caijing = {
+        template: '<h1>财经信息</h1>'
+      }
+
+      // 娱乐组件
+      const yule = {
+        template: '<h1>娱乐信息</h1>'
+      }
+      // #endregion
+
+      // #region vue 实例对象
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          comName: 'zhuye'
+        },
+        // 注册私有组件
+        components: {
+          zhuye,
+          keji,
+          caijing,
+          yule
+        }
+      })
+      // #endregion
+
+      // 监听 window 的 onhashchange 事件，根据获取到的最新的 hash 值，切换要显示的组件的名称
+      window.onhashchange = function() {
+        // 通过 location.hash 获取到最新的 hash 值
+        console.log(location.hash);
+        switch(location.hash.slice(1)){ //从索引1的位置开始截取字符串
+          case '/zhuye':
+            vm.comName = 'zhuye'
+          break
+          case '/keji':
+            vm.comName = 'keji'
+          break
+          case '/caijing':
+            vm.comName = 'caijing'
+          break
+          case '/yule':
+            vm.comName = 'yule'
+          break
+        }
+      }
+    </script>
+  </body>
+</html>

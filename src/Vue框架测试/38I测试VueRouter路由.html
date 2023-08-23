@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、vue-router和 Vue.js 的核心深度集成，可以非常方便的用于SPA应用程序的开发，也就是前端路由。
+            （官网：https://router.vuejs.org/zh/）
+
+        2、使用流程：
+            1. 引入相关的库文件
+            2. 添加路由链接
+            3. 添加路由填充位
+            4. 定义路由组件
+            5. 配置路由规则并创建路由实例(重要)
+            6. 把路由挂载到 Vue 根实例中
+
+        3、router-link 是 vue 中提供的标签，默认会被渲染为 a 标签。to 属性默认会被渲染为 href 属性 。to 属性的值默认会被渲染为 # 开头的 hash 地址。
+            例如：<router-link to="/user">User</router-link>
+
+        4、通过路由规则的 redirect 属性，指定一个新的路由地址，可以很方便地设置路由的重定向。
+
+        5、vue-router动态路由匹配，是指在路由路径中，可以使用Vue的变量，而不是仅仅字面量，在属性前加冒号:。
+              例如：{ path: '/user/:id', component: User }    // 动态路径参数 以冒号开头
+              也可以理解为路径后的字面量为参数，传递给vue-router。
+           1.结合使用vue的props属性，可以将标签的路径名和vue-router的路由规则结合，实现真正的由vue的变量传递参数。
+
+        6、路由命名：就是给路由规则起一个别名。在规则里加一个name属性并且赋值即可。
+
+        7、页面导航的两种方式
+             声明式导航：通过点击链接实现导航的方式，叫做声明式导航
+              例如：普通网页中的 <a></a> 链接 或 vue 中的 <router-link></router-link>
+             编程式导航：通过调用JavaScript形式的API实现导航的方式，叫做编程式导航
+              例如：普通网页中的 location.href
+                     this.$router.push('hash地址')
+                     this.$router.go(n)
+
+            router.push() 方法的参数规则：
+                // 字符串(路径名称)
+                router.push('/home')
+                // 对象
+                router.push({ path: '/home' })
+                // 命名的路由(传递参数)
+                router.push({ name: '/user', params: { userId: 123 }})
+                // 带查询参数，变成 /register?uname=lisi
+                router.push({ path: '/register', query: { uname: 'lisi' }})
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试Vuerouter路由</title>
+     <!-- 导入 vue 文件 -->
+    <script type="text/javascript" src="vue.js"></script>
+    <script type="text/javascript" src="vue-router_3.0.2.js"></script>
+</head>
+<body>
+    <!-- 被 vm 实例所控制的区域 -->
+    <div id="app">
+      <!-- router-link 是 vue 中提供的标签，默认会被渲染为 a 标签 -->
+      <router-link to="/user">User</router-link>
+      <router-link :to="{ name: 'animal', params: {id: 6} }">Animal6</router-link>
+      <router-link to="/animal/1">Animal1</router-link>
+      <router-link to="/animal/2">Animal2</router-link>
+      <router-link to="/animal/3">Animal3</router-link>
+      <router-link to="/register">Register</router-link>
+
+      <!-- 路由占位符 -->
+      <!-- 将来通过路由规则匹配到的组件，将会被渲染到 router-view 所在的位置 -->
+      <router-view></router-view>
+    </div>
+
+    <script>
+      const User = {
+        template: `<div>
+          <h1>User 组件 </h1>
+          <button @click="goRegister">跳转到注册页面</button>
+        </div>`,
+        methods: {
+          goRegister() {
+            this.$router.push('/register')  //跳转到注册页面
+          }
+        },
+      }
+      const Animal = {
+        props: ['id', 'uname', 'age'],
+        //template: '<h1>User 组件 -- 用户id为: {{id}} -- 姓名为:{{uname}} -- 年龄为：{{age}}</h1>'
+        // template: '<h1>Animal 组件 -- 动物id为: {{$route.params.id}}</h1>'
+        template: '<h1>Animal 组件 -- 动物id为: {{id}}</h1>'
+      }
+
+      const Register = {
+        template: `<div>
+          <h1>Register 组件</h1>
+          <hr/>
+
+          <!-- 子路由链接 -->
+          <router-link to="/register/tab1">tab1</router-link>
+          <router-link to="/register/tab2">tab2</router-link>
+          <button @click="goBack">后退</button>
+
+          <!-- 子路由的占位符 -->
+          <router-view />
+        </div>`,
+        methods: {
+          goBack() {
+            this.$router.go(-1) //后退
+          }
+        }
+      }
+      const Tab1 = {
+        template: '<h3>tab1 子组件</h3>'
+      }
+
+      const Tab2 = {
+        template: '<h3>tab2 子组件</h3>'
+      }
+
+      // 创建路由实例对象
+      const router = new VueRouter({
+        // 所有的路由规则
+        routes: [
+           /**
+           每个路由规则都是一个配置对象，其中至少包含 path 和 component 两个属性：
+            path 表示当前路由规则匹配的 hash 地址。component 表示当前路由规则对应要展示的组件。
+            */ 
+          { path: '/user', component: User},
+          { path: '/animal/:id', component: Animal, name: 'animal', props: true }, //使用props存储参数。
+        //   { path: '/animal/:id', component: User, props: { uname: 'lisi', age: 20 } },   //使用props传递对象。
+        // props: route => ({ uname: 'zs', age: 20, id: route.params.id })  //使用props传递函数，函数的参数传值。
+          { path: '/register', component: Register , children: [    // children 数组表示子路由规则。
+            { path: '/register/tab1', component: Tab1 },
+            { path: '/register/tab2', component: Tab2 }
+          ] },
+
+          // 重定向：其中，path 表示需要被重定向的原地址，redirect 表示将要被重定向到的新地址.
+          { path: '/', redirect: '/user'},
+        ]
+      })
+
+      // 创建 vm 实例对象
+      const vm = new Vue({
+        // 指定控制的区域
+        el: '#app',
+        data: {},
+        // 挂载路由实例对象，在es6中如果属性名和变量名时一致的，则可以简写一个名字即可。router: router ==》router
+        // router: router
+        router
+      })
+    </script>
+</body>
+</html>
