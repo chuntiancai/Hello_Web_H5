@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、把一堆js文件封装为一个模块，也就是第三方包，解决模块之间的命名冲突问题，文件依赖问题。
+            ES6模块化规范中定义：
+                 每个 js 文件都是一个独立的模块
+                 导入模块成员使用 import 关键字
+                 暴露模块成员使用 export 关键字
+        2、服务端的 Node.js 中可以通过 babel 工具体验 ES6 模块化。
+            也就是把js文件封装成一个模块。babel时一个语法转化工具。
+        3、ES6 模块化的基本语法：
+            （也就是怎么导入第三方库，怎么暴露第三方库里的成员）
+             默认导出语法 export default 默认导出的成员
+                // 将本模块中的私有成员暴露出去，供其它模块使用
+                export default {
+                 a, c,show
+                }
+                注意：每个模块中，只允许使用唯一的一次 export default，否则会报错！
+
+             默认导入语法 import 接收名称 from '模块标识符'
+                import m1 from './m1.js'
+                
+             按需导出语法 export let s1 = 10
+             按需导入语法 import { s1 } from '模块标识符'
+            
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试JS的模块化</title>
+</head>
+<body>
+    
+</body>
+</html>
