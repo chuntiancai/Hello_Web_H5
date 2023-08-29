@@ -20,6 +20,12 @@ console.log('当前文件夹的绝对路径：' ,__dirname);
 console.log('拼接绝对路径：' ,path.join(__dirname, '38A_HelloNode.js'))
 
 fs.readFile(path.join(__dirname, '38A_HelloNode.js'), 'utf8', (err, doc) => {
-	console.log(err)
-	console.log(doc)
+	
+	if (err != null) {
+		console.log('读取文件失败：' + err)
+		return
+	} else {
+		console.log('读取文件成功：' + doc)
+	}
+	
 });
