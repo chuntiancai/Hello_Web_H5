@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+<body>
+	
+	<!-- 标准语法 -->
+	<p>{{ name }}</p>
+	<p>{{ 1 + 1 }}</p>
+	<p>{{ 1 + 1 == 2 ? '相等' : '不相等' }}</p>
+	<p>{{ content }}</p>
+	<p>{{@ content }}</p>
+	//if语句
+	{{if age > 18}}
+		年龄大于18
+	{{else if age < 15 }}
+		年龄小于15
+	{{else}}
+		年龄不符合要求
+	{{/if}}
+	//each遍历语句
+	<ul>
+		{{each users}}
+			<li>
+				{{$value.name}}，{{$value.age}}，{{$value.sex}}
+			</li>
+		{{/each}}
+	</ul>
+	//引用子模板
+	{{ include '../common/headerIndex.art' }}
+	
+
+
+	<!-- 原始语法 -->
+
+	<p><%= name %></p>
+	<p><%= 1 + 2%></p>
+	<p><%= 1 + 1 == 2 ? '相等' : '不相等' %></p>
+	<p><%= content%></p>
+	<p><%- content%></p>
+	//if语法，<% %> 用于识别这是js语句
+	<% if (age > 18) { %>
+		年龄大于18
+	<% } else if (age < 15) { %>
+		年龄小于15
+	<% } else { %>
+		年龄不符合要求
+	<% } %>
+
+	//each遍历语句
+	<ul>
+	<% for (var i = 0; i < users.length; i++) { %>
+		<li>
+			<%=users[i].name %>，<%=users[i].age %>，<%=users[i].sex %>
+		</li>
+	<% } %>
+	</ul>
+	//引用子模板
+	<% include('../common/headerIndex.art') %>
+
+</body>
+</html>
