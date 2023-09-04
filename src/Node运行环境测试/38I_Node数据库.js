@@ -5,6 +5,7 @@
  * 
  * 2、mongoDB是基于JS开发的数据库软件。
  *      这个后面再看吧，或者在自己的笔记本中看咯。
+ * 
  * 3、JS对接mongoDB软件的第三方模块是mongoose。
  *      使用npm install mongoose命令下载。
  *      

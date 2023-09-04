@@ -1,0 +1,10 @@
+{{extend './模板.art'}}
+
+//block的堆料
+{{block 'content'}}//block开始
+<p>{{ msg }}</p>
+{{/block}}  //block结束
+
+{{block 'link'}}
+<link rel="stylesheet" type="text/css" href="./main.css">
+{{/block}}

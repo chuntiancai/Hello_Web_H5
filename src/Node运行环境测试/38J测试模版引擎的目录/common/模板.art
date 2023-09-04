@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我是模版标题</title>
+	{{block 'link'}} {{/block}}
+</head>
+<body>
+	{{block 'content'}} {{/block}}
+</body>
+</html>

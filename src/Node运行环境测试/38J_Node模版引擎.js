@@ -57,15 +57,24 @@
  *              
  *          //作为填充物的模版
  *          <body>
- *                {{block 'content'}}{{/block}} //填充堆料的占位语句，坑
+ *                {{block 'content'}}{{/block}} //填充堆料的占位语句，占位的坑
  *          </body>
  *      
+ * 4、模板配置(更灵活地使用模板引擎)：
+ * 		1.向模板中导入变量 template.defaults.imports.变量名 = 变量值;（把其他第三方库的方法定义为当前模板的变量）
+ *		2.设置模板根目录 template.defaults.root = 模板目录；
+ *			全局配置模板的根目录，根目录下的art文件，可以直接 template方法中使用。
+ *		3.设置模板默认后缀 template.defaults.extname = '.art'
+ * 
+ * 
  * 
  */
 
 // 导入模板引擎
 const template = require('art-template');
 const path = require('path');
+
+
 
 const viewsPath = path.join(__dirname, '38J测试模版引擎的目录','views', 'index.art');
 const headerPath = path.join(__dirname, '38J测试模版引擎的目录','common', 'headerIndex.art');
@@ -102,6 +111,11 @@ const html = template(viewsPath, {
 	}],
 })
 
-console.log(html);
+// console.log(html);
+const fillPath = path.join(__dirname, '38J测试模版引擎的目录','common','模板工.art');
+const fillHtml = template(fillPath,{
+    msg:'测试模板填充的数据'
+})
+console.log(fillHtml)
 
 

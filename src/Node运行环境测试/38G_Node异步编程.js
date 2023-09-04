@@ -71,6 +71,7 @@ promise.then((result) => {
 
     throw关键字：
      1.也就是throw-catch组合语法。catch是在函数外面进行捕获异常。
+	 2.try-catch语句,try catch 可以捕获异步函数以及其他同步代码在执行过程中发生的错误，但是不能其他类型的API发生的错误。
  */
 
 //测试throw关键字
@@ -109,5 +110,17 @@ async function testWiat () {
 	let r3 = await p3()
 	console.log(r1,r2,r3)
 }
+
+//try catch 可以捕获异步函数以及其他同步代码在执行过程中发生的错误，但是不能其他类型的API发生的错误。例如回调函数和promise对象。
+function testTyyCatch(){
+	try {
+		throw "try-catch抛出的错误"
+	} catch (error) {
+		console.log(error)
+	}
+	
+}
+
 testWiat();
+testTyyCatch()
 console.log('testWiat方法之后的代码～')

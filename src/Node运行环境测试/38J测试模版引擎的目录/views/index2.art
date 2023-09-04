@@ -1,0 +1,10 @@
+{{ msg }}
+//测试Express的模版引擎
+<ul>
+	{{each users}}
+	<li>
+		{{$value.name}}
+		{{$value.age}}
+	</li>
+	{{/each}}
+</ul>
