@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- 
+    1、传统的网站表单提交，请求网络：
+		 <form method="get" action="http://www.example.com">
+     		<input type="text" name="username"/>
+     		<input type="password" name="password">
+ 		</form>
+
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- 允许跨域资源访问 -->
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>39A_Ajax处理请求参数</title>
+</head>
+<body>
+	
+	<h2>测试Ajax传递GET请求参数:</h2>
+	<p>
+		姓名：<input type="text" id="username">
+	</p>
+	<p>
+		年龄：<input type="text" id="age">
+	</p>
+	<p>
+		<input type="button" value="提交" id="btn">
+	</p>
+	<br/>
+
+	<h2>测试Ajax传递POST请求参数:</h2>
+	<p>
+		外号：<input type="text" id="nickName">
+	</p>
+	<p>
+		学校：<input type="text" id="school">
+	</p>
+	<p>
+		<input type="button" value="提交" id="btn2">
+	</p>
+
+	<script type="text/javascript">
+		/**
+		 * 一、测试Ajax传递GET请求参数。
+		 * 	1、get请求参数需要自己拼接在url地址中。
+		 */ 
+		// 获取按钮元素
+		var btn = document.getElementById('btn');
+		// 获取姓名文本框
+		var username = document.getElementById('username');
+		// 获取年龄文本框
+		var age = document.getElementById('age');
+		// 为按钮添加点击事件
+		btn.onclick = function () {
+			// 创建ajax对象
+			var xhr = new XMLHttpRequest();
+			// 获取用户在文本框中输入的值
+			var nameValue = username.value;
+			var ageValue = age.value;
+			// 拼接请求参数
+			var params = 'username='+ nameValue +'&age=' + ageValue;
+			// 配置ajax对象
+			xhr.open('get', 'http://localhost:3000/get?'+params);
+			// 发送请求
+			xhr.send();
+			// 获取服务器端响应的数据
+			xhr.onload = function () {
+				console.log('服务器响应给客户端的数据：')
+				console.log(xhr.responseText)
+			}
+		}
+
+		/**
+		 * 二、测试Ajax传递POST请求参数。
+		 * 	1、post请求参数前置，必须要写请求头的'Content-Type'，  application/x-www-form-urlencoded、 application/json类型。
+		 * 	2、注意：get 请求是不能提交 json 对象数据格式的，传统网站的表单提交也是不支持 json 对象数据格式的。
+		 */ 
+		var btn2 = document.getElementById('btn2');
+		var nickName = document.getElementById('nickName');
+		var school = document.getElementById('school');
+		// 为按钮添加点击事件
+		btn2.onclick = function () {
+			// 创建ajax对象
+			var xhr = new XMLHttpRequest();
+			// 获取用户在文本框中输入的值
+			var nameValue = nickName.value;
+			var ageValue = school.value;
+			// 拼接请求参数
+			var params = 'nickName='+ nameValue +'&school=' + ageValue;
+			// 配置ajax对象
+			xhr.open('post', 'http://localhost:3000/post');
+			// 设置请求参数格式的类型（post请求必须要设置）
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			// 发送请求
+			xhr.send(params);
+			// 获取服务器端响应的数据
+			xhr.onload = function () {
+				console.log('Post请求的响应：')
+				console.log(xhr.responseText)
+			}
+			/*
+			// 通过请求头告诉服务器端客户端向服务器端传递的请求参数的格式是什么
+				xhr.setRequestHeader('Content-Type', 'application/json');
+			// JSON.stringify() 将json对象转换为json字符串
+				xhr.send(JSON.stringify({name: 'lisi', age:50}));
+			*/
+		}
+	</script>
+</body>
+</html>

@@ -1,5 +1,23 @@
 {
+  "name": "web_h5",
+  "version": "1.0.0",
+  "description": "这是npm初始化文件的描述",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chuntiancai/Hello_Web_H5.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chuntiancai/Hello_Web_H5/issues"
+  },
+  "homepage": "https://github.com/chuntiancai/Hello_Web_H5#readme",
   "dependencies": {
+    "express": "^4.18.2",
     "mime": "^3.0.0"
   }
 }

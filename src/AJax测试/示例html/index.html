@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+
+ -->
+<head>
+	<meta charset="UTF-8">
+	<title>测试Ajax的首页</title>
+	
+</head>
+
+<body>
+	<h2>欢迎，这是public文件夹中的index.html文件</h2>
+	<script type="text/javascript">
+
+	/**
+	 * 一、原生Ajax的使用
+	 */ 
+	// 1.创建ajax对象
+	var xhr = new XMLHttpRequest();
+
+	// 2.告诉Ajax对象要向哪发送请求，以什么方式发送请求
+	// 1)请求方式 2)请求地址
+	xhr.open('get', 'http://localhost:3000/responseData');
+
+	// 3.发送请求
+	xhr.send();
+
+	// 4.获取服务器端响应到客户端的数据
+	xhr.onload = function (){
+		// 这是在浏览器的后台打印
+		console.log('服务器返回的数据：')
+		console.log(xhr.responseText)
+		/**
+	 	* 二、Ajax处理服务器端返回的JSON数据
+	 	*/
+		// 将JSON字符串转换为JSON对象
+		var responseText = JSON.parse(xhr.responseText);
+		// 测试：在控制台输出处理结果
+		console.log(responseText)
+		// 将数据和html字符串进行拼接
+		var str = '<h2>'+ responseText.name +'</h2>';
+		// 将拼接的结果追加到页面中
+		document.body.innerHTML = str;
+	}
+
+	
+	</script>
+</body>
+</html>
