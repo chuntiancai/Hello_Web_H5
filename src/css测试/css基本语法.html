@@ -79,29 +79,29 @@
                     
                     /** css的并列选择器,两者都设置*/
                     #big,.high{
-                        
+                        font-size: 88px;
                     }
                     
                     /** css的复合选择器，逻辑与*/
-                    div.#big {
+                    div #big {
                         font-size: 88px;
                         color:yellow;
                     }
                     /** css的后代选择器,div标签里的所有p标签*/
                     div p {
-                        
+                        font-size: 88px;
                     }
                     /** css的直接后代选择器,第一代，div标签里的儿子p标签*/
                     div > p {
-                        
+                        font-size: 88px;
                     }
                     /** css的相邻兄弟选择器,与div相邻的p标签*/
                     div + p {
-                        
+                        font-size: 88px;
                     }
                     /** css的属性选择器,根据name属性来寻找标签*/
                     div[name]{
-                        
+                        font-size: 88px;
                     }
                     /** 伪类*/
                     input:focus {
@@ -132,7 +132,7 @@
         <p style="color: red; font-size: 60px; border:5px dashed purple">我是段落标签--行内样式</p>
         <p class = "InnerCSS">我是段落标签-- 页内样式</p>
         <p>我是段落标签 -- 外部样式</p>
-        <p id = "big">我是段落标签 -- id选择器</p>
+        <p id = "big1" >我是段落标签 -- id选择器</p>
         
         
         

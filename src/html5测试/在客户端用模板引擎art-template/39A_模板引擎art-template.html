@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- 
+    1、art-template 模板引擎作用：使用模板引擎提供的模板语法，可以将数据和 HTML 拼接起来。
+        代码上用<script>标签里的代码当作模板，用template框架将<script>标签生成填充好数据html标签字符串，把html标签字符串填充到原生html文件中。
+
+    2、art-template 模板引擎使用步骤：
+        1.去art-template官网下载template-web.js文件。
+
+        2.在 HTML 页面中引入库文件。
+            <script src="./js/template-web.js"></script>
+
+        3.准备 art-template 模板，以被用来填充数据。
+            <script id="tpl" type="text/html">
+                <div class="box"></div>
+            </script>
+            注：在这里，模板并不是一个单独的模板文件，而是在原来html文件中的一段代码，所以需要用<script>标签来标明该模板的所在位置，内容被用来填充。
+                <script>标签需要设置id和type属性，以表明是用哪个模板或者内容来填充。type="text/html" 则编辑会把<script>的内容当作html解析，高亮显示。
+        
+        4.告诉模板引擎将哪一个模板和哪个数据进行拼接。
+            var html = template('tpl', {username: 'zhangsan', age: '20'});
+
+        5.将拼接好的html字符串嵌入到网页页面中。
+            document.getElementById('container').innerHTML = html;
+        
+        6.通过模板语法告诉模板引擎，数据和html字符串要如何拼接。
+            <script id="tpl" type="text/html">
+                <div class="box"> {{ username }} </div>
+            </script>
+
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试客户端的模版引擎基本使用</title>
+	<!-- 1. 将模板引擎的库文件引入到当前页面 -->
+	<script src="../../assets(资源文件)/js库文件/template-web.js"></script>
+</head>
+<body>
+    <h1>测试客户端的模版引擎基本使用:</h1>
+	<div id="container"></div>
+	<!-- 2.准备art-template模板 -->
+	<script type="text/html" id="tpl">
+		<h2>{{username}} {{age}}</h2>
+	</script>
+	<script type="text/javascript">
+		// 3.告诉模板引擎将那个数据和哪个模板进行拼接
+		// 1) 模板id 2)数据 对象类型
+		var html = template('tpl', {username: 'zhangsan', age: 30});    // 方法的返回值就是拼接好的html字符串
+
+        //4.把模板嵌入到网页中
+		document.getElementById('container').innerHTML = html;
+	</script>
+</body>
+</html>

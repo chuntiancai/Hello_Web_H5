@@ -10,7 +10,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-//设置跨域访问
+//设置跨域访问(跨源访问)
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");	//允许从别的域名过来访问当前服务器的资源，*是通配符，你可以指定特定的别的域名。
     // res.header("Access-Control-Allow-Headers", "X-Requested-With");
