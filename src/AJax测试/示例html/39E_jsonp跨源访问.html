@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!-- 
+    1、因为ajax请求不允许去请求不同源服务器的资源，所以通过利用script标签可以向非同源服务器发送请求的特性，实现请求非同源服务器的功能。
+        核心就是在html标签里添加script标签，script标签的作用是请求他源服务器的资源，然后在本网页中执行。
+        1.在本网页的script标签内容定义 执行函数。
+        2.在本网页的script标签属性内，请求他源服务器资源。
+        3.他源服务器的返回值，就是执行本网页的script标签内容里定义的 执行函数。
+    2、在浏览器地址栏输入：http://localhost:3000/39E_jsonp跨源访问.html
+        既可以在3000端口服务器下访问该html
+
+    
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试jsonp跨源访问</title>
+</head>
+<body>
+	<button id="btn1">点我向3001端口发送执行fn1请求</button>
+    <br>
+	<button id="btn2">点我向3001端口发送执行fn2请求</button>
+    <!-- 1.在script标签的内容里定义需要被执行的函数 -->
+	<script>
+        function fn1 (data) {
+			console.log('客户端的script标签中的fn1函数被调用了')
+			console.log(data);
+		}
+		function fn2 (data) {
+			console.log('客户端的script标签中的fn2函数被调用了')
+			console.log(data);
+		}
+	</script>
+    <!-- 2.将非同源服务器端的请求地址写在script标签的src属性中 -->
+	<script src="http://localhost:3001/testJsonp"></script>
+
+	<script type="text/javascript">
+        // 获取按钮
+		var btn1 = document.getElementById('btn1');
+		// 为按钮添加点击事件
+		btn1.onclick = function () {
+			// 创建script标签
+			var script = document.createElement('script');
+			// 设置src属性
+			script.src = 'http://localhost:3001/testJsonp';
+			// 将script标签追加到页面中
+			document.body.appendChild(script);
+			// 为script标签添加onload事件
+			script.onload = function () {
+				// 将body中的script标签删除掉
+				document.body.removeChild(script);
+			}
+		}
+
+		// 获取按钮
+		var btn2 = document.getElementById('btn2');
+		// 为按钮添加点击事件
+		btn2.onclick = function () {
+			// 创建script标签
+			var script = document.createElement('script');
+			// 设置src属性，直接在客户端将函数名称传递到服务器端。
+			script.src = 'http://localhost:3001/testJsonp2?callback=fn2';
+			// 将script标签追加到页面中
+			document.body.appendChild(script);
+			// 为script标签添加onload事件
+			script.onload = function () {
+				// 将body中的script标签删除掉
+				document.body.removeChild(script);
+			}
+		}
+
+        /**
+         * 一、自封装jsonp函数
+         * btn3.onclick = function () {
+			jsonp({
+				    // 请求地址
+				    url: 'http://localhost:3001/better',
+				    success: function (data) {
+				    	console.log(456789)
+				    	console.log(data)
+				    }
+			    })
+		    }
+        */
+        function jsonp (options) {
+			// 动态创建script标签
+			var script = document.createElement('script');
+			// 拼接字符串的变量
+			var params = '';
+
+			for (var attr in options.data) {
+				params += '&' + attr + '=' + options.data[attr];
+			}
+			
+			// myJsonp0124741，解决函数名字问题
+			var fnName = 'myJsonp' + Math.random().toString().replace('.', '');
+			// 它已经不是一个全局函数了
+			// 我们要想办法将它变成全局函数
+			window[fnName] = options.success;
+			// 为script标签添加src属性
+			script.src = options.url + '?callback=' + fnName + params;
+			// 将script标签追加到页面中
+			document.body.appendChild(script);
+			// 为script标签添加onload事件
+			script.onload = function () {
+				document.body.removeChild(script);
+			}
+		}
+	</script>
+</body>
+</html>

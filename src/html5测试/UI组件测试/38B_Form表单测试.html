@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+        1、Form表单一般用于请求网络，POST请求。
+        2、FormData 对象的作用:
+            FormData封装form标签的内容，用于网络中传输。
+            1.模拟HTML表单，相当于将HTML表单映射成表单对象，自动将表单对象中的数据拼接成请求参数的格式。
+            2.异步上传二进制文件。
+            3.FormData本身市一个构造函数，可以直接构造成对象。
+            4.FormData不能用于get方法，只能用于post方式，因为FormData对象需要用send方法发送。
+
+     -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试Form表单</title>
+    <link rel="stylesheet" href="../../assets(资源文件)/bootstrap-4.0.0-dist/css/bootstrap.min.css">
+    <style type="text/css">
+		.container {
+			padding-top: 60px;
+		}
+		.padding {
+			padding: 5px 0 20px 0;
+		}
+	</style>
+</head>
+<body>
+    <!--
+        一、测试Post请求
+		method: 指定当前表单提交的方式
+		action: 指定当前表单提交的地址
+	-->
+    <h2>form表单的基础使用</h2>
+	<form method="post" action="http://localhost:3000">
+		<input type="text" name="username">
+		<input type="password" name="password">
+		<input type="submit">
+	</form>
+    <br>
+    
+    <!-- 
+        二、测试FormData对象传递form表单。
+     -->
+    <h2>测试FormData对象的form表单：</h2>
+	<form id="form1">    <!-- 创建普通的html表单 -->
+		<input type="text" name="username">
+		<input type="password" name="password">
+		<input type="button" id="btn1" value="提交">
+	</form>
+	<script type="text/javascript">
+		// 获取按钮
+		var btn = document.getElementById('btn1');
+		// 获取表单
+		var form = document.getElementById('form1');
+		// 为按钮添加点击事件
+		btn.onclick = function () {
+			// 将普通的html表单转换为表单对象
+			var formData = new FormData(form);
+            /*
+              formData对象的方法：
+				get('key') 获取表单对象属性的值
+				set('key', 'value') 设置表单对象属性的值
+				delete('key') 删除表单对象属性中的值
+                formData.append('key', 'value'); 向表单对象中追加属性值
+                注意：set 方法与 append 方法的区别是，在属性名已存在的情况下，set 会覆盖已有键名的值，append会保留两个值。
+			*/
+            console.log('formData的get方法：',formData.get('username'));
+
+            // 如果设置的表单属性存在 将会覆盖属性原有的值
+            formData.set('username', '小番薯');
+            formData.append('username', '大番薯');
+            // 如果设置的表单属性不存在 将会创建这个表单属性
+            formData.set('age', 100);
+            // 删除用户输入的密码
+            formData.delete('password');
+            
+			// 创建ajax对象
+			var xhr = new XMLHttpRequest();
+			// 对ajax对象进行配置
+			xhr.open('post', 'http://localhost:3000/formData');
+			// 发送ajax请求
+			xhr.send(formData);
+			// 监听xhr对象下面的onload事件
+			xhr.onload = function () {
+				// 对象http状态码进行判断
+				if (xhr.status == 200) {
+                    console.log('服务器的响应：')
+					console.log(xhr.responseText);
+				}
+			}
+		}
+	</script>
+    <br>
+
+    <!-- 
+        三、formData对象上传二进制文件到服务器。
+     -->
+     <h2>测试FormData对象的上传二进制文件到服务器：</h2>
+     <div class="container">
+		<div class="form-group">
+			<label>请选择文件</label>
+			<input type="file" id="file">
+			<div class="padding" id="box">
+				<!--<img src="" class="img-rounded img-responsive">-->
+			</div>
+			<div class="progress">
+				<div class="progress-bar" style="width: 0%;" id="bar">0%</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 获取文件选择控件
+		var file = document.getElementById('file');
+		// 获取进度条元素
+		var bar = document.getElementById('bar');
+		// 获取图片容器
+		var box = document.getElementById('box');
+		// 为文件选择控件添加onchanges事件
+		// 在用户选择文件时触发
+		file.onchange = function () {
+			// 创建空的formData表单对象
+			var formData = new FormData();
+			// 将用户选择的文件追加到formData表单对象中
+			formData.append('attrName', this.files[0]);
+			// 创建ajax对象
+			var xhr = new XMLHttpRequest();
+			// 对ajax对象进行配置
+			xhr.open('post', 'http://localhost:3000/upload');
+			// 在文件上传的过程中持续触发
+			xhr.upload.onprogress = function (ev) {
+				// ev.loaded 文件已经上传了多少
+				// ev.total  上传文件的总大小
+				var result = (ev.loaded / ev.total) * 100 + '%';
+				// 设置进度条的宽度
+				bar.style.width = result;
+				// 将百分比显示在进度条中
+				bar.innerHTML = result;
+			}
+			// 发送ajax请求
+			xhr.send(formData);
+			// 监听服务器端响应给客户端的数据
+			xhr.onload = function () {
+				// 如果服务器端返回的http状态码为200
+				// 说明请求是成功的
+				if (xhr.status == 200) {
+					// 将服务器端返回的数据显示在控制台中
+					var result = JSON.parse(xhr.responseText);
+					// 动态创建img标签
+					var img = document.createElement('img');
+					// 给图片标签设置src属性
+					img.src = result.path;
+					// 当图片加载完成以后
+					img.onload = function () {
+						// 将图片显示在页面中
+						box.appendChild(img);
+					}
+				}
+			}
+			
+		}
+	</script>
+</body>
+</html>

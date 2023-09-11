@@ -20,14 +20,16 @@
 	<div class="container">
 		<div class="form-group">
 			<input type="text" class="form-control" placeholder="请输入搜索关键字" id="search">
-			<ul class="list-group" id="list-box">
+			<!-- 这里是占位的容器标签 -->
+			<ul id="list-box" class="list-group">
 				
 			</ul>
 		</div>
 	</div>
 	<script src="../../Ajax测试/示例js/自封装ajax.js"></script>
 	<script src="../../assets(资源文件)/js库文件/template-web.js"></script>
-	<script type="text/html" id="tpl">
+	<!-- 这里是模版 -->
+	<script id="tpl" type="text/html">
 		{{each result}}
 			<li class="list-group-item">{{$value}}</li>
 		{{/each}}
@@ -53,7 +55,7 @@
 				return;
 			}
 
-			// 开启定时器 让请求延迟发送
+			// 开启定时器 让请求延迟发送，防止重复发送
 			timer = setTimeout(function () {
 				// 向服务器端发送请求
 				// 向服务器端索取和用户输入关键字相关的内容

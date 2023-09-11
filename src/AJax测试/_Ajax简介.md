@@ -44,6 +44,35 @@
     </form>
     <!– http://www.example.com?username=zhangsan&password=123456 -->
 
+### Ajax的同源政策
+    1、Ajax 只能向自己的服务器发送请求。比如现在有一个A网站、有一个B网站，A网站中的 HTML 文件只能向A网站服务器中发送 Ajax 请求，B网站中的 HTML 文件只能向 B 网站中发送 Ajax 请求，但是 A 网站是不能向 B 网站发送 Ajax请求的，同理，B 网站也不能向 A 网站发送 Ajax请求。
+    2、如果两个页面拥有相同的协议、域名和端口，那么这两个页面就属于同一个源，其中只要有一个不相同，就是不同源。
+    3、同源政策是为了保证用户信息的安全，防止恶意的网站窃取数据。最初的同源政策是指 A 网站在客户端设置的 Cookie，B网站是不能访问的。
+       随着互联网的发展，同源政策也越来越严格，在不同源的情况下，其中有一项规定就是无法向非同源地址发送Ajax 请求，如果请求，浏览器就会报错。
+
+    4、使用 JSONP 解决同源限制问题：
+        jsonp 是 json with padding 的缩写，它不属于 Ajax 请求，但它可以模拟 Ajax 请求。主要是利用了script标签可以向非同源服务器发送请求的特性。客户端把服务端的响应当作script标签的代码执行。
+        1. 将不同源的服务器端请求地址写在 script 标签的 src 属性中
+            <script src="www.example.com"></script>
+            <script src=“https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        2.服务器端响应数据必须是一个函数的调用，真正要发送给客户端的数据需要作为函数调用的参数。
+            const data = 'fn({name: "张三", age: "20"})';
+            res.send(data);
+        3.在客户端全局作用域下定义函数 fn
+            function fn (data) { }
+        4.在 fn 函数内部对服务器端返回的数据进行处理
+            function fn (data) { console.log(data); }
+
+        JSONP 代码优化：
+            客户端需要将函数名称传递到服务器端。
+            将 script 请求的发送变成动态请求。
+            封装 jsonp 函数，方便请求发送。
+            服务器端代码优化之 res.jsonp 方法。
+
+
+
+
+
 
 
 
