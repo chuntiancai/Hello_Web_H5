@@ -16,7 +16,7 @@
 
     删除整行： cmd + D  （也是我自定义的）
 
-    代码格式化对齐：Alt + Shift + F >> cmd + i
+    代码格式化对齐：Alt + Shift + F >> ctrl + i
 
     触发建议：ctrl + \
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- 
+    1、你可以把cookie理解为浏览器的一个代理，客户端 发送与接收 请求都是通过cookie传递给服务器。
+        同理，服务器  发送与接收 请求也是通过cookie传递给客户端。
+
+    2、cookie主要是用于解决http协议是无状态传输的情况，无状态的意思是，我只认http的报文，而不管报文是谁发的，什么时候发的。
+        但是你可以在报文中携带这些信息，也就是只认钱，不认人。但是你可以在钱上面写字。
+
+    3、在使用Ajax技术发送跨域请求时，默认情况下不会在请求中携带cookie信息。
+        请求头的withCredentials属性：指定在涉及到跨域请求时，是否携带cookie信息，默认值为false
+        Access-Control-Allow-Credentials：true 允许客户端发送请求时携带cookie
+        // 当发送跨域请求时，携带cookie信息
+		xhr.withCredentials = true;
+
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试cookie</title>
+    <link rel="stylesheet" href="../../assets(资源文件)/bootstrap-4.0.0-dist/css/bootstrap.min.css">
+	<style type="text/css">
+		.container {
+			padding-top: 60px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<form id="loginForm">
+			<div class="form-group">
+				<label>用户名</label>
+				<input type="text" name="username" class="form-control" placeholder="请输入用户名">
+			</div>
+			<div class="form-group">
+				<label>密码</label>
+				<input type="password" name="password" class="form-control" placeholder="请输入用密码">
+			</div>
+			<input type="button" class="btn btn-default" value="登录" id="loginBtn">
+			<input type="button" class="btn btn-default" value="检测用户登录状态" id="checkLogin">
+		</form>
+	</div>
+	<script type="text/javascript">
+		// 获取登录按钮
+		var loginBtn = document.getElementById('loginBtn');
+		// 获取检测登录状态按钮
+		var checkLogin = document.getElementById('checkLogin');
+		// 获取登录表单
+		var loginForm = document.getElementById('loginForm');
+		// 为登录按钮添加点击事件
+		loginBtn.onclick = function () {
+			// 将html表单转换为formData表单对象
+			var formData = new FormData(loginForm);
+			// 创建ajax对象
+			var xhr = new XMLHttpRequest();
+			// 对ajax对象进行配置
+			xhr.open('post', 'http://localhost:3001/testCredentials');
+			// 当发送跨域请求时，携带cookie信息
+			xhr.withCredentials = true;
+			// 发送请求并传递请求参数
+			xhr.send(formData);
+			// 监听服务器端给予的响应内容
+			xhr.onload = function () {
+				console.log(xhr.responseText);
+			}
+		}
+
+		// 当检测用户状态按钮被点击时
+		checkLogin.onclick = function () {
+			// 创建ajax对象
+			var xhr = new XMLHttpRequest();
+			// 对ajax对象进行配置
+			xhr.open('get', 'http://localhost:3001/checkCredentials');
+			// 当发送跨域请求时，携带cookie信息
+			xhr.withCredentials = true;
+			// 发送请求并传递请求参数
+			xhr.send();
+			// 监听服务器端给予的响应内容
+			xhr.onload = function () {
+				console.log(xhr.responseText);
+			}
+		}
+	</script>
+</body>
+</html>

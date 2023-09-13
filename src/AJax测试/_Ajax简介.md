@@ -45,6 +45,8 @@
     <!– http://www.example.com?username=zhangsan&password=123456 -->
 
 ### Ajax的同源政策
+    同源政策是浏览器给予Ajax技术的限制，服务器端是不存在同源政策限制。
+    
     1、Ajax 只能向自己的服务器发送请求。比如现在有一个A网站、有一个B网站，A网站中的 HTML 文件只能向A网站服务器中发送 Ajax 请求，B网站中的 HTML 文件只能向 B 网站中发送 Ajax 请求，但是 A 网站是不能向 B 网站发送 Ajax请求的，同理，B 网站也不能向 A 网站发送 Ajax请求。
     2、如果两个页面拥有相同的协议、域名和端口，那么这两个页面就属于同一个源，其中只要有一个不相同，就是不同源。
     3、同源政策是为了保证用户信息的安全，防止恶意的网站窃取数据。最初的同源政策是指 A 网站在客户端设置的 Cookie，B网站是不能访问的。
@@ -68,6 +70,12 @@
             将 script 请求的发送变成动态请求。
             封装 jsonp 函数，方便请求发送。
             服务器端代码优化之 res.jsonp 方法。
+
+### CORS 跨域资源共享
+    CORS：全称为 Cross-origin resource sharing，即跨域资源共享，它允许浏览器向跨域服务器发送 Ajax 请求，克服了 Ajax 只能同源使用的限制。
+         origin: http://localhost:3000
+         Access-Control-Allow-Origin: 'http://localhost:3000'
+         Access-Control-Allow-Origin: '*'
 
 
 
