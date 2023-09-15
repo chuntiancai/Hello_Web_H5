@@ -2,7 +2,29 @@
  * 1、JavaScript在使用时存在两大问题，文件依赖和命名冲突。
  *      文件依赖：就是一个js文件依赖另一个js文件，然后又依赖另一个js文件，一直依赖下去。
  *      命名冲突：两个相互依赖的js文件里的变量或者函数的命名冲突了。
- * 
+ *      CommonJS 服务器端模块化的规范，也就是约定：
+            ① 模块分为 单文件模块 与 包 
+            ② 模块成员导出：module.exports 和 exports
+            ③ 模块成员导入：require('模块标识符')
+        1.Node.js默认支持CommonJS的模块化规范，但是如果要支持ES6的模块化规范，还需要结合第三方框架babel来实现。
+          安装babel的步骤：
+          ① npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/node
+          ② npm install --save @babel/polyfill
+          ③ 项目根目录创建文件 babel.config.js
+          ④ babel.config.js 文件内容如右侧代码
+             const presets = [
+              ["@babel/env", {
+                 targets: {
+                 edge: "17",
+                 firefox: "60",
+                 chrome: "67",
+                 safari: "11.1"
+                 }
+              }]
+             ];
+             module.exports = { presets };
+          ⑤ 通过 npx babel-node index.js 执行代码
+            
  * 2、 Node.js中模块化开发规范：
  *      Node.js规定一个JavaScript文件就是一个模块，模块内部定义的变量和函数默认情况下在外部无法得到。
  *      模块内部可以使用exports对象进行成员导出， 使用require方法导入其他模块。

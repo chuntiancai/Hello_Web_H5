@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- 
+    1、axios是一个基于Promise开发的 http客户端 功能框架(第三方)，也就是该模块提供了处理专门处理http相关的api。
+        支持promise，支持浏览器和后台node.js，可以拦截网络请求和响应，解析转换json数据等功能。
+        自己去git上面下载，然后导入js文件即可。
+    2、
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试axios</title>
+</head>
+<body>
+    <script type="text/javascript" src="./js库文件/axios.js"></script>
+    <script type="text/javascript">
+      axios.get('http://localhost:3000/adata').then(function(ret){
+        // 注意data属性是固定的用法，用于获取后台的实际数据
+        // console.log(ret.data)
+        console.log(ret)
+      })
+     /*
+      axios请求参数传递
+    */
+    // axios get请求传参
+    axios.get('http://localhost:3000/axios?id=123').then(function(ret){
+      console.log(ret.data)
+    })
+    axios.get('http://localhost:3000/axios/123').then(function(ret){
+      console.log(ret.data)
+    })
+    axios.get('http://localhost:3000/axios', {
+      params: {
+        id: 789
+      }
+    }).then(function(ret){
+      console.log(ret.data)
+    })
+
+    // axios delete 请求传参
+    axios.delete('http://localhost:3000/axios', {
+      params: {
+        id: 111
+      }
+    }).then(function(ret){
+      console.log(ret.data)
+    })
+
+    // axios post 请求传参
+    axios.post('http://localhost:3000/axios', {
+      uname: 'lisi',
+      pwd: 123
+    }).then(function(ret){
+      console.log(ret.data)
+    })
+    var params = new URLSearchParams();
+    params.append('uname', 'zhangsan');
+    params.append('pwd', '111');
+    axios.post('http://localhost:3000/axios', params).then(function(ret){
+      console.log(ret.data)
+    })
+
+    // axios put 请求传参
+    axios.put('http://localhost:3000/axios/123', {
+      uname: 'lisi',
+      pwd: 123
+    }).then(function(ret){
+      console.log(ret.data)
+    })
+
+    /*
+      axios 响应结果与全局配置
+    */
+    // axios.get('http://localhost:3000/axios-json').then(function(ret){
+    //   console.log(ret.data.uname)
+    // })
+
+    // 配置请求的基准URL地址
+    axios.defaults.baseURL = 'http://localhost:3000/';
+    // 配置请求头信息
+    axios.defaults.headers['mytoken'] = 'hello';
+    axios.get('axios-json').then(function(ret){
+      console.log(ret.data.uname)   //subText属性是状态信息
+    })
+
+    /*
+      axios拦截器
+      拦截器之后，才会被get、post方法接收。
+    */
+   //添加一个请求拦截器
+    axios.interceptors.request.use(function(config) {
+      console.log(config.url)
+      config.headers.mytoken = 'nihao';
+      //在请求发出前配置一些信息
+      return config;
+    }, function(err){
+        //处理错误信息
+      console.log(err)
+    })
+
+    axios.interceptors.response.use(function(res) {
+      // console.log(res)
+      var data = res.data;  //这里返回的data，就是下面get方法接收到的data。
+      return data;
+    }, function(err){
+      console.log(err)
+    })
+    axios.get('http://localhost:3000/adata').then(function(data){
+      console.log(data)
+    })
+
+    </script>    
+</body>
+</html>
