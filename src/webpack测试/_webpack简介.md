@@ -99,15 +99,16 @@
     ② 在 webpack.config.js 的 module -> rules 数组中，添加 loader 规则如下：
         // 所有第三方文件模块的匹配规则
         module: {
-        rules: [
-        { test: /\.css$/, use: ['style-loader', 'css-loader'] }
-        ]
+            rules: [
+                { test: /\.css$/, use: ['style-loader', 'css-loader'] }
+            ]
         }
         其中，test 表示匹配的文件类型， use 表示对应要调用的 loader
         注意：  use 数组中指定的 loader 顺序是固定的
                多个 loader 的调用顺序是：从后往前调用
 
 ### 2. 打包处理 less 文件
+    less和scss都是样式的预编译语言。
     ① 运行 npm i less-loader less -D 命令
     ② 在 webpack.config.js 的 module -> rules 数组中，添加 loader 规则如下：
      // 所有第三方文件模块的匹配规则
@@ -128,11 +129,92 @@
      }
 
 ### 4. 配置 postCSS 自动添加 css 的兼容前缀
+    兼容老IE浏览器。
     ① 运行 npm i postcss-loader autoprefixer -D 命令
     ② 在项目根目录中创建 postcss 的配置文件 postcss.config.js，并初始化如下配置：
+        const autoprefixer = require('autoprefixer') // 导入自动添加前缀的插件
+        module.exports = {
+            plugins: [ autoprefixer ] // 挂载插件
+        }
     ③ 在 webpack.config.js 的 module -> rules 数组中，修改 css 的 loader 规则如下：
      module: {
         rules: [
             { test:/\.css$/, use: ['style-loader', 'css-loader', 'postcss-loader'] }
         ]
      }
+
+### 5.配置资源文件的路径，即打包样式表中的图片和字体文件
+    webpack默认是不能识别资源文件的路径和资源类型的，需要引入加载器处理。
+    ① 运行 npm i url-loader file-loader -D 命令
+    ② 在 webpack.config.js 的 module -> rules 数组中，添加 loader 规则如下：
+        module: {
+            rules: [
+                { 
+                    test: /\.jpg|png|gif|bmp|ttf|eot|svg|woff|woff2$/, 
+                    use: 'url-loader?limit=16940'
+                }
+            ]
+        }
+        其中 ? 之后的是 loader 的参数项。url-loader内置依赖file-loader。
+        limit 用来指定图片的大小，单位是字节(byte),只有小于 limit 大小的图片，才会被转为 base64 图片
+
+### 6. 打包处理 js 文件中的高级语法
+    ① 安装babel转换器相关的包：npm i babel-loader @babel/core @babel/runtime -D 
+    ② 安装babel语法插件相关的包：npm i  @babel/preset-env @babel/plugin-transformruntime @babel/plugin-proposal-class-properties –D 
+    ③ 在项目根目录  中，创建 babel 配置文件 babel.config.js 并初始化基本配置如下：
+        module.exports = {
+            presets: [ '@babel/preset-env' ],
+            plugins: [ '@babel/plugin-transform-runtime', '@babel/plugin-proposalclass-properties’ ]
+        }
+    ④ 在 webpack.config.js 的 module -> rules 数组中，添加 loader 规则如下：
+        // exclude 为排除项，表示 babel-loader 不需要处理 node_modules 中的 js 文件
+        { test: /\.js$/, use: 'babel-loader', exclude: /node_modules/ }
+
+
+## webpack 中配置 vue 组件的加载器
+    ① 运行 npm i vue-loader vue-template-compiler -D 命令   //这是依赖项
+    ② 在 webpack.config.js 配置文件中，添加 vue-loader 的配置项如下：
+    const VueLoaderPlugin = require('vue-loader/lib/plugin')    //插件
+    module.exports = {
+        module: {
+            rules: [
+                    // ... 其它规则
+                    { test: /\.vue$/, loader: 'vue-loader' }
+                ]
+        },
+        plugins: [
+            // ... 其它插件
+            new VueLoaderPlugin() // 请确保引入这个插件！
+        ] 
+    }
+
+### 在 webpack 项目中使用 vue
+    ① 运行 npm i vue –S 安装 vue
+    ② 在 src -> index.js 入口文件中，通过 import Vue from 'vue' 来导入 vue 构造函数
+    ③ 创建 vue 的实例对象，并指定要控制的 el 区域
+    ④ 通过 render 函数渲染 App 根组件
+        // 1. 导入 Vue 构造函数
+        import Vue from 'vue'
+        // 2. 导入 App 根组件
+        import App from './components/App.vue'
+
+        const vm = new Vue({
+            // 3. 指定 vm 实例要控制的页面区域
+            el: '#app',
+            // 4. 通过 render 函数，把指定的组件渲染到 el 区域中
+            render: h => h(App)
+        })
+
+##  webpack 打包发布
+    上线之前需要通过webpack将应用进行整体打包，可以通过 package.json 文件配置打包命令：
+        // 在package.json文件中配置 webpack 打包命令
+        // 该命令默认加载项目根目录中的 webpack.config.js 配置文件
+        "scripts": {
+        // 用于打包的命令
+        "build": "webpack -p",
+        // 用于开发调试的命令
+        "dev": "webpack-dev-server --open --host 127.0.0.1 --port 3000",
+        },
+
+    打包之后，会在dist文件夹下生成index.html和bundle.js文件，bundle.js文件就是webpack根据你的配置，拿源代码那些js文件
+    打包构建成的集合js文件。然后叫后台人员把dist文件夹发布到服务器上，用户就可以去访问网页了。

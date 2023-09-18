@@ -14,3 +14,25 @@
         ① M(model)
         ② V(view)
         ③ VM(View-Model)
+
+##  Element-UI 的基本使用
+    Element-UI：一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库。 官网地址为： http://element-cn.eleme.io/#/zh-CN
+    就是类似jQuery那些，主要用于PC端，你可以直接使用这个库提供的UI组件。可以通过Vue来使用这些UI组件库。
+    在官网复制粘贴代码到项目中即可。
+
+    使用步骤：
+    1. 基于命令行方式手动安装
+        ① 安装依赖包 npm i element-ui –S ② 导入 Element-UI 相关资源
+        // 导入组件库
+        import ElementUI from 'element-ui';
+        // 导入组件相关样式
+        import 'element-ui/lib/theme-chalk/index.css';
+        // 配置 Vue 插件
+        Vue.use(ElementUI);
+    
+    2. 基于图形化界面自动安装
+        ① 运行 vue ui 命令，打开图形化界面
+        ② 通过 Vue 项目管理器，进入具体的项目配置面板
+        ③ 点击 插件 -> 添加插件，进入插件查询面板
+        ④ 搜索 vue-cli-plugin-element 并安装
+        ⑤ 配置插件，实现按需导入，从而减少打包后项目的体积
