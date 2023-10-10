@@ -118,3 +118,11 @@
                 } 
             }
         })
+
+        // 触发 Action
+        methods: {
+            handle() {
+                // 触发 actions 的第一种方式
+                this.$store.dispatch('addAsync')
+            }
+        }
