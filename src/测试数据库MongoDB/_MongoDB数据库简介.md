@@ -1,4 +1,18 @@
 
+## MongoDB的安装介绍：
+    1、直接去mongoDB的官网下载mongoDB软件，然后在W3school查看mongoDB的安装教程，配置环境等等，需要结合百度最新的安装方式。
+    2、mongoDB Compass是一个可视化软件，是mongoDB官方提供的，可以以可视化界面的形式操作数据库。
+    3、下载安装mongoDB软件后，去配置mongoDB命令的环境变量，以及数据库路径等等，在 ~/.zshrc文件中配置环境变量，路径用mongoDB的linux命令来配置。
+    4、启动mongodb服务后，就可以通过js的第三方库mongoose来连接数据数据库了。
+    5、导入本地数据库到mongodb中：
+        mongoimport –d 目标数据库名称 –c 目标集合名称 –file 要导入的数据文件(例如json文件)
+            安装mongodb时，并没有携带安装这些工具，因此需要手动安装mongoimport。去官网下载安装。
+
+## mongoDB Compass软件的使用
+    1、还是要启动mongoDB的服务，通过mongod --dbpath /usr/local/mongodata/data --logpath /usr/local/mongodata/log/mongo.log --fork 命令。
+    2、然后在界面上链接到mongodb服务上，默认端口是27017
+    3、左侧栏有三个默认的仓库：admin、local、config。你也可以自己创建仓库
+
 ## Mongoose第三方包
     使用Node.js操作MongoDB数据库需要依赖Node.js第三方包mongoose
     使用npm install mongoose命令下载
@@ -7,11 +21,21 @@
     1、启动mongodb服务：
         mongod --dbpath /usr/local/mongodata/data --logpath /usr/local/mongodata/log/mongo.log --fork 
             mac没有权限在根目录下创建默认的数据路径文件(window可以，默认/data/db)，所以需要指定路径。
-            --dbpath：指定MongoDB数据目录的路径。
+            --dbpath：指定MongoDB数据目录的路径。记得给文件读写的权限。
             --logpath：指定MongoDB日志文件的路径。
+            --logappend(以追加的方式打开文件)
             --fork：以后台进程方式运行MongoDB服务器。
-    2、配置MongoDB配置文件。
-        在自定义目录下传家
+
+    2、配置MongoDB配置文件。算了，好像是还要进到bin目录执行./mongod mongodb.conf命令，具体也不清楚配置文件是怎么起作用的。
+        在自定义目录(即data文件)下创建etc/mongod.conf文件，用linux的touch命令创建。然后在配置文件中填写配置信息：
+            #mongodb config file 配置文件
+            dbpath=/usr/local/mongodata/data
+            logpath=/usr/local/mongodata/log
+            logappend = true 
+            port = 27017 
+            fork = true 
+            auth = true
+
     
 
 ## linux命令
