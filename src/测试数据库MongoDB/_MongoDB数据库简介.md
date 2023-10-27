@@ -5,7 +5,8 @@
     3、下载安装mongoDB软件后，去配置mongoDB命令的环境变量，以及数据库路径等等，在 ~/.zshrc文件中配置环境变量，路径用mongoDB的linux命令来配置。
     4、启动mongodb服务后，就可以通过js的第三方库mongoose来连接数据数据库了。
     5、导入本地数据库到mongodb中：
-        mongoimport –d 目标数据库名称 –c 目标集合名称 –file 要导入的数据文件(例如json文件)
+        mongoimport -d 目标数据库名称 -c 目标集合名称 --file 要导入的数据文件(例如json文件)
+            例如：mongoexport -d TestDBName -c users --file TestFileName.json
             安装mongodb时，并没有携带安装这些工具，因此需要手动安装mongoimport。去官网下载安装。
 
 ## mongoDB Compass软件的使用
