@@ -1,7 +1,18 @@
 /**
  * 一、创建web服务器
- * 	1、__dirname全局变量 表示当前文件的路径。
+ * 	1、__dirname全局变量 表示当前文件的路径。但是这个是COMMONJS的配置，不是ES的默认配置，需要转换。
  */
+
+//下面两句是为了兼容node.js 14版以下版本，因为require作为COMMONJS的一个命令已不再直接支持使用，所以我们需要导入createRequire命令才可以。
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
  // 引用系统模块
  const http = require('http');
  // 用于处理url地址

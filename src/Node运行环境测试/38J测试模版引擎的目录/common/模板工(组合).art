@@ -1,6 +1,7 @@
+//用于组合多个模板
 {{extend './模板.art'}}
 
-//block的堆料
+//block的堆料，用于给各个模版中的指定位置填充数据，这里是给模板中的{{block 'content'}} {{/block}}位置填充<p>{{ msg }}</p>
 {{block 'content'}}//block开始
 <p>{{ msg }}</p>
 {{/block}}  //block结束

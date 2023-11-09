@@ -3,7 +3,7 @@
  * 
  * 1、模版引擎是第三方框架，目的让开发者以更加友好的方式拼接字符串，例如拼接整个html文件的字符串。
  *     art-template模板引擎(腾讯的)：
- *      1.在命令行工具中使用 npm install art-template 命令进行下载。
+ *       1.在命令行工具中使用 npm install art-template 命令进行下载。
  *       2.使用const template = require('art-template')引入模板引擎。
  *       3.告诉模板引擎要拼接的数据和模板在哪 const html = template(‘模板路径’, 数据);
  *       4.使用模板语法告诉模板引擎，模板与数据应该如何进行拼接。
@@ -62,6 +62,7 @@
  *      
  * 4、模板配置(更灵活地使用模板引擎)：
  * 		1.向模板中导入变量 template.defaults.imports.变量名 = 变量值;（把其他第三方库的方法定义为当前模板的变量）
+ * 				假设变量值是第三方库，这样就可以在模版.art文件中，通过 变量名.方法 来使用第三方库的模板了。
  *		2.设置模板根目录 template.defaults.root = 模板目录；
  *			全局配置模板的根目录，根目录下的art文件，可以直接 template方法中使用。
  *		3.设置模板默认后缀 template.defaults.extname = '.art'

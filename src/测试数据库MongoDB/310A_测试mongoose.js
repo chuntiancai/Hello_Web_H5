@@ -3,6 +3,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 /**
+ * ----- 笔记 --------
  * 1、创建数据库：在MongoDB中不需要显式创建数据库，如果正在使用的数据库不存在，MongoDB会自动创建。
  * 2、创建集合的规则, 使用规则创建集合, 刷新mongodb compass软件，就可以看到你创建的数据库了。
  * 3、与数据库相关的操作，都是异步操作，譬如增删改查。

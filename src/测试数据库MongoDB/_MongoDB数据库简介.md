@@ -11,6 +11,25 @@
 
 ## mongoDB Compass软件的使用
     1、还是要启动mongoDB的服务，通过mongod --dbpath /usr/local/mongodata/data --logpath /usr/local/mongodata/log/mongo.log --fork 命令。
+        你也可以通过创建conf文件的形式，快速启动mongoDB的服务，其实就是把命令的参数放到conf文件中。
+        mongod --config /usr/local/mongodata/mongod.conf
+        mongod.conf文件的配置：
+            # network interfaces
+            net:
+              bindIp: 127.0.0.1 # 绑定到本地回环地址
+              port: 27017
+
+            # storage
+            storage:
+              dbPath: /usr/local/mongodata/data # 使用/data/db作为数据存储路径
+
+            # systemLog options
+            systemLog:
+              destination: file
+              path: /usr/local/mongodata/log/mongo.log # 指定日志文件路径
+              logAppend: true	#追加的方式输入文件中
+
+
     2、然后在界面上链接到mongodb服务上，默认端口是27017
     3、左侧栏有三个默认的仓库：admin、local、config。你也可以自己创建仓库
 
