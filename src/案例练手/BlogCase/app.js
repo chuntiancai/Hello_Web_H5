@@ -1,0 +1,82 @@
+// 引用expess框架，管理整个项目的路由
+import express from "express";
+
+ // 引入系统路径模块，处理路径
+import path from "path";   
+
+// 引入body-parser模块 用来处理post请求参数
+import bodyPaser from "body-parser";    // 处理路径
+
+// 导入express-session模块,处理网络会话。
+import session from "express-session";
+
+import artTemplate from  "express-art-template";
+
+import {fileURLToPath}  from 'url';
+
+//转换为ES语法的路径
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+/**
+ * 一、配置express的使用。
+ */
+
+// 创建网站服务器
+const app = express();
+
+// 告诉express框架模板所在的位置
+app.set('views', path.join(__dirname, 'views'));
+
+// 告诉express框架模板的默认后缀是什么，后面通过express框架引用.art文件的时候就可以直接省略.art后缀了。
+app.set('view engine', 'art');
+
+// 当渲染后缀为art的模板时 所使用的模板引擎是什么(:是artTemplate引擎)
+app.engine('art', artTemplate);
+
+
+/**
+ * 二、配置请求路径的路由
+ */
+
+// 开放静态资源文件
+app.use(express.static(path.join(__dirname, 'public')))
+
+// 数据库连接,引入数据库connect.js文件，并执行
+import ('./model/connect.js')
+
+// 使用bodyPaser模块处理post请求参数
+app.use(bodyPaser.urlencoded({extended: false}));
+
+// 使用express-session模块来配置session会话。
+app.use(session({
+	secret: 'secret key',
+	saveUninitialized: false,
+	cookie: {
+		maxAge: 24 * 60 * 60 * 1000
+	}
+}));
+
+
+// 引入路由模块，即执行home.js文件，和admin.js文件。后面这两个文件分别用了处理home页和admin页面的路由逻辑。
+import home from  './route/home.js'
+import admin from  './route/admin.js'
+
+
+// 拦截请求 判断用户登录状态，使用loginGuard.js文件的逻辑来拦截/admin请求。
+import loginGuard from './middleware/loginGuard.js'
+app.use('/admin', loginGuard);
+
+// 为路由匹配请求路径，把'/home'请求路径分配给home.js文件处理。
+app.use('/home', home);
+app.use('/admin', admin);
+
+app.use((err, req, res, next) => {
+	// 将字符串对象转换为对象类型
+	// JSON.parse() 
+	const result = JSON.parse(err);
+	res.redirect(`${result.path}?message=${result.message}`);
+})
+
+// 监听端口
+app.listen(80);
+console.log('网站服务器启动成功, 请访问localhost:80')

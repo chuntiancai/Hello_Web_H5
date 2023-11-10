@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
 	hobbies: [ String ]
 });
 
-// 创建集合 返回集合构造函数
+// 创建集合 返回集合构造函数,导出作为模块
 export const User = mongoose.model('User', userSchema);
 
 // module.exports = User;	//兼容ES语法，不能使用module.exports
