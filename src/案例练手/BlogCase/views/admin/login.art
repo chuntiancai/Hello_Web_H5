@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/admin/lib/bootstrap/css/bootstrap.min.css">
      <!-- 
      // 如果路径名前没有斜杠css/base.css，则相对路径是相对于浏览器中请求url下的路径，且最后一个字符串认为是文件。
-     // 如果路径名前加上斜杠，比如/admin/css/base.css,则认为是绝对路径，是从请求的服务器开始的绝对路径（express设置的静态资源路径）。
+     // 如果路径名前加上斜杠，比如/admin/css/base.css,则认为是绝对路径，是从请求的服务器开始的绝对路径（express设置的静态资源路径public）。
       -->
     <link rel="stylesheet" href="/admin/css/base.css">
 </head>
@@ -17,14 +17,15 @@
         <div class="login-container">
             <h4 class="title">黑马程序员 - 博客管理员登录</h4>
             <div class="login">
-                <form action="user.html">
+                <!-- 提交登录的表单，post方法 -->
+                <form action="/admin/login" method="post" id="loginForm">
                     <div class="form-group">
                         <label>邮件</label>
-                        <input type="email" class="form-control" placeholder="请输入邮件地址">
+                        <input name="email"  type="email" class="form-control" placeholder="请输入邮件地址">
                     </div>
                     <div class="form-group">
                         <label>密码</label>
-                        <input type="password" class="form-control" placeholder="请输入密码">
+                        <input name="password"  type="password" class="form-control" placeholder="请输入密码">
                     </div>
                     <button type="submit" class="btn btn-primary">登录</button>
                 </form>
@@ -34,6 +35,32 @@
     </div>
     <script src="/admin/lib/jquery/dist/jquery.min.js"></script>
     <script src="/admin/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/admin/js/common.js"></script>
+    
+    <script type="text/javascript">
+        // 如果浏览器禁止页面执行js，则下面的js将不会被执行，而是直接提交到服务器中去。
+
+        // 为表单添加提交事件
+        $('#loginForm').on('submit', function () {
+            // 获取到表单中用户输入的内容
+            var result = serializeToJson($(this))
+            
+            
+
+            // 如果用户没有输入邮件地址的话
+            if (result.email.trim().length == 0) {
+                alert('请输入邮件地址');
+                // 阻止程序向下执行,即阻止表单的默认提交行为
+                return false;
+            }
+            // 如果用户没有输入密码
+            if (result.password.trim().length == 0) {
+                alert('请输入密码')
+                // 阻止程序向下执行
+                return false;
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -1,7 +1,10 @@
-//管理页面的处理逻辑.js
+//MARK: -- 管理页面的处理逻辑.js
 
 // 引用expess框架
 import express from "express";
+
+//导入数据库的集合规则,User集合规则
+// import User from '../model/user.js'
 
 // 创建博客展示页面路由
 
@@ -37,9 +40,22 @@ admin.get('/login', (req, res) => {
 // import loginPage from './admin/loginPage'
 // admin.get('/login', loginPage);
 
-// // 实现登录功能
-// import login from './admin/login'
-// admin.post('/login', login);
+// 实现登录功能，处理登录POST参数
+import login from './admin/login.js'
+admin.post('/login', login);
+// admin.post('/login',async (req,res)=>{
+//     console.log('请求参数：',req.body)
+//     // 接收请求参数
+// 	const {email, password} = req.body;
+// 	// 如果用户没有输入邮件地址
+// 	if (email.trim().length == 0 || password.trim().length == 0) {
+//         return res.status(400).render('admin/error', {msg: '邮件地址或者密码错误'});
+//     }
+//     // res.status(200).send(req.body)
+//     //根据邮箱地址查询用户
+//     // let user = await User.findOne({email})
+// })
+
 
 // // 创建用户列表路由
 // import userPage from './admin/userPage'
