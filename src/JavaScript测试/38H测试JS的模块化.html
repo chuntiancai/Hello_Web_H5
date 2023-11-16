@@ -16,6 +16,9 @@
                  a, c,show
                 }
                 注意：每个模块中，只允许使用唯一的一次 export default，否则会报错！
+                    一个js文件被当做一个模块引入，会暴露为一个对象（也就是被导入后，可以当做一个对象来操作）。
+                    export的作用，是在这个文件对象中添加属性，export出来的东西，全部会添加到文件对象中。
+                    export default 的作用，是给这个文件对象的 default 属性，添加值。
 
              默认导入语法 import 接收名称 from '模块标识符'
                 import m1 from './m1.js'

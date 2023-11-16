@@ -72,12 +72,19 @@ import admin from  './route/admin.js'
 app.use('/home', home);
 app.use('/admin', admin);
 
-// app.use((err, req, res, next) => {
-// 	// 将字符串对象转换为对象类型
-// 	// JSON.parse() 
-// 	const result = JSON.parse(err);
-// 	res.redirect(`${result.path}?message=${result.message}`);
-// })
+/**
+ * 四、配置错误处理中间件
+ * 	1、调用next方法就会调用错误处理中间件。所以以后直接在return next方法里面传递json字符串，就会来到这里。
+ * 	2、是调用next("未定义的路径，中间件")，然后就会走到这里来，也就是如果next到一个不知道的对象，就会当作错误信息，然后就路由到这里来。
+ * 	3、如果这里处理不了错误的信息，而且抛出错误的话，就会继续由express内置的错误处理中间件处理。
+ */
+app.use((err, req, res, next) => {
+	// 将字符串对象转换为对象类型
+	// JSON.parse() 
+	const result = JSON.parse(err);
+	//`${result.path}?message=${result.message}`是约定好的重定向位置和参数。
+	res.redirect(`${result.path}?message=${result.message}`);
+})
 
 // 监听端口
 app.listen(80);

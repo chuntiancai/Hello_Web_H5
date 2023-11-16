@@ -1,4 +1,4 @@
-//MARK: -- 管理页面的处理逻辑.js
+//MARK: -- 管理页面的逻辑逻辑.js 处理路由 ----
 
 // 引用expess框架
 import express from "express";
@@ -15,30 +15,25 @@ admin.get('/', (req, res) => {
 });
 
 
-//测试
-admin.get('/user', (req,res)=>{
-    //这个会去到模版根路径下寻找user.art文件，也就是views目录下，因为app.js设置了views为模版的根路径。
-    res.render('admin/user')
-    // res.send('欢迎来到user页面')
-})
 
-admin.get('/login', (req, res) => {
-	res.render('admin/login')
-});
+//处理登录页面的路由，路由到登录页的渲染。
+import loginPage from "./admin/loginPage.js";
+admin.get('/login', loginPage);
+
 // admin.get('/article', (req, res) => {
 // 	res.render('admin/article')
 // });
 // admin.get('/article-edit', (req, res) => {
 // 	res.render('admin/article-edit')
 // });
-// admin.get('/user-edit', (req, res) => {
-// 	res.render('admin/user-edit')
-// });
 
+//处理编辑用户的路由，路由到编辑用户页的渲染。
+import user_edit from "./admin/user-editPage.js";
+admin.get('/user-edit', user_edit);
+// 路由到 创建实现用户添加功能 ，处理post请求
+import user_edit_fn from "./admin/user-edit-fn.js";
+admin.post('/user-edit', user_edit_fn);
 
-// // 渲染登录页面
-// import loginPage from './admin/loginPage'
-// admin.get('/login', loginPage);
 
 // 实现登录功能，处理登录POST参数
 import login from './admin/login.js'
@@ -57,9 +52,17 @@ admin.post('/login', login);
 // })
 
 
-// // 创建用户列表路由
-// import userPage from './admin/userPage'
-// admin.get('/user', userPage);
+// 创建用户列表路由
+import userPage from "./admin/userPage.js";
+admin.get('/user', userPage);
+/**
+admin.get('/user', (req,res)=>{
+    //这个会去到模版根路径下寻找user.art文件，也就是views目录下，因为app.js设置了views为模版的根路径。
+    res.render('admin/user')
+    // res.send('欢迎来到user页面')
+})
+ */
+
 
 // // 实现退出功能
 // import logout from './admin/logout'

@@ -1,9 +1,9 @@
-// 用户页面的逻辑.js
+//MARK: === 处理用户页面的渲染逻辑js ===
 
 // 导入用户集合构造函数
-const { User } = import('../../model/user');
+import { User } from '../../model/user.js';
 
-export default async (req, res) => {
+export default async function userPage(req, res){
 	// 接收客户端传递过来的当前页参数
 	let page = req.query.page || 1;
 	// 每一页显示的数据条数

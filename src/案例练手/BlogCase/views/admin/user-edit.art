@@ -1,12 +1,12 @@
 <!-- user-edit组合模板，相当于模板工人，组合各个模板，形成功能页面的模板 -->
 
-//引入其他模板填充，相当于头文件
+<!-- 引入其他模板填充，相当于头文件-->
 {{extend './common/layout.art'}}
 
-//作为头文件模版的block堆料去填充进去头文件模版中。
+<!-- 作为头文件模版的block堆料去填充进去头文件模版中。 -->
 {{block 'main' }}
     <!-- /头部 -->
-    //这里的路径是由模板引擎来解释，而不是由浏览器解释
+    <!-- 这里的路径是由模板引擎来解释，而不是由浏览器解释 -->
     {{include './common/header.art' }}
     <!-- 主体内容 -->
     <div class="content">
@@ -15,35 +15,35 @@
         <div class="main">
             <!-- 分类标题 -->
             <div class="title">
-                <h4>5b9a716cb2d2bf17706bcc0a</h4>
-                <p class="tips">错误信息</p>
+                <h4 style="display: {{button == '修改' ? 'block' : 'none'}}">{{@user && user._id}}</h4>
+                <p class="tips"> 错误信息：{{message}}</p>
             </div>
             <!-- /分类标题 -->
-            <form class="form-container">
+            <form class="form-container" action="/admin/user-edit" method="post">
                 <div class="form-group">
                     <label>用户名</label>
-                    <input type="text" class="form-control" placeholder="请输入用户名">
+                    <input name = "username" type="text" class="form-control" placeholder="请输入用户名">
                 </div>
                 <div class="form-group">
                     <label>邮箱</label>
-                    <input type="email" class="form-control" placeholder="请输入邮箱地址">
+                    <input name="email" type="email" class="form-control" placeholder="请输入邮箱地址">
                 </div>
                 <div class="form-group">
                     <label>密码</label>
-                    <input type="password" class="form-control" placeholder="请输入密码">
+                    <input name="password" type="password" class="form-control" placeholder="请输入密码">
                 </div>
                 <div class="form-group">
                     <label>角色</label>
-                    <select class="form-control">
-                        <option>普通用户</option>
-                        <option>超级管理员</option>
+                    <select class="form-control" name="role" >
+                        <option value="nomal">普通用户</option>
+                        <option value="admin">超级管理员</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" name="state">
                     <label>状态</label>
                     <select class="form-control">
-                        <option>启用</option>
-                        <option>禁用</option>
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
                     </select>
                 </div>
                 <div class="buttons">

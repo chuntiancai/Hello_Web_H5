@@ -9,8 +9,9 @@
     <!-- 用户信息 -->
     <div class="info">
         <div class="profile dropdown fr">
+        <!-- userInfo是app.locals.userInfo，是express框架提供的本地存储对象 -->
             <span class="btn dropdown-toggle" data-toggle="dropdown">
-                {{userInfo.username}}}
+                {{userInfo && userInfo.username}}
                 <span class="caret"></span>
             </span>
             <ul class="dropdown-menu">

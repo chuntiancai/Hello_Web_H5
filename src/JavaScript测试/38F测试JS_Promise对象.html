@@ -17,6 +17,16 @@
         /**
          * 一、Promise的基本使用
          *  1、在new构造方法里传入函数作为参数，函数的参数是任务，然后任务在p.then方法里面定义。
+         *      function是Promise的参数，function的参数是需要你后面定义的任务。
+         *      后面你需要定义的任务，在promise.then(任务)中定义，然后这个 任务 就会传递到function的参数中去，
+         *      就是then方法相当于传任务给Promise执行。
+         * 
+         *  2、也就是你可以理解为，function有多少个参数，你在then方法里就可以执行多少个任务。
+         *      function(参数1，参数2) ==> p.then(任务1，任务2)；
+         *      Promise默认会把 任务1 理解成成功状态下的任务，任务2理解成失败状态下的任务，promise一次也就只能定义两个任务。
+         *      但是你可以无限地then下去，就一次接一次地传任务进来。
+         *      执行失败的任务2时，可以通过catch去捕捉，只能catch一次，因为它理解为失败了。
+         *      如果你用了catch，那么也就没必要在then方法里定义任务2了，只需要定义任务1就可以了。
          */ 
         var p = new Promise(function(resolve,reject){
             //这里实现异步任务

@@ -30,10 +30,10 @@ export default async (req, res) => {
 			// 登录成功
 			// 将用户名存储在请求对象中
 			req.session.username = user.username;
-			// res.send('登录成功');
+			// res.send('登录成功');，这里的app值的是express框架创建的整个app对象，local是它给出的本地对象。
 			req.app.locals.userInfo = user;
 			// 重定向到用户列表页面
-			res.redirect('/admin/user');
+			res.status(200).redirect('/admin/user');
 		} else {
 			// 没有查询到用户
 			res.status(400).render('admin/error', {msg: '邮箱地址或者密码错误'})
