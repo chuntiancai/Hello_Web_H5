@@ -29,8 +29,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- users是express框架从render方法传递过来的参数。 -->
                     {{each users}}
                     <tr>
+                        <!-- @符号表示将数据用原文进行输出 -->
                         <td>{{@$value._id}}</td>
                         <td>{{$value.username}}</td>
                         <td>{{$value.email}}</td>

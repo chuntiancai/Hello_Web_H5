@@ -35,7 +35,7 @@ import user_edit_fn from "./admin/user-edit-fn.js";
 admin.post('/user-edit', user_edit_fn);
 
 
-// 实现登录功能，处理登录POST参数
+// 处理登录功能，处理登录POST参数
 import login from './admin/login.js'
 admin.post('/login', login);
 // admin.post('/login',async (req,res)=>{
@@ -52,9 +52,10 @@ admin.post('/login', login);
 // })
 
 
-// 创建用户列表路由
+// 处理用户列表路由。
 import userPage from "./admin/userPage.js";
 admin.get('/user', userPage);
+
 /**
 admin.get('/user', (req,res)=>{
     //这个会去到模版根路径下寻找user.art文件，也就是views目录下，因为app.js设置了views为模版的根路径。

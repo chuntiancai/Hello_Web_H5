@@ -3,6 +3,7 @@
 // 导入用户集合构造函数
 import { User } from '../../model/user.js';
 
+// 用了async关键字，也就是函数里面的await关键字可以阻塞当前async线程。
 export default async function userPage(req, res){
 	// 接收客户端传递过来的当前页参数
 	let page = req.query.page || 1;
@@ -18,7 +19,8 @@ export default async function userPage(req, res){
 
 	// 将用户信息从数据库中查询出来
 	let users = await User.find({}).limit(pagesize).skip(start)
-	// 渲染用户列表模块
+	
+	// 渲染用户列表模块，这里渲染的路径时相对于在app中设置的views路径，存放art文件的。
 	res.render('admin/user', {
 		users: users,
 		page: page,
