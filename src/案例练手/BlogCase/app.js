@@ -10,9 +10,26 @@ import bodyPaser from "body-parser";    // 处理路径
 // 导入express-session模块,处理网络会话。
 import session from "express-session";
 
+
 import artTemplate from  "express-art-template";
 
 import {fileURLToPath}  from 'url';
+
+
+// 这个是express的global属性，可以去访问电脑系统的环境变量。可以由此来设置当前项目是开发环境还是生产环境。
+// process.env.MyValue
+
+// 导入config模块，可以访问不同环境下的属性数据。就是访问json配置文件。
+import config from 'config'
+console.log('当前环境是：',config.get('title'))
+
+// 导入dateformat第三方模块，处理时间格式
+import dateFormat from "dateformat";
+
+// 导入art-tempate模板引擎，其实express框架内部也是集成了art-template模板。
+import template from "art-template";
+// 向第三方模板内部导入另外一个第三方模版dateFormate变量
+template.defaults.imports.dateFormat = dateFormat;
 
 //转换为ES语法的路径
 const __filename = fileURLToPath(import.meta.url);
@@ -40,7 +57,7 @@ app.engine('art', artTemplate);
  */
 
 // 数据库连接,引入数据库connect.js文件，并执行
-import ('./model/connect.js')
+import ('./model/connectDB.js')
 
 // 开放静态资源文件
 app.use(express.static(path.join(__dirname, 'public')))
@@ -81,9 +98,17 @@ app.use('/admin', admin);
 app.use((err, req, res, next) => {
 	// 将字符串对象转换为对象类型
 	// JSON.parse() 
+	console.log('app.js的错误处理中间件：',err)
 	const result = JSON.parse(err);
-	//`${result.path}?message=${result.message}`是约定好的重定向位置和参数。
-	res.redirect(`${result.path}?message=${result.message}`);
+	// {path: '/admin/user-edit', message: '密码比对失败,不能进行用户信息的修改', id: id}
+	let params = [];
+	for (let attr in result) {
+		if (attr != 'path') {
+			params.push(attr + '=' + result[attr]);
+		}
+	}
+	//拼凑成get的url请求，重定向到url。
+	res.redirect(`${result.path}?${params.join('&')}`);
 })
 
 // 监听端口

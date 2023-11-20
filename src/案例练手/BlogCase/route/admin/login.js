@@ -1,7 +1,7 @@
 //MARK: -- 处理登录的路由逻辑.js -----
 
 // 导入用户集合构造函数
-import { User } from '../../model/user.js'
+import { User } from '../../model/userDB.js'
 
 export default async (req, res) => {
     console.log('处理login的post请求')

@@ -1,7 +1,7 @@
-//MARK: === 处理用户编辑页面的post请求逻辑js ===
+//MARK: === 处理 添加用户 的数据处理逻辑.js post请求 ===
 // 引入用户集合的构造函数
 
-import { User, validateUser } from '../../model/user.js'
+import { User, validateUser } from '../../model/userDB.js'
 
 export default async function user_edit_fn(req, res, next){
 

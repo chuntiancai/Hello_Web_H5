@@ -16,10 +16,11 @@
             <!-- 分类标题 -->
             <div class="title">
                 <h4 style="display: {{button == '修改' ? 'block' : 'none'}}">{{@user && user._id}}</h4>
-                <p class="tips"> 错误信息：{{message}}</p>
+                 <!-- 错误信息，有则会自动显示，没则自动隐藏 -->
+                <p class="tips">{{message}}</p>
             </div>
-            <!-- /分类标题 -->
-            <form class="form-container" action="/admin/user-edit" method="post">
+            <!-- /分类标题，由render方法传递进来跳转链接url -->
+            <form class="form-container" action="{{link}}" method="post">
                 <div class="form-group">
                     <label>用户名</label>
                     <input name = "username" type="text" class="form-control" placeholder="请输入用户名">
@@ -35,15 +36,15 @@
                 <div class="form-group">
                     <label>角色</label>
                     <select class="form-control" name="role" >
-                        <option value="nomal">普通用户</option>
+                        <option value="normal">普通用户</option>
                         <option value="admin">超级管理员</option>
                     </select>
                 </div>
-                <div class="form-group" name="state">
+                <div class="form-group">
                     <label>状态</label>
-                    <select class="form-control">
-                        <option value="1">启用</option>
-                        <option value="0">禁用</option>
+                    <select class="form-control" name="state">
+                        <option value="0" {{user && user.state == '0' ? 'selected' : ''}}>启用</option>
+                        <option value="1" {{user && user.state == '1' ? 'selected' : ''}}>禁用</option>
                     </select>
                 </div>
                 <div class="buttons">

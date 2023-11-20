@@ -74,7 +74,7 @@ function validateUser(user){
 	// 实施验证
 	const result = schema.validate(user);
 	if (result.error){
-		console.log('校验抛错：',result)
+		console.log('joi校验抛错：',result)
 		throw result.error
 	}else{
 		console.log('joi验证通过了')
