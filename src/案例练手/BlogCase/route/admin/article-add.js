@@ -4,11 +4,15 @@
 // 引入formidable第三方模块，解析表单，支持get请求参数，post请求参数、文件上传。
 import formidable from 'formidable'
 import path from 'path'
+
 import { Article } from '../../model/articleDB.js'
 
-export default async function article_add(req, res){
+const __dirname = path.resolve(import.meta.url).substring(7);
+
+export default async function article_add(req, res){ 
+
 	// 1.创建表单解析对象
-	const form = new formidable.IncomingForm();
+	const form = formidable({ multiples: true });
 	// 2.配置上传文件的存放位置
 	form.uploadDir = path.join(__dirname, '../', '../', 'public', 'uploads');
 	// 3.保留上传文件的后缀
@@ -23,7 +27,7 @@ export default async function article_add(req, res){
 			title: fields.title,
 			author: fields.author,
 			publishDate: fields.publishDate,
-			cover: files.cover.path.split('public')[1],
+			// cover: files.cover ? files.cover.path.split('public')[1] : null,
 			content: fields.content,
 		});
 		// 将页面重定向到文章列表页面

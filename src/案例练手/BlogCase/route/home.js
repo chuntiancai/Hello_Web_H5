@@ -10,6 +10,7 @@ home.get('/', (req, res) => {
 	res.send('欢迎来到博客首页')
 });
 
+
 export default home;
 
 // // 将路由对象做为模块成员进行导出

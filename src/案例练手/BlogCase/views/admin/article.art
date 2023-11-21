@@ -1,17 +1,17 @@
 <!--user组合模板，相当于模板工人，组合各个模板，形成功能页面的模板, 文章列表页面 -->
 
-//引入其他模板填充，相当于头文件
+<!-- 引入其他模板填充，相当于头文件  -->
 {{extend './common/layout.art'}}
 
-//作为头文件模版的block堆料去填充进去头文件模版中。
+<!-- 作为头文件模版的block堆料去填充进去头文件模版中。 -->
+
 {{block 'main' }}
 	<!-- /头部 -->
     <!-- 这里的路径是由模板引擎来解释，而不是由浏览器解释 -->
     {{include './common/header.art' }}
-    <!-- 主体内容 -->
+        <!-- 主体内容 -->
     <div class="content">
-    	<!-- 侧边栏 -->
-        {{include './common/aside.art' }}
+    	{{include './common/aside.art'}}
         <div class="main">
         	<!-- 分类标题 -->
             <div class="title">
@@ -31,17 +31,16 @@
                         <th>操作</th>
                     </tr>
                 </thead>
-                <!-- 这些数据都是render方法的参数传过来的 -->
                 <tbody>
                     {{each articles.records}}
                     <tr>
                         <td>{{@$value._id}}</td>
                         <td>{{$value.title}}</td>
-                         <!-- dateFormat是在app.js引入的第三方模板，并嵌入到express的template框架中，所以可以直接在这里使用 -->
+                        <!-- dateFormat是在app.js引入的第三方模板，并嵌入到express的template框架中，所以可以直接在这里使用 -->
                         <td>{{dateFormat($value.publishDate, 'yyyy-mm-dd')}}</td>
                         <td>{{$value.author.username}}</td>
                         <td>
-                            <a href="article-edit.html" class="glyphicon glyphicon-edit"></a>
+                            <a href="/admin/article-edit?id={{$value._id}}" class="glyphicon glyphicon-edit"></a>
                             <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
                         </td>
                     </tr>
@@ -49,7 +48,7 @@
                 </tbody>
             </table>
             <!-- /内容列表 -->
-            <!-- 分页器 -->
+            <!-- 分页 -->
             <ul class="pagination">
                 {{if articles.page > 1}}
                 <li>

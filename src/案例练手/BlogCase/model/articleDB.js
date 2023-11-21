@@ -3,7 +3,7 @@
 // 1.引入mongoose模块
 import mongoose from 'mongoose'
 
-// 2.创建文章集合规则
+// 2.创建文章集合规则，数据库表
 const articleSchema = new mongoose.Schema({
 	title: {
 		type: String,

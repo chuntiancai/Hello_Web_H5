@@ -1,6 +1,6 @@
 //MARK: == 文章列表页面 的渲染逻辑.js ==
 
-// 将文章集合的构造函数导入到当前文件中
+// 将数据库文章集合的构造函数导入到当前文件中
 import { Article } from '../../model/articleDB.js'
 // 导入mongoose-sex-page模块,实现数据库的分页功能
 import pagination from 'mongoose-sex-page'
@@ -18,11 +18,13 @@ export default async function article(req, res){
 	// exec 向数据库中发送查询请求
 	// 查询所有文章数据
 	let articles = await pagination(Article).find().page(page).size(2).display(3).populate('author').exec();
-
-	// res.send(articles);
+	articles = JSON.parse(JSON.stringify(articles));//需要解析为json对象才可以传递到render方法中去，不然会报错。
+    
 
 	// 渲染文章列表页面模板
-	res.render('admin/article.art', {
-		articles: articles
+    res.render('admin/article.art', {
+		articles: articles,
 	});
+
+    console.log('articlePage解析成功了～')
 }

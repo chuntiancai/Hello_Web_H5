@@ -20,8 +20,8 @@ import {fileURLToPath}  from 'url';
 // process.env.MyValue
 
 // 导入config模块，可以访问不同环境下的属性数据。就是访问json配置文件。
-import config from 'config'
-console.log('当前环境是：',config.get('title'))
+// import config from 'config'
+// console.log('当前环境是：',config.get('title'))
 
 // 导入dateformat第三方模块，处理时间格式
 import dateFormat from "dateformat";
@@ -105,7 +105,7 @@ app.use((err, req, res, next) => {
 	for (let attr in result) {
 		if (attr != 'path') {
 			params.push(attr + '=' + result[attr]);
-		}
+		} 
 	}
 	//拼凑成get的url请求，重定向到url。
 	res.redirect(`${result.path}?${params.join('&')}`);
