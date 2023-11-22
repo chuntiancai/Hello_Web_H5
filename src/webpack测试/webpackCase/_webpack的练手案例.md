@@ -61,3 +61,17 @@
          webpack-dev-server 会启动一个实时打包的 http 服务器
          webpack-dev-server 打包生成的输出文件，默认放到了项目根目录中，而且是虚拟的、看不见的
         
+## 配置webpack的生成预览页面步骤：
+    使用html-webpack-plugin插件。
+    ① 运行 npm install html-webpack-plugin –D 命令，安装生成预览页面的插件
+    ② 修改 webpack.config.js 文件头部区域，添加如下配置信息：
+        // 导入生成预览页面的插件，得到一个构造函数
+        const HtmlWebpackPlugin = require('html-webpack-plugin')
+        const htmlPlugin = new HtmlWebpackPlugin({   // 创建插件的实例对象
+            template: './src/index.html',   // 指定要用到的模板文件
+            filename: 'index.html'      // 指定生成的文件的名称，该文件存在于内存中，在目录中不显示
+        })
+    ③ 修改 webpack.config.js 文件中向外暴露的配置对象，新增如下配置节点：
+        module.exports = {
+            plugins: [ htmlPlugin ] // plugins 数组是 webpack 打包期间会用到的一些插件列表
+        }
