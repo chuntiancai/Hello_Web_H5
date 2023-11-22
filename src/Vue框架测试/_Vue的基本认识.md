@@ -15,6 +15,13 @@
         ② V(view)
         ③ VM(View-Model)
 
+## Vue使用步骤：
+    1、需要提供标签用于填充数据
+    2、引入vue.js库文件，在script代码区域配置vue对象，写js代码，配置vue数据。
+    3、使用vue的语法做功能了，在html标签内使用vue的语法，vue就会实现相应的功能。
+    4、把vue提供的数据填充到标签里面。
+
+
 ##  Element-UI 的基本使用
     Element-UI：一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库。 官网地址为： http://element-cn.eleme.io/#/zh-CN
     就是类似jQuery那些，主要用于PC端，你可以直接使用这个库提供的UI组件。可以通过Vue来使用这些UI组件库。
