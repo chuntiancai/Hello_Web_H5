@@ -7,7 +7,7 @@
 
 ## webpack的基本使用
     以列表隔行变色项目为例子：在webpackCase目录中。
-    
+
 ### 1.创建列表隔行变色项目
     ① 新建项目空白目录，并运行 npm init –y 命令，初始化包管理配置文件 package.json
     ② 新建 src 源代码目录
@@ -129,7 +129,7 @@
         ]
      }
 
-### 4. 配置 postCSS 自动添加 css 的兼容前缀
+### 4. 配置 postCSS 自动添加 css 的兼容前缀，兼容老IE浏览器
     兼容老IE浏览器。
     ① 运行 npm i postcss-loader autoprefixer -D 命令
     ② 在项目根目录中创建 postcss 的配置文件 postcss.config.js，并初始化如下配置：

@@ -14,11 +14,11 @@ module.exports = {
        filename: 'bundle.js' // 输出文件的名称
     } ,
     //需要配置服务器地址，不然不知道为啥不能访问，直接当作get请求处理了。
-    devServer: {
-        open: true,     //初次打包完成后,自动打开浏览器
-        host: '127.0.0.1',  // 实时打包所使用的主机地址
-        port: 8080,     // 实时打包所使用的端口号
-        static:'./'     //静态资源，能够在http协议上打开相当于是app.use(express.static('./'))
-    },
+    // devServer: {
+    //     open: true,     //初次打包完成后,自动打开浏览器
+    //     host: '127.0.0.1',  // 实时打包所使用的主机地址
+    //     port: 8080,     // 实时打包所使用的端口号
+    //     static:'./'     //静态资源，能够在http协议上打开相当于是app.use(express.static('./'))
+    // },
     plugins: [ htmlPlugin ] // plugins 数组是 webpack 打包期间会用到的一些插件列表
 }

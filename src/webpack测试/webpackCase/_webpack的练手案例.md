@@ -46,8 +46,10 @@
     ② 修改 package.json -> scripts 中的 dev 命令如下：
         "scripts": {
             "dev": "webpack-dev-server" // script 节点下的脚本，可以通过 npm run 执行
+            //或者： --open 打包完成后自动打开浏览器页面； --host 配置 IP 地址； --port 配置端口
+            "dev": "webpack-dev-server --open --host 127.0.0.1 --port 8888"
         }
-        在webpack.config.js中添加如下节点：
+        自动打开也可以在webpack.config.js中添加如下节点：
         devServer: {
             open: true,//初次打包完成后,自动打开浏览器
             host: '127.0.0.1',// 实时打包所使用的主机地址
