@@ -32,10 +32,28 @@
     
     4、删除app.vue里默认的样式和代码，替换成自己的页面和代码。
 
+    5、项目的入口是从mian.js文件去创建APP.vue，由App.vue来管理整个工程的路由。
+
 ## 登录业务：
+    实现步骤：
+        1.把vue创建的hello  word哪些代码和路由全部删掉。
+        2.在componets目录下创建Login.vue,用于管理登录模块的数据交互。
+        3.因为会用到less语法，所以需要在vue ui上按照less,less-loader的开发依赖，然后在vue ui上重启项目。
+        4.element-ui需要在element.js中引入相关的ui控件，然后main.js会把相关控件挂载给App.vue使用。
+
     1、使用token维持状态的方式，来处理服务器跨域访问的问题。
         也就是在网络请求中保留一个token字段，来处理服务器访问另一台服务器时的限制问题。
         1.第一次请求，服务器生成token返回给客户端，后续客户端的所有请求都会带上token字段，服务器用来验证token字段是否有效。
     
-    2、通过 Element-UI 组件实现布局：
+    2、通过 Element-UI 组件实现布局（丢弃，vue3需要升级到Elementplus）：
         1.所用到的Element-UI组件里的UI控件： el-form、 el-form-item、 el-input、 el-button、 字体图标
+        2.以后还是尽量用终端的npm来管理插件，用vue ui的话，改配置不好改。
+
+
+    
+
+
+## 项目插件配置：
+    1、eslint插件：
+        1.把.eslintrc.js后缀改为cjs，这样就会认为这个是commonJS的语法的文件，就不会老是报错commonJS转换为ES错误了。
+        2.在.eslintrc.cjs下，rules下增加'vue/multi-word-component-names': 0 键值对，这样就不会老是保单个单词命名vue组件的错误了。

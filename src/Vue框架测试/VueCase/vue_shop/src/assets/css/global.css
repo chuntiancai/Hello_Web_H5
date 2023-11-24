@@ -1,0 +1,9 @@
+/* 全局样式表 */
+/* 设置html、body标签，#app组件宽高占满全屏 */
+html,
+body,
+#app {
+  height: 100%; 
+  margin: 0;
+  padding: 0;
+}

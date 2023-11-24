@@ -36,7 +36,7 @@
                 也就是你可以在ESLint的配置文件中定义哪些代码的书写方式是不规范的，然后在编辑器中就小弹窗提醒了。
             ESLint不仅是vscode的插件，也可以是项目的插件，它本来就是一个js的库，默认情况下，ESLint 会在所有父级目录里寻找配置文件，一直到根目录。如果发现配置文件中有 “root”: true，它就会停止在父级目录中寻找。
         1.在根目录创建 .eslintrc.js 文件，这个是eslint的配置文件，你可以在这个文件里面配置语法规则，具体规则详情看官网
-        2.
+        
 
 
 ## vscode的配置文件：
@@ -57,3 +57,9 @@
             3.在VS Code中，您可以安装“Babel JavaScript”插件，并启用其自动保存功能，以便在保存文件时自动转换ES6+代码。(或者在编辑时提示)
 
 
+## npm命令：
+    1、npm是node.js管理整个工程的终端工具，同时也是插件，用例管理node.js的第三方包。
+    npm install 插件    //安装插件
+    npm ls //查看当前项目安装了多少插件(node包)。
+    npm uninstall xx插件    //卸载xx插件。
+    npm uninstall xx插件 --legacy-peer-deps //--legacy-peer-deps表示忽略依赖冲突
