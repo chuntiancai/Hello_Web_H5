@@ -39,4 +39,21 @@
         2.
 
 
+## vscode的配置文件：
+
+    1、package.json 文件，这个是npm的管理第三方包的配置文件，同时也是管理整个项目运行环境的文件。
+        这个json里的type="module"，那么会默认项目下所有 JS 文件为 ESM，type只能设置一个值，也可以设置所有js文件为commonJS文件。
+        如果报错：文件是 CommonJS 模块; 它可能会转换为 ES 模块。ts(80001）
+                那么就是你设置了type="module"，然后你的js文件又使用了commonJS的语法，所以就会报错，因为需要使用es6的语法才可以。
+            解决：在js文件中改为使用es6的语法，或者把文件后缀名改为.cjs，表示这是一个commonJS语法的js文件。
+
+    2、.eslintrc.js文件，这个是eslint插件的配置文件，用来检查语法错误和小弹窗给出建议的，默认这个文件不会创建，需要你手动创建。
+        然后你可以在.eslintrc.js文件中自定义配置语法规则，规则代码怎么写才算规范。
+
+    3、babel.config.cjs文件，这个是你安装babel插件的时候生成的配置文件，babel插件主要用于es语法去兼容commonJS的语法，
+        Babel会在以下情况下转换ES6+代码：
+            1.在构建过程中：如果您使用Webpack、Gulp或其他构建工具来打包和压缩JavaScript代码，则可以配置这些工具以使用Babel进行转换。
+            2.在运行时：如果您使用Node.js或浏览器环境来运行JavaScript代码，则可以使用@babel/polyfill库来提供对ES6+功能的支持。
+            3.在VS Code中，您可以安装“Babel JavaScript”插件，并启用其自动保存功能，以便在保存文件时自动转换ES6+代码。(或者在编辑时提示)
+
 

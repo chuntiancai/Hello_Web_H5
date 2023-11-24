@@ -48,10 +48,10 @@
     <div id="app">
         <div>测试事件绑定：{{num}}</div>
         <div>
-            <button v-on:click='num++'>点击</button>
-            <button @click='num++'>点击1</button>
-            <button @click='handle'>点击2</button>
-            <button @click='handle()'>点击3</button>
+            <button v-on:click="num++">点击</button>
+            <button @click="num++">点击1</button>
+            <button @click="handle">点击2</button>
+            <button @click="handle()">点击3</button>
             <!-- 如果事件直接绑定函数名称，那么默认会传递事件对象作为事件函数的第一个参数 -->
             <button v-on:click='handle1'>事件传参1</button>
             <!-- 2、如果事件绑定函数调用，那么事件对象必须作为最后一个参数显示传递，并且事件对象的名称必须是$event -->
