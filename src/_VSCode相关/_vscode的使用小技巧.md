@@ -59,7 +59,16 @@
 
 ## npm命令：
     1、npm是node.js管理整个工程的终端工具，同时也是插件，用例管理node.js的第三方包。
+    npm insatll     //根据package.json安装插件
     npm install 插件    //安装插件
     npm ls //查看当前项目安装了多少插件(node包)。
     npm uninstall xx插件    //卸载xx插件。
     npm uninstall xx插件 --legacy-peer-deps //--legacy-peer-deps表示忽略依赖冲突
+    npm cache clean --force     //实际上是清理 _chcache文件夹
+    npm install --force //一个模块不管是否安装过，npm 都要强制重新安装
+
+## linux命令：
+    sudo chown -R 目录路径  //更改某个目录或文件关联的用户名和用户组，可以用来提高权限，-R表示包括所有子目录。
+            当npm命令权限不够的时候可以执行sudo chown -R 501:20 "/Users/ctch/.npm" //20是关联组id
+    
+    chmod -R 777 目录路径   //用来修改某个目录或文件的访问权限。-R遍历所有子目录均生效。777是用户权限代码，具体百度。
