@@ -1,5 +1,7 @@
 // 因为element ui在vue3.0版本不可用，所以改为用element-plus
 import { ElButton, ElForm, ElFormItem, ElInput } from 'element-plus'
+// 不引入的话，element-plus会没有样式。
+import 'element-plus/dist/index.css'
 
 export default function useUIElement (app) {
   app.use(ElButton)

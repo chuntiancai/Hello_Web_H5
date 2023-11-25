@@ -1,5 +1,25 @@
 
 ## 这是一个后台管理系统，不是用户webApp
+## 项目目录结构：
+    用 vue-cli 4 创建的 Vue3 项目：
+    + demo
+        + node_modules（存放第三方模块）
+        + public（存放静态文件）
+            - favicon.ico（图标）
+            - index.html （页面模板）
+        + src（我们自己写的文件一般放在这个文件夹下）
+            + assets（存放资源文件）
+            + components（存放公共组件）
+            + router.js（路由管理：Router）
+            + store.js （状态管理：Vuex）
+            + views（存放视图组件）
+            - App.vue（页面入口文件）
+            - main.js（程序入口文件）
+        - package.json（项目配置文件）
+        - package-lock.json（项目配置文件）
+        - babel.config.js（babel 配置文件）
+        - README.md（项目说明文档）
+        - ...（其它配置文件）
 
 ## 电商后台管理项目的开发模式，涉及技术：
     1、电商后台管理系统整体采用 前后端分离 的开发模式，其中前端项目是基于 Vue 技术栈的 SPA 项目。
@@ -57,3 +77,5 @@
     1、eslint插件：
         1.把.eslintrc.js后缀改为cjs，这样就会认为这个是commonJS的语法的文件，就不会老是报错commonJS转换为ES错误了。
         2.在.eslintrc.cjs下，rules下增加'vue/multi-word-component-names': 0 键值对，这样就不会老是保单个单词命名vue组件的错误了。
+    2、elementui插件变更为element puls
+        1.如果elementplus没有样式，则需要在main.js文件中手动导入import 'element-plus/dist/index.css'。

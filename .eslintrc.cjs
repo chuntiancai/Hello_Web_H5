@@ -16,6 +16,12 @@ module.exports = {
         node: true, // Node.js 全局变量和 Node.js 作用域
         browser: true, // 浏览器全局变量
         jquery: true // jQuery 全局变量
+    },
+    rules: {
+        'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+        'vue/multi-word-component-names': 0,
+        'no-irregular-whitespace': 'off'
     }
    
 }

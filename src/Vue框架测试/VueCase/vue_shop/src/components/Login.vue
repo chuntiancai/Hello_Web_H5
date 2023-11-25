@@ -91,7 +91,7 @@ export default {
   position: absolute;
   left: 50%;
   top: 50%;
-  // 设置在坐标系中的位移，x，y轴的偏移。
+  // 设置在坐标系中的形变位移，x，y轴的偏移。相对于设置好的位置进行偏移。
   transform: translate(-50%, -50%);
 
   .avatar_box {
@@ -120,6 +120,8 @@ export default {
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
+  border: red;
+  border: 5px solid red;
 }
 
 .btns {
