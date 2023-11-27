@@ -70,8 +70,7 @@
         1.所用到的Element-UI组件里的UI控件： el-form、 el-form-item、 el-input、 el-button、 字体图标
         2.以后还是尽量用终端的npm来管理插件，用vue ui的话，改配置不好改。
 
-
-    
+## 登录遇到的bug：
 
 
 ## 项目插件配置：
@@ -79,7 +78,24 @@
         1.把.eslintrc.js后缀改为cjs，这样就会认为这个是commonJS的语法的文件，就不会老是报错commonJS转换为ES错误了。
         2.在.eslintrc.cjs下，rules下增加'vue/multi-word-component-names': 0 键值对，这样就不会老是保单个单词命名vue组件的错误了。
         3.eslint8.0版本之后配置文件名改为 eslint.config.js了，所以.eslintrc.cjs无效，以后有什么问题，先去看插件的官网文档该怎么配置。
-        4、不能手动创建.eslintrc.cjs文件，需要通过eslint --init来初始化自动创建的.eslintrc.cjs文件才会有效。
+        4、不能手动创建.eslintrc.cjs文件，需要通过eslint --init命令来初始化自动创建的.eslintrc.cjs文件才会有效。
 
     2、elementui插件变更为element puls
         1.如果elementplus没有样式，则需要在main.js文件中手动导入import 'element-plus/dist/index.css'。
+        2.如果需要使用elementplus的图标icon，则需要导入npm install @element-plus/icons-vue，具体看elementplus的官方文档。
+        3.导入静态图标或者图片文件（百度elementplus使用阿里图标库）：
+            第一步：引入项目下面生成的fontclass代码：
+                    <link rel="stylesheet" type="text/css" href="./iconfont.css">
+                    在这里就是：把资源文件放在asset目录下，在main.js文件中引入资源文件的.js文件。
+                                import './assets/fonts/iconfont.css'
+
+            第二步：挑选相应图标并获取类名，应用于页面：
+                    <i class="iconfont icon-xxx"></i>
+                        elemtplus 需要使用插槽，而不能直接属性：
+                        <template #prefix>
+                            <el-icon class="iconfont icon-xxx"><search /></el-icon>
+                        </template>
+
+
+## npm命令管理：
+    1、npm run serve命令： 是执行package.json文件中 "scripts": { "serve": "vue-cli-service serve", 脚本。

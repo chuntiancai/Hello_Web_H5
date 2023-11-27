@@ -1,5 +1,6 @@
 // 因为element ui在vue3.0版本不可用，所以改为用element-plus
 import { ElButton, ElForm, ElFormItem, ElInput } from 'element-plus'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // 不引入的话，element-plus会没有样式。
 import 'element-plus/dist/index.css'
 
@@ -9,4 +10,10 @@ export default function useUIElement (app) {
   app.use(ElFormItem)
   // 如果ElButton这些有install方法，则可以使用app.use()来加载，否则使用app.component来加载。
   app.component(ElInput.name, ElInput)
+
+  //  统一注册el-icon图标
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+  }
+
 }

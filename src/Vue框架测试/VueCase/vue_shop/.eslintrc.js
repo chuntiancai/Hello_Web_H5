@@ -30,6 +30,7 @@ module.exports = {
         "vue"
     ],
     "rules": {
-      'vue/multi-word-component-names': "off" //关闭驼峰命名的校验。
+      'vue/multi-word-component-names': "off", //关闭驼峰命名的校验。
+      "no-mixed-spaces-and-tabs":0  //tab键符和空格符号可以混合
     }
 }

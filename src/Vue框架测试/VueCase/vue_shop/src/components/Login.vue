@@ -8,20 +8,24 @@
         <img src="../assets/logo.png" alt="">
       </div>
       <!-- 登录表单区域 -->
-      <el-form label-width="0px" class="login_form">
+      <el-form label-width="0px" class="login_form" model="loginForm" :rules="loginFormRules">
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input></el-input>
+          <el-input  v-model="loginForm.username">
+            <template #prefix>
+  				    <i class="iconfont icon-user"></i>
+  			    </template>
+          </el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input type="password"> </el-input>
+          <el-input  v-model="loginForm.password" prefix-icon="Lock" type="password"></el-input>
         </el-form-item>
         <!-- 按钮区域 -->
-        <el-form-item class="btns">
+        <div class="btns">
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
-        </el-form-item>
+        </div>
       </el-form>
     </div>
   </div>
@@ -118,16 +122,16 @@ export default {
 
 .login_form {
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
-  border: red;
-  border: 5px solid red;
+  // border: solid 5px red;
 }
 
 .btns {
   display: flex;
   justify-content: flex-end;
+  // border: solid 2px red;
 }
 </style>
