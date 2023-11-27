@@ -18,6 +18,7 @@
         - package.json（项目配置文件）
         - package-lock.json（项目配置文件）
         - babel.config.js（babel 配置文件）
+        - vue.config.js (Vue CLI项目的配置文件，用于自定义Vue CLI构建过程和开发服务)
         - README.md（项目说明文档）
         - ...（其它配置文件）
 
@@ -77,5 +78,7 @@
     1、eslint插件：
         1.把.eslintrc.js后缀改为cjs，这样就会认为这个是commonJS的语法的文件，就不会老是报错commonJS转换为ES错误了。
         2.在.eslintrc.cjs下，rules下增加'vue/multi-word-component-names': 0 键值对，这样就不会老是保单个单词命名vue组件的错误了。
+        3.eslint8.0版本之后配置文件名改为 eslint.config.js了，所以.eslintrc.cjs无效，以后有什么问题，先去看插件的官网文档该怎么配置。
+
     2、elementui插件变更为element puls
         1.如果elementplus没有样式，则需要在main.js文件中手动导入import 'element-plus/dist/index.css'。
