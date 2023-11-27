@@ -44,3 +44,27 @@
         ③ 点击 插件 -> 添加插件，进入插件查询面板
         ④ 搜索 vue-cli-plugin-element 并安装
         ⑤ 配置插件，实现按需导入，从而减少打包后项目的体积
+
+## vue的终端命令
+    1、需要在终端全局按照vue cli 才能去使用vue的命令，也就是把vue命令的路径添加到mac终端上了。
+        npm install -g vue-cli
+    2、vue config  //查看vue cli的用户配置，配置文件在/Users/mathew/.vuerc
+        .vuerc文件：这个文件用于存储Vue CLI的用户配置，例如使用哪个包管理器、是否使用淘宝NPM镜像等。这些选项通常与Vue CLI本身相关，而不是与具体的Vue项目相关。
+
+## vue cli的认识：
+    1、Vue CLI是一个基于Vue.js的官方脚手架工具，用于快速搭建Vue.js项目。它提供了一组预设选项和配置，可以帮助您在几分钟内创建一个全功能的Vue.js应用程序。
+    2、然后，因为是集成的，所以有很多配置的问题，例如vue的eslint更新了，但是vue cli集成的eslint还没更新，然后就各种各样的问题，烦死了。
+
+
+## vue 的配置文件：
+    .vuerc文件：    这个文件用于存储Vue CLI的用户配置，例如使用哪个包管理器、是否使用淘宝NPM镜像等。这些选项通常与Vue CLI本身相关，而不是与具体的Vue项目相关。
+    vue.config.js文件：     这个文件用于配置Vue CLI服务（即运行在开发服务器上的服务），例如设置代理、自定义Webpack配置等。这些选项通常与您正在开发的具体Vue项目相关。
+    eslint.config.js文件：  这个文件用于配置ESLint规则和选项，例如指定要使用哪些插件、启用哪些规则等。这些选项通常与您正在编写的JavaScript代码相关，而不是特定于Vue项目。
+
+## vue 的插件：
+    @vue/cli-plugin-eslint：是一个Vue CLI插件，用于集成ESLint到Vue项目中。它提供了一组预设规则和配置选项。
+        1、这个经常有各种各样的问题，我现在也不知道它的配置文件在哪里，有问题就把它卸载掉，然后重装就好了。
+            npm uninstall @vue/cli-plugin-eslint    //卸载
+            npm install @vue/cli-plugin-eslint --save-dev   //安装
+    ESLint插件：不集成于vue cli的插件，也就是其他构包工具也可以使用这个插件。
+    

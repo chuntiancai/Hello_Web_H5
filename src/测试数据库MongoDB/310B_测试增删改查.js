@@ -3,7 +3,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 // 引入mongoose第三方模块 用来操作数据库
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); 
 
 /**
  * --- 笔记 ---- 

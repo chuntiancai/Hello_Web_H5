@@ -1,3 +1,4 @@
+/* eslint-disable */
 <!-- UI组件模板 -->
 <template>
   <div class="login_container">
@@ -10,11 +11,11 @@
       <el-form label-width="0px" class="login_form">
         <!-- 用户名 -->
         <el-form-item prop="username">
-          <el-input ></el-input>
+          <el-input></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input  type="password"> </el-input>
+          <el-input type="password"> </el-input>
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
@@ -29,7 +30,7 @@
 <!-- UI的交互行为逻辑 -->
 <script>
 export default {
-  data () {
+  data() {
     return {
       // 这是登录表单的数据绑定对象
       loginForm: {
@@ -53,11 +54,11 @@ export default {
   },
   methods: {
     // 点击重置按钮，重置登录表单
-    resetLoginForm () {
+    resetLoginForm() {
       // console.log(this);
       this.$refs.loginFormRef.resetFields()
     },
-    login () {
+    login() {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('login', this.loginForm)
@@ -105,6 +106,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
+
     img {
       width: 100%;
       height: 100%;
