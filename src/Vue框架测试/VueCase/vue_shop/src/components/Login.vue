@@ -8,7 +8,7 @@
         <img src="../assets/logo.png" alt="">
       </div>
       <!-- 登录表单区域 -->
-      <el-form label-width="0px" class="login_form" model="loginForm" :rules="loginFormRules">
+      <el-form ref="loginFormRef" label-width="0px" class="login_form" model="loginForm" :rules="loginFormRules">
         <!-- 用户名 -->
         <el-form-item prop="username">
           <el-input  v-model="loginForm.username">
@@ -33,6 +33,10 @@
 
 <!-- UI的交互行为逻辑 -->
 <script>
+import {ref} from "vue"
+ //获取表单元素
+ const ruleFormRef = ref().value
+
 export default {
   data() {
     return {
@@ -59,8 +63,8 @@ export default {
   methods: {
     // 点击重置按钮，重置登录表单
     resetLoginForm() {
-      // console.log(this);
-      this.$refs.loginFormRef.resetFields()
+      console.log('打印表单对象：',this);//loginFormRef是你设置的表form表单引用，用来获取form表单对象
+      ruleFormRef.resetFields()
     },
     login() {
       this.$refs.loginFormRef.validate(async valid => {
