@@ -3,6 +3,7 @@ module.exports = {
         "browser": true,
         "es2021": true
     },
+    // extend的意思是去集成一些公开的 eslint规则，你自己也可以写一些公开的eslint规则给别人使用。
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -44,6 +45,8 @@ module.exports = {
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',   //生产环境是否可以有console.log语句
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-empty':'warn',
+        "react/jsx-pascal-case": "off", //每个单词的首字母大写，而且组件必须用两个单词的名字，
+        "vue/multi-word-component-names": "off",     // vue组件必须用两个单词的名字
         // 'eqeqeq':'warn',  // 要求使用 === 和 !== 
         // 'semi': ['error', 'always'] //强制分号结尾
     }
