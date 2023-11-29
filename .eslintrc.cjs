@@ -8,7 +8,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:vue/vue3-essential"
     ],
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "overrides": [
         //使用多个解析器
         {
@@ -26,14 +26,15 @@ module.exports = {
             "files": [
                 ".eslintrc.{js,cjs}"
             ],
-            "parserOptions": {
-                "sourceType": "script"
-            }
+            // "parserOptions": {
+            //     "sourceType": "script"
+            // }
         }
     ],
     "parserOptions": {
         "ecmaVersion": "latest",    // 支持es6语法，但并不意味着同时支持新的 ES6 全局变量或类型（比如 Set 等新类型）
-        "sourceType": "module"  	// 指定来源的类型，"script" (默认) 或 "module"（如果你的代码是 ECMAScript 模块)
+        "sourceType": "module",  	// 指定来源的类型，"script" (默认) 或 "module"（如果你的代码是 ECMAScript 模块)
+        "requireConfigFile": false,     //解析器是否需要配置文件
     },
     "plugins": [
         "@typescript-eslint",   //检查ts的语法的插件
