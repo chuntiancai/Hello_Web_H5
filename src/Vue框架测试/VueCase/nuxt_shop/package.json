@@ -10,9 +10,15 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@element-plus/nuxt": "^1.0.7",
     "@nuxt/devtools": "latest",
+    "less": "^4.2.0",
     "nuxt": "^3.8.2",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "element-plus": "^2.4.3"
   }
 }

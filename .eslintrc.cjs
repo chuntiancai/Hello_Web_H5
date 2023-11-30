@@ -6,6 +6,7 @@ module.exports = {
     // extend的意思是去集成一些公开的 eslint规则，你自己也可以写一些公开的eslint规则给别人使用。
     "extends": [
         "eslint:recommended",
+        '@nuxtjs/eslint-config-typescript', //nuxt的eslint规则
         "plugin:@typescript-eslint/recommended",
         "plugin:vue/vue3-essential"
     ],

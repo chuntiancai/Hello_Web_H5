@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>欢迎来到列表页面</h1>
+        <h1>欢迎来到testlist测试列表页面</h1>
         <ul>
             <li>11111</li>
             <li>22222</li>
