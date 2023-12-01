@@ -1,0 +1,9 @@
+/* 全局样式表 html,body,#app的标签的默认布局*/
+html,
+body,
+#__nuxt,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

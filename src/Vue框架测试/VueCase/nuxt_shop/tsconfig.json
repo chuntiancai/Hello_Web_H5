@@ -1,5 +1,5 @@
 //这个是配置支持js语法的配置文件
 {
   // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
 }
