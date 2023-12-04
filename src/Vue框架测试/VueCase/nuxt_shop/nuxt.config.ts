@@ -18,8 +18,6 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',//ui图标第三方库，相当于全部导入了咯，或者是nuxt给你按需导入了
   ],
 
- 
-
    //Nuxt 将会将该css文件包含在应用程序的所有页面中。
   css: ['~/assets/css/global.css',
         '~/assets/fonts/iconfont.css'],

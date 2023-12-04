@@ -67,7 +67,9 @@
             return
           } 
           console.log('验证通过了')
-          const { data: res } = await this.$axios.post('api/login', this.loginForm)
+          const resp = await this.$axios.post('api/login', this.loginForm)
+          console.log('longin vue的响应：',resp.data.hello)
+         
         //   if (res.meta.status !== 200) return this.$message.error('登录失败！')
         //   this.$message.success('登录成功')
         //   // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中

@@ -79,6 +79,8 @@
 
     5、~/server/utils目录，你可以在~/server/utils目录中自己添加更多的辅助函数。服务器路由由unjs/h3提供支持，并附带一组方便的辅助函数。
 
+    6、处理文件名可以使用.get、.post、.put、.delete等后缀来匹配请求的HTTP方法，也就是文件后缀带有post字符，就会是post请求的路由。
+
 ## middleware目录(拦截请求)：
     ！！！先去看vue-router的文档，nuxt是基于vue-router的。
 
