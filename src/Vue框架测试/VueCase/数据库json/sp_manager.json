@@ -1,0 +1,40 @@
+ {
+  "mg_id": 500,
+  "mg_name": "admin",
+  "mg_pwd": "$2y$10$sZlpZNoLAnoD1DtYO9REAODCPkpMb5bwl4oMzrMvJa83k9BY3KRwq",
+  "mg_time": 1486720211,
+  "role_id": 0,
+  "mg_mobile": "12345678",
+  "mg_email": "adsfad@qq.com",
+  "mg_state": 1
+ }
+ {
+  "mg_id": 502,
+  "mg_name": "linken",
+  "mg_pwd": "$2y$10$sZlpZNoLAnoD1DtYO9REAODCPkpMb5bwl4oMzrMvJa83k9BY3KRwq",
+  "mg_time": 1486720211,
+  "role_id": 34,
+  "mg_mobile": "1213213123",
+  "mg_email": "asdf@qq.com",
+  "mg_state": 0
+ }
+ {
+  "mg_id": 508,
+  "mg_name": "asdf1",
+  "mg_pwd": "$2y$10$uPh6Rb58Q5XSARplvJC0N.2fmFizK5snFcHDcTu4e.EiJEyGvcwiq",
+  "mg_time": 1511853015,
+  "role_id": 30,
+  "mg_mobile": "123123",
+  "mg_email": "adfsa@qq.com",
+  "mg_state": 1
+ }
+ {
+  "mg_id": 509,
+  "mg_name": "asdf123",
+  "mg_pwd": "$2y$10$sZlpZNoLAnoD1DtYO9REAODCPkpMb5bwl4oMzrMvJa83k9BY3KRwq",
+  "mg_time": 1511853353,
+  "role_id": 40,
+  "mg_mobile": "1111",
+  "mg_email": "asdf@qq.com",
+  "mg_state": 0
+ }

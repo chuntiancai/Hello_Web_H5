@@ -1,0 +1,315 @@
+ {
+  "cat_id": 40,
+  "parent_id": 0,
+  "cat_name": "图书、音像、数字商品",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332276
+ }
+ {
+  "cat_id": 41,
+  "parent_id": 0,
+  "cat_name": "家用电器",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332286
+ }
+ {
+  "cat_id": 42,
+  "parent_id": 0,
+  "cat_name": "手机、数码",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332294
+ }
+ {
+  "cat_id": 43,
+  "parent_id": 0,
+  "cat_name": "电脑、办公",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332300
+ }
+ {
+  "cat_id": 44,
+  "parent_id": 0,
+  "cat_name": "家居、家具、家装、厨具",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332308
+ }
+ {
+  "cat_id": 45,
+  "parent_id": 0,
+  "cat_name": "服饰内衣",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332315
+ }
+ {
+  "cat_id": 46,
+  "parent_id": 0,
+  "cat_name": "个护化妆",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332325
+ }
+ {
+  "cat_id": 47,
+  "parent_id": 0,
+  "cat_name": "运动健康",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332333
+ }
+ {
+  "cat_id": 48,
+  "parent_id": 0,
+  "cat_name": "汽车用品",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332345
+ }
+ {
+  "cat_id": 49,
+  "parent_id": 0,
+  "cat_name": "彩票、旅行",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332353
+ }
+ {
+  "cat_id": 50,
+  "parent_id": 0,
+  "cat_name": "理财、众筹",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332359
+ }
+ {
+  "cat_id": 51,
+  "parent_id": 0,
+  "cat_name": "母婴、玩具",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332365
+ }
+ {
+  "cat_id": 52,
+  "parent_id": 0,
+  "cat_name": "箱包",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332371
+ }
+ {
+  "cat_id": 53,
+  "parent_id": 0,
+  "cat_name": "运动户外",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332376
+ }
+ {
+  "cat_id": 54,
+  "parent_id": 0,
+  "cat_name": "箱包",
+  "is_show": 0,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509333261
+ }
+ {
+  "cat_id": 55,
+  "parent_id": 40,
+  "cat_name": "电子书",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332463
+ }
+ {
+  "cat_id": 56,
+  "parent_id": 55,
+  "cat_name": "免费",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332819
+ }
+ {
+  "cat_id": 57,
+  "parent_id": 55,
+  "cat_name": "小说",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332544
+ }
+ {
+  "cat_id": 58,
+  "parent_id": 55,
+  "cat_name": "励志与成功4",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332925
+ }
+ {
+  "cat_id": 59,
+  "parent_id": 55,
+  "cat_name": "婚恋\/两性",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332912
+ }
+ {
+  "cat_id": 60,
+  "parent_id": 40,
+  "cat_name": "数字音乐",
+  "is_show": 1,
+  "cat_sort": 1,
+  "data_flag": 1,
+  "create_time": 1509333251
+ }
+ {
+  "cat_id": 61,
+  "parent_id": 60,
+  "cat_name": "通俗流行",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332583
+ }
+ {
+  "cat_id": 62,
+  "parent_id": 60,
+  "cat_name": "古典音乐",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332596
+ }
+ {
+  "cat_id": 63,
+  "parent_id": 60,
+  "cat_name": "摇滚说唱",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332605
+ }
+ {
+  "cat_id": 64,
+  "parent_id": 40,
+  "cat_name": "音像",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332695
+ }
+ {
+  "cat_id": 65,
+  "parent_id": 64,
+  "cat_name": "音乐",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332704
+ }
+ {
+  "cat_id": 66,
+  "parent_id": 40,
+  "cat_name": "文艺",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509332712
+ }
+ {
+  "cat_id": 67,
+  "parent_id": 66,
+  "cat_name": "小说",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509333218
+ }
+ {
+  "cat_id": 68,
+  "parent_id": 41,
+  "cat_name": "电子书1",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509334757
+ }
+ {
+  "cat_id": 69,
+  "parent_id": 68,
+  "cat_name": "免费",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509334791
+ }
+ {
+  "cat_id": 70,
+  "parent_id": 66,
+  "cat_name": "文学",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509334819
+ }
+ {
+  "cat_id": 71,
+  "parent_id": 41,
+  "cat_name": "数字音乐",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509334846
+ }
+ {
+  "cat_id": 72,
+  "parent_id": 71,
+  "cat_name": "通俗流行",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509334856
+ }
+ {
+  "cat_id": 73,
+  "parent_id": 41,
+  "cat_name": "音像",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509337425
+ }
+ {
+  "cat_id": 76,
+  "parent_id": 43,
+  "cat_name": "电子书3",
+  "is_show": 1,
+  "cat_sort": 0,
+  "data_flag": 1,
+  "create_time": 1509345089
+ }

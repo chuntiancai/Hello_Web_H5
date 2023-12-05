@@ -1,0 +1,309 @@
+ {
+  "ps_id": 101,
+  "ps_name": "商品管理",
+  "ps_pid": 0,
+  "ps_level": "0"
+ }
+ {
+  "ps_id": 102,
+  "ps_name": "订单管理",
+  "ps_pid": 0,
+  "ps_a": "order",
+  "ps_level": "0"
+ }
+ {
+  "ps_id": 103,
+  "ps_name": "权限管理",
+  "ps_pid": 0,
+  "ps_level": "0"
+ }
+ {
+  "ps_id": 104,
+  "ps_name": "商品列表",
+  "ps_pid": 101,
+  "ps_c": "Goods",
+  "ps_a": "index",
+  "ps_level": "1"
+ }
+ {
+  "ps_id": 105,
+  "ps_name": "添加商品",
+  "ps_pid": 104,
+  "ps_c": "Goods",
+  "ps_a": "tianjia",
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 107,
+  "ps_name": "订单列表",
+  "ps_pid": 102,
+  "ps_c": "Order",
+  "ps_a": "index",
+  "ps_level": "1"
+ }
+ {
+  "ps_id": 109,
+  "ps_name": "添加订单",
+  "ps_pid": 107,
+  "ps_c": "Order",
+  "ps_a": "tianjia",
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 110,
+  "ps_name": "用户列表",
+  "ps_pid": 125,
+  "ps_c": "Manager",
+  "ps_a": "index",
+  "ps_level": "1"
+ }
+ {
+  "ps_id": 111,
+  "ps_name": "角色列表",
+  "ps_pid": 103,
+  "ps_c": "Role",
+  "ps_a": "index",
+  "ps_level": "1"
+ }
+ {
+  "ps_id": 112,
+  "ps_name": "权限列表",
+  "ps_pid": 103,
+  "ps_c": "Permission",
+  "ps_a": "index",
+  "ps_level": "1"
+ }
+ {
+  "ps_id": 115,
+  "ps_name": "分类参数",
+  "ps_pid": 101,
+  "ps_c": "Type",
+  "ps_a": "index",
+  "ps_level": "1"
+ }
+ {
+  "ps_id": 116,
+  "ps_name": "商品修改",
+  "ps_pid": 104,
+  "ps_c": "Goods",
+  "ps_a": "upd",
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 117,
+  "ps_name": "商品删除",
+  "ps_pid": 104,
+  "ps_c": "Goods",
+  "ps_a": "del",
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 121,
+  "ps_name": "商品分类",
+  "ps_pid": 101,
+  "ps_level": "1"
+ }
+ {
+  "ps_id": 122,
+  "ps_name": "添加分类",
+  "ps_pid": 121,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 123,
+  "ps_name": "删除分类",
+  "ps_pid": 121,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 125,
+  "ps_name": "用户管理",
+  "ps_pid": 0,
+  "ps_level": "0"
+ }
+ {
+  "ps_id": 129,
+  "ps_name": "添加角色",
+  "ps_pid": 111,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 130,
+  "ps_name": "删除角色",
+  "ps_pid": 111,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 131,
+  "ps_name": "添加用户",
+  "ps_pid": 110,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 132,
+  "ps_name": "删除用户",
+  "ps_pid": 110,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 133,
+  "ps_name": "更新用户",
+  "ps_pid": 110,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 134,
+  "ps_name": "角色授权",
+  "ps_pid": 111,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 135,
+  "ps_name": "取消角色授权",
+  "ps_pid": 111,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 136,
+  "ps_name": "获取用户详情",
+  "ps_pid": 110,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 137,
+  "ps_name": "分配用户角色",
+  "ps_pid": 110,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 138,
+  "ps_name": "获取角色列表",
+  "ps_pid": 111,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 139,
+  "ps_name": "获取角色详情",
+  "ps_pid": 111,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 140,
+  "ps_name": "更新角色信息",
+  "ps_pid": 111,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 141,
+  "ps_name": "更新角色权限",
+  "ps_pid": 111,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 142,
+  "ps_name": "获取参数列表",
+  "ps_pid": 115,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 143,
+  "ps_name": "创建商品参数",
+  "ps_pid": 115,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 144,
+  "ps_name": "删除商品参数",
+  "ps_pid": 115,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 145,
+  "ps_name": "数据统计",
+  "ps_pid": 0,
+  "ps_level": "0"
+ }
+ {
+  "ps_id": 146,
+  "ps_name": "数据报表",
+  "ps_pid": 145,
+  "ps_level": "1"
+ }
+ {
+  "ps_id": 147,
+  "ps_name": "查看权限",
+  "ps_pid": 112,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 148,
+  "ps_name": "查看数据",
+  "ps_pid": 146,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 149,
+  "ps_name": "获取分类详情",
+  "ps_pid": 121,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 150,
+  "ps_name": "更新商品图片",
+  "ps_pid": 104,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 151,
+  "ps_name": "更新商品属性",
+  "ps_pid": 104,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 152,
+  "ps_name": "更新商品状态",
+  "ps_pid": 104,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 153,
+  "ps_name": "获取商品详情",
+  "ps_pid": 104,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 154,
+  "ps_name": "订单更新",
+  "ps_pid": 107,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 155,
+  "ps_name": "获取订单详情",
+  "ps_pid": 107,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 156,
+  "ps_name": "分类参数添加",
+  "ps_pid": 101,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 157,
+  "ps_name": "分类参数删除",
+  "ps_pid": 101,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 158,
+  "ps_name": "分类参数详情",
+  "ps_pid": 101,
+  "ps_level": "2"
+ }
+ {
+  "ps_id": 159,
+  "ps_name": "设置管理状态",
+  "ps_pid": 110,
+  "ps_level": "2"
+ }

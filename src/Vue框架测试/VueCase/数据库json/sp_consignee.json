@@ -1,0 +1,64 @@
+ {
+  "cgn_id": 1,
+  "user_id": 133,
+  "cgn_name": "王二柱",
+  "cgn_address": "北京市海淀区苏州街长远天地大厦305室",
+  "cgn_tel": "13566771298",
+  "cgn_code": "306810"
+ }
+ {
+  "cgn_id": 2,
+  "user_id": 133,
+  "cgn_name": "铁锤",
+  "cgn_address": "北京市海淀区西北旺用友大厦777室",
+  "cgn_tel": "13126537865",
+  "cgn_code": "600981"
+ }
+ {
+  "cgn_id": 3,
+  "user_id": 224,
+  "cgn_name": "鸭蛋",
+  "cgn_address": "北京市海淀区西三旗建材城西路中腾大厦15室",
+  "cgn_tel": "18902564321",
+  "cgn_code": "600214"
+ }
+ {
+  "cgn_id": 4,
+  "user_id": 224,
+  "cgn_name": "赵大海",
+  "cgn_address": "北京市海淀区中关村大街太平洋大厦801室",
+  "cgn_tel": "15765329087",
+  "cgn_code": "600983"
+ }
+ {
+  "cgn_id": 5,
+  "user_id": 226,
+  "cgn_name": "变形金刚",
+  "cgn_address": "北京市海淀区人大西门和平小区2#4门",
+  "cgn_tel": "15028374375",
+  "cgn_code": "600912"
+ }
+ {
+  "cgn_id": 6,
+  "user_id": 226,
+  "cgn_name": "葫芦娃",
+  "cgn_address": "北京市海淀区软件园软件大厦10室",
+  "cgn_tel": "18679871209",
+  "cgn_code": "600011"
+ }
+ {
+  "cgn_id": 12,
+  "user_id": 11,
+  "cgn_name": "111",
+  "cgn_address": "111",
+  "cgn_tel": "111",
+  "cgn_code": "11"
+ }
+ {
+  "cgn_id": 13,
+  "user_id": 11,
+  "cgn_name": "asdasd",
+  "cgn_address": "sdasd",
+  "cgn_tel": "11111",
+  "cgn_code": "111111"
+ }

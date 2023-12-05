@@ -1,0 +1,32 @@
+ {
+  "express_id": 1,
+  "order_id": 54,
+  "express_com": "huitongkuaidi",
+  "express_nu": "70365716896101",
+  "create_time": 0,
+  "update_time": 0
+ }
+ {
+  "express_id": 2,
+  "order_id": 53,
+  "express_com": "yuantong",
+  "express_nu": "sdfsfdw22ew32ed23wd2e2e",
+  "create_time": 1508985920,
+  "update_time": 1508985920
+ }
+ {
+  "express_id": 3,
+  "order_id": 48,
+  "express_com": "yuantong",
+  "express_nu": "arfeesefsfsffw4ttefre",
+  "create_time": 1510025511,
+  "update_time": 1510025511
+ }
+ {
+  "express_id": 4,
+  "order_id": 46,
+  "express_com": "yuantong",
+  "express_nu": "sadsdsd",
+  "create_time": 1510835549,
+  "update_time": 1510835549
+ }

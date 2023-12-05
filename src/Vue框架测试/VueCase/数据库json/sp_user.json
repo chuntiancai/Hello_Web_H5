@@ -1,0 +1,28 @@
+ {
+  "user_id": 1,
+  "username": "zce",
+  "password": "$2a$08$lV0Gr4AKx7xH7cCU4KCGCOikNzGPaWIpw9W7A9BONIxoJ2.hGC9qi",
+  "user_email": "w@zce.me",
+  "user_email_code": "1242d9b5",
+  "is_active": "否",
+  "user_sex": "男",
+  "user_xueli": "本科",
+  "create_time": 1512033129,
+  "update_time": 1512033129
+ }
+ {
+  "user_id": 11,
+  "username": "ww",
+  "password": "$2a$08$09nUxs.9czzXc4JZJTOdteeXSd\/mxZVg96AhqciGbTMB6cfbGUWC2",
+  "user_email": "i@zce.me",
+  "user_email_code": "f9a9d0cc",
+  "is_active": "是",
+  "user_sex": "女",
+  "user_qq": "1231231211",
+  "user_tel": "12313211",
+  "user_xueli": "博士",
+  "user_hobby": "123123",
+  "user_introduce": "123123123",
+  "create_time": 1512122098,
+  "update_time": 1512122098
+ }

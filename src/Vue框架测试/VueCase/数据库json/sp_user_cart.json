@@ -1,0 +1,15 @@
+ {
+  "cart_id": 19,
+  "user_id": 5764,
+  "cart_info": "a:1:{s:32:\"84c7dfb6cb829817f6de9e7c9506d6f4\";a:10:{s:8:\"goods_id\";i:77;s:10:\"goods_name\";s:14:\"小米手机22\";s:11:\"goods_price\";s:6:\"111.00\";s:16:\"goods_small_logo\";s:67:\".\/uploads\/goods\/20171017\/small_9d5cccb340525d3f0652fd327cfb178b.jpg\";s:16:\"goods_buy_number\";i:1;s:14:\"goods_cart_uid\";s:32:\"84c7dfb6cb829817f6de9e7c9506d6f4\";s:7:\"user_id\";i:5764;s:4:\"time\";d:1509438617.630688;s:5:\"queue\";b:1;s:18:\"goods_price_xiaoji\";d:111;}}"
+ }
+ {
+  "cart_id": 20,
+  "user_id": 7505,
+  "cart_info": "a:1:{s:32:\"65927e4ef01cf6ab4b2764bea2f4ffba\";a:10:{s:8:\"goods_id\";i:76;s:10:\"goods_name\";s:14:\"华为闪耀33\";s:11:\"goods_price\";s:6:\"111.00\";s:16:\"goods_small_logo\";s:67:\".\/uploads\/goods\/20171017\/small_6a666c60fb4a9bd4fe462a04f4318019.jpg\";s:16:\"goods_buy_number\";i:1;s:14:\"goods_cart_uid\";s:32:\"65927e4ef01cf6ab4b2764bea2f4ffba\";s:7:\"user_id\";i:7505;s:4:\"time\";d:1509438621.5471151;s:5:\"queue\";b:1;s:18:\"goods_price_xiaoji\";d:111;}}"
+ }
+ {
+  "cart_id": 21,
+  "user_id": 1,
+  "cart_info": "[{\"goods_id\":92,\"amount\":2},{\"goods_id\":94,\"amount\":2},{\"goods_id\":76,\"amount\":2},{\"goods_id\":75,\"amount\":1},{\"goods_id\":73,\"amount\":1}]"
+ }
