@@ -14,6 +14,15 @@
 
     3、nuxt默认支持了ts。
     4、nuxt可以区分客户端服务的，可以在文件名中使用 .server 或 .client 后缀来让插件在 服务器端 或 客户端 加载插件。
+    5、Nuxt由不同的核心包组成：
+        核心引擎：nuxt
+                就是集成了下面几个核心包的功能。
+        打包工具：@nuxt/vite-builder 和 @nuxt/webpack-builder
+        命令行界面：nuxi
+        服务器引擎：nitro
+                  自动导入头文件，路由的功能主要都是由这个包实现，所以你要去看这个包的api，而这个包主要优势用unjs/h3实现，所以你就要去看unjs/h3的文档。
+        开发工具包：@nuxt/kit
+        Nuxt 2桥接：@nuxt/bridge
         
 ## nuxt的自动化和约定
     1、也就是nuxt的默认行为，它默认为你干的一些事情。
@@ -62,6 +71,7 @@
                     '~/plugins/bar/foz'
                 ]
             })
+    2、在plugins目录下绑定$axios，就可以在vue文件中调用this.$axios参数来使用axios了。
 
 ## public目录(客户可访问的资源文件)：
     1、public/ 目录位于服务器根目录下，包含一些公共文件，这些文件需要保持原来的文件名（例如 robots.txt）
