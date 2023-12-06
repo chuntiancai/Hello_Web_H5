@@ -1,6 +1,8 @@
 import { readRawBody, getQuery,getHeader } from 'h3'
 import mongoose from 'mongoose'
 import {User} from '~/model/userDB'
+import stroe from '~/model/sessionStore'
+
 
 export default defineEventHandler(async (event) => {
   // console.log('请求了nuxt的login～', event.req)
@@ -11,6 +13,7 @@ export default defineEventHandler(async (event) => {
   let reqPassWord = bodyObj.password
 
   console.log('body参数：',reqName,reqPassWord)
+
   
   //处理http的响应,event会帮你封装好header这些参数。
   const ssrHeader = new Headers()
@@ -20,6 +23,7 @@ export default defineEventHandler(async (event) => {
   event.context.headers = ssrHeader
   event.context.baseUrl = app['BASE_URL']
   event.node.res.statusCode = 200
+
 
 
   //联合查询
@@ -33,21 +37,23 @@ export default defineEventHandler(async (event) => {
     person = error  
   }
   let retPerson = (person as {password:String}) ?? null
-  console.log('返回的密码：',retPerson,person)
+  // console.log('返回的密码：',retPerson,person)
   if (retPerson != null && retPerson.password === reqPassWord){
     resData = {
       isAuthed:true,
-      message:'用户密码正确，验证通过'
+      message:'用户密码正确，验证通过',
+      token:stroe.createToken()
     }
   }else{
     resData = {
       isAuthed:false,
-      message:'用户名或密码错误，验证不通过'
+      message:'用户名或密码错误，验证不通过',
+      token:null
     }
   }
 
   
-  console.log('数据库查询到的对象：',person)
+  // console.log('数据库查询到的对象：',person)
   
   // res结构体会被封装在data字段里，应该是event封装了吧
   // const res =  {

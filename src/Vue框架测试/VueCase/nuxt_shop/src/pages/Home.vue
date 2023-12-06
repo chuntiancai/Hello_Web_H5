@@ -8,8 +8,9 @@
   export default {
     methods: {
       logout() {
+        // 清除token
         window.sessionStorage.clear()
-        this.$router.push('/login')
+        this.$router.push('/login') //回退到登录页
       }
     }
   }

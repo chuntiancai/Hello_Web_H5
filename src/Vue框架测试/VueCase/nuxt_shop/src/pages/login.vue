@@ -28,6 +28,7 @@
 </template>
   
 <script>
+  import stroe from '~/model/sessionStore'
   export default {
     data() {
       return {
@@ -55,7 +56,7 @@
       // 点击重置按钮，重置登录表单
       resetLoginForm() {
         console.log(this);
-        console.log('点击了登录页的重置按钮～')
+        console.log('点击了登录页的重置按钮～',stroe.token,'--',stroe.sessionToken,stroe._token)
         this.$refs.loginFormRef.resetFields()
       },
       login() {
@@ -76,7 +77,7 @@
           }
 
            
-          console.log('longin vue的响应：',resp.status)
+          console.log('longin vue的响应：',resp)
           console.log('this是什么？',this)
           if (resp.status !== 200) {
             console.log('登录失败',resp.data.message)
@@ -84,20 +85,27 @@
           }else{
             if(resp.data.isAuthed === true) {
                 console.log('登录成功',resp.data.message)
+                //   1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
+                //   1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
+                //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
+                
+                window.sessionStorage.setItem('token', resp.data.token)
+                stroe.sessionToken = window.sessionStorage.token
+                stroe.token = stroe.sessionToken
+                console.log('window.sessionStorage对象：',window.sessionStorage)
+                console.log('web 存储的store',stroe.sessionToken)
+                // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
                 this.$message.success(`${resp.data.message}, 登录成功了！`)
+                this.$router.push('/home')
             }else{
                 console.log('登录不成功',resp.data.message)
-                this.$message.success(`${resp.data.message}, 登录失败！`)
+                this.$message.error(`${resp.data.message}, 登录失败！`)
             }
           }
          
-        //   // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
-        //   //   1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
-        //   //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
-        //   window.sessionStorage.setItem('token', res.data.token)
-        //   // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
-          this.$router.push('/home')
-        })
+        
+          
+        })  
       }
     }
   }
