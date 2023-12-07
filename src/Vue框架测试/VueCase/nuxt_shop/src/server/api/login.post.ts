@@ -1,7 +1,7 @@
 import { readRawBody, getQuery,getHeader } from 'h3'
 import mongoose from 'mongoose'
 import {User} from '~/model/userDB'
-import stroe from '~/model/sessionStore'
+import sessionStroe from '~/model/sessionStore'
 
 
 export default defineEventHandler(async (event) => {
@@ -24,8 +24,6 @@ export default defineEventHandler(async (event) => {
   event.context.baseUrl = app['BASE_URL']
   event.node.res.statusCode = 200
 
-
-
   //联合查询
   // sp_type.find().then(result => console.log('查询数据库结果：',result));
   // sp_type.create({type_id:1,type_name:'插入'})
@@ -39,10 +37,11 @@ export default defineEventHandler(async (event) => {
   let retPerson = (person as {password:String}) ?? null
   // console.log('返回的密码：',retPerson,person)
   if (retPerson != null && retPerson.password === reqPassWord){
+    useLocalSessionToken().value = 'ctct_123456'
     resData = {
       isAuthed:true,
       message:'用户密码正确，验证通过',
-      token:stroe.createToken()
+      token:useLocalSessionToken().value
     }
   }else{
     resData = {

@@ -62,6 +62,13 @@
         就是供全局js文件使用的函数的意思，就是全局函数的意思。你可以在 .js、.ts 和 .vue 文件中使用自动导入的组合函数。
         所以，所谓的hook，其实也就是第三方函数，或者是占位函数。
 
+    2、这个文件夹下导出的函数(文件名.ts)，一般都约定加上use前缀。例如 myFunc --> usemyFunc。
+        const count = useState('counter', () => Math.round(Math.random() * 100))
+        useState是nuxt3提供的一个函数，传入两个参数，用来全局状态管理，也就是持久化数据？不是，只是可以用来可以整个项目都可以访问的变量。
+        这些数据只是存储在内存中的，当浏览器刷新或者关闭后，重新打开就恢复原样了。
+
+    3、如果需要持久化window，获取window，那么可以在app.vue中获取到window，然后存储到全局变量中。或者存储到localStorage中。
+
 ## plugins目录(第三方包)：
     1、这个是第三方插件的目录，也就是js的第三方包，Nuxt会自动读取plugins/目录中的文件，并在创建Vue应用程序时加载它们，只有在plugins目录的顶层文件（或任何子目录中的索引文件index.ts）才会自动注册为插件。如果是子目录的非index.ts文件，则需要在nuxt.config.ts文件中注册才可以使用。
         在nuxt.config.ts文件中：
