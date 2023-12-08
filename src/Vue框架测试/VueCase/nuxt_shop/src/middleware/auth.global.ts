@@ -3,13 +3,14 @@ import stroe from "~/model/sessionStore"
 
 export default defineNuxtRouteMiddleware((to, from) => {
 
+    // return
     // 获取token
     // const tokenStr = window.sessionStorage.getItem('token')
 
     if (typeof window !== 'undefined') {
-        console.log('window存在:', window);
+        console.log('导航守卫 -- window存在:', window);
      }else {
-        console.log('window不存在:');
+        console.log('导航守卫 --  window不存在:');
     }
 
     // console.log('\n经过全局导航守卫auth.global.js了~',from.fullPath)

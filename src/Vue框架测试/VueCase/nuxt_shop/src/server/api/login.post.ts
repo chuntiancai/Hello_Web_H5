@@ -1,8 +1,10 @@
-import { readRawBody, getQuery,getHeader } from 'h3'
-import mongoose from 'mongoose'
-import {User} from '~/model/userDB'
-import sessionStroe from '~/model/sessionStore'
+/**
+ * 1、由于这个是放在server文件下，所以是服务端代码，这些和客户端代码是隔离的，也就是两者复制了一份，是不能当作同一份使用的。
+ * 2、存在天然的数据隔离。所以服务端和客户端不能共享数据，只能通过参数传递，第三方库也不共享。
+ */
 
+import { readRawBody, getQuery,getHeader } from 'h3'
+import UserModel from '~/model/userDB'
 
 export default defineEventHandler(async (event) => {
   // console.log('请求了nuxt的login～', event.req)
@@ -30,18 +32,29 @@ export default defineEventHandler(async (event) => {
   let resData:any;  //服务器返回的对象
   let person; //数据库查询到的对象。
   try {
-    person = await User.findOne({username: reqName})
+    person = await UserModel.findOne({username: reqName})
   } catch (error) {
     person = error  
   }
-  let retPerson = (person as {password:String}) ?? null
+  let retPerson = (person as {username: string,password:string,user_sessiontoken:string}) ?? null
+
   // console.log('返回的密码：',retPerson,person)
   if (retPerson != null && retPerson.password === reqPassWord){
-    useLocalSessionToken().value = 'ctct_123456'
+
+    //不能共享与客户端的ts文件共享UserModel。
+    let newToken = "ctch_" + Math.random()
+    let res = await UserModel.findOneAndUpdate({ username: retPerson.username }, { user_sessiontoken: newToken }, { new: true }) 
+                              .then(updatedUser => {
+                                console.log('更新usertoken成功：',updatedUser);
+                              })
+                              .catch(error => {
+                                console.error('更新usertoken失败：',error);
+                              });
+
     resData = {
       isAuthed:true,
       message:'用户密码正确，验证通过',
-      token:useLocalSessionToken().value
+      token:newToken
     }
   }else{
     resData = {

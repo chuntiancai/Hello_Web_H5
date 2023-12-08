@@ -67,7 +67,8 @@
             console.log('验证不通过')
             return
           } 
-          console.log('验证通过了')
+          console.log('格式验证通过了')
+
           let resp;
           try {
             resp = await this.$axios.post('api/login', this.loginForm)
@@ -77,9 +78,9 @@
           }
 
            
-          console.log('longin vue的响应：',resp)
+          // console.log('longin vue的响应：',resp)
           // console.log('this是什么？',this)
-          if (resp.status !== 200) {
+          if (resp == 'unknown'  ||resp.status !== 200) {
             console.log('登录失败',resp.data.message)
             return this.$message.error('登录失败！',resp.data.message)
           }else{

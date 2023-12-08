@@ -9,7 +9,7 @@ export default defineNuxtConfig({
   //       pages.push({
   //         name: 'home',
   //         path: '/',
-  //         file: '~/pages/myindex.vue'
+  //         file: '~/pages/Home.vue'
   //       })
   //     }
   // },
@@ -18,13 +18,20 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',//ui图标第三方库，相当于全部导入了咯，或者是nuxt给你按需导入了
   ],
 
+  nitro: {
+    plugins: [
+      '~/server/index.ts',    //加载服务器的插件
+      "~/model/mongodb.ts"
+    ]
+  },
    //Nuxt 将会将该css文件包含在应用程序的所有页面中。
   css: ['~/assets/css/global.css',
         '~/assets/fonts/iconfont.css'],
   //按需引入elementPlus里的组件
-  elementPlus:{
+  // elementPlus:{
 
-  },
+  // },
+ 
   //配置nuxt应用的默认ip地址
   devServer:{
     host:'127.0.0.1',
