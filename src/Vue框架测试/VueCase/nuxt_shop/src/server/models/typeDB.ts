@@ -2,15 +2,15 @@
 // 引入mongoose第三方模块
 import mongoose from 'mongoose'
 
-// if (mongoose.connection && mongoose.connection.readyState === 1) {
-//   console.log('typeDB 已经连接到数据库')
-// } else {
-// 	// mongoose.createConnection('mongodb://localhost/NuxtShopCaseDB')
-//     mongoose.connect('mongodb://localhost/NuxtShopCaseDB')
-//                         .then(() => console.log('typeDB 数据库NuxtShopCaseDB连接成功'))
-//                         .catch(() => console.log('typeDB 数据库NuxtShopCaseDB连接失败'));
-//   console.log('typeDB 尚未连接到数据库')
-// }
+if (mongoose.connection && mongoose.connection.readyState === 1) {
+  console.log('typeDB 已经连接到数据库')
+} else {
+	// mongoose.createConnection('mongodb://localhost/NuxtShopCaseDB')
+    mongoose.connect('mongodb://localhost/NuxtShopCaseDB')
+                        .then(() => console.log('typeDB 数据库NuxtShopCaseDB连接成功'))
+                        .catch(() => console.log('typeDB 数据库NuxtShopCaseDB连接失败'));
+  console.log('typeDB 尚未连接到数据库')
+}
 
 
 // 创建用户集合规则

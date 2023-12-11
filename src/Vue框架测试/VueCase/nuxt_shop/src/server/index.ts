@@ -1,4 +1,5 @@
 // 引入mongoose第三方模块
+// 在nuxt的配置文件就启动了数据库
 import mongoose from "mongoose";
 import { type Nitro } from 'nitropack'
 

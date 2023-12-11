@@ -2,6 +2,13 @@
 export default defineNuxtConfig({
   srcDir: 'src/', //配置源代码src路径
   devtools: { enabled: true },
+  app:{
+    head:{
+      link:[
+            { rel: 'shortcut icon', href: '#' }
+           ]
+    }
+  },
   //钩子重置默认路由
   // hooks:{
   //     'pages:extend' (pages) {
@@ -21,7 +28,6 @@ export default defineNuxtConfig({
   nitro: {
     plugins: [
       '~/server/index.ts',    //加载服务器的插件
-      "~/model/mongodb.ts"
     ]
   },
    //Nuxt 将会将该css文件包含在应用程序的所有页面中。

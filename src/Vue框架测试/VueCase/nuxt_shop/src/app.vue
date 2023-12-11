@@ -17,7 +17,7 @@ console.log('～～app.vue初始化了～～')
 onMounted(() => {
 
   getLoacl()  //获取本地存储放到useState中。
-  console.log('app 的 useState',useLocalSessionToken().value)
+  // console.log('app 的 useState',useLocalSessionToken().value)
   // console.log('app.vue window完成加载dom树～',window,sessionStroe.createToken())
   // sessionStroe.sessionToken = window.sessionStorage.token 
   //注：window.onbeforeunload 是会在页面关闭或刷新时执行，但是意外关闭的浏览器不会执行这个函数，所以重要的数据记得时不时单独调用一下 setLocal('xxx') 函数

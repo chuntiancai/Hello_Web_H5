@@ -28,7 +28,7 @@
 </template>
   
 <script>
-  import sessionStore from '~/model/sessionStore'
+  // import sessionStore from '~/model/sessionStore'
   export default {
     data() {
       return {
@@ -56,8 +56,17 @@
       // 点击重置按钮，重置登录表单
       resetLoginForm() {
         console.log(this);
-        console.log('点击了登录页的重置按钮～',sessionStore.localToken,'--',sessionStore.sessionToken,sessionStore.localToken)
+        // console.log('点击了登录页的重置按钮～',sessionStore.localToken,'--',sessionStore.sessionToken,sessionStore.localToken)
         this.$refs.loginFormRef.resetFields()
+
+        let resp;
+          try {
+            resp = this.$axios.post('api/loginreset', this.loginForm)
+            console.log('重置resp的返回是：',resp.data)
+          } catch (error) {
+            resp = error
+          }
+
       },
       login() {
         console.log('点击了登录页的登录按钮～')
@@ -91,10 +100,7 @@
                 //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
                 
                 window.sessionStorage.setItem('token', resp.data.token)
-                sessionStore.sessionToken = window.sessionStorage.token
-                // stroe.token = stroe.sessionToken
                 console.log('window.sessionStorage对象：',window.sessionStorage)
-                console.log('web 存储的store',sessionStore.sessionToken)
                 // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
                 this.$message.success(`${resp.data.message}, 登录成功了！`)
                 this.$router.push('/home')

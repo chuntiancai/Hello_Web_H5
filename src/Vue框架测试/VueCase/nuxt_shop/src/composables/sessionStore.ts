@@ -2,7 +2,7 @@
  *  1、自定义全局对象，存储网络会话的token
  * 2、这个单例对象还是没有效，刷新之后，程序会全部更新，感觉还是得用window保留token
  */
-import { UserModel } from '~/model/userDB'
+import axios from "~/plugins/axios";
 
 class SingleStore{
     private static _instance:SingleStore;
@@ -15,7 +15,7 @@ class SingleStore{
     }
     //构造函数
     private constructor(){
-        this._localToken = "ctch_1111"    //随机数作为token
+        this._localToken = ""    //随机数作为token
         this.sessionToken = "";
     }
     //我也不知道为什么没有设置get，可能是线程数据冲突，就是login里面修改token才生效，在这里赋值的token，在global访问不生效。
